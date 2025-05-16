@@ -13,43 +13,17 @@
   </head>
   <body>
     <div class="container-fluid m-0 p-0">
-        <!--
+       
       <header>
         <div class="container-nav">
-            <div class="nav-icon">
-            <i class="fa-solid fa-bars m-3 ps-3"></i>
-            </div>
-          <nav>
-            <div class="slide-bar">
-              <div class="logo">
-                <img src="image/image_guitar_logo.png" alt="" />
-              </div>
-             
-                <div class="list-button">
-                    <ul class="list-item">
-                                <li class="menu-item"><i class="fa-solid fa-list"></i><b>Song List</b></li>
-                                <li class="menu-item"><i class="fa-solid fa-heart"></i><b>Favorites</b></li>
-                                <li class="menu-item"><i class="fa-solid fa-box-archive"></i><b>My Songs</b></li>
-                                <li class="menu-item"><i class="fa-solid fa-play"></i><b>Setlists</b></li>
-                                <li class="menu-item"><i class="fa-solid fa-clock-rotate-left"></i><b>History/Tops</b></li>
-                                <li class="menu-item"><i class="fa-solid fa-ellipsis-h"></i><b>Folders</b>
-                                </li>
-                                <li class="menu-item"><i class="fa-solid fa-music"></i><b>Chords</b></li>
-                                <hr>
-                                <li class="menu-item"><i class="fa-solid fa-gear"></i><b>Settings</b></li>
-                                <li class="menu-item"><i class="fa-solid fa-question"></i><b>F.A.Q</b></li>
-                            </ul>
-                </div>
-              
-            </div>
-          </nav>
-        </div>
-      </header>-->
-      <header>
-        <div class="container-nav">
+          
           <div class="nav-icon" id="menuIcon">
             <i class="fa-solid fa-bars m-3 ps-3"></i>
           </div>
+          <h1><b>Guitar Songs</b></h1>
+
+                   
+
       
           <nav>
             <div class="slide-bar-wrapper" id="slideBar">
@@ -74,34 +48,34 @@
               </div>
             </div>
           </nav>
+          
         </div>
       </header>
       
       <main></main>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-          const menuIcon = document.getElementById("menuIcon");
-          const drawer = document.getElementById("navigationDrawer");
-          const overlay = document.getElementById("overlay");
-      
-          // Check if elements exist
-          if (menuIcon && drawer && overlay) {
-            menuIcon.addEventListener("click", () => {
-              drawer.classList.toggle("open");
-              overlay.classList.toggle("show");
-            });
-      
-            overlay.addEventListener("click", () => {
-              drawer.classList.remove("open");
-              overlay.classList.remove("show");
-            });
-          } else {
-            console.error("One or more navigation elements not found.");
+      document.addEventListener("DOMContentLoaded", () => {
+        const menuIcon = document.getElementById("menuIcon");
+        const drawer = document.getElementById("slideBar");
+    
+        menuIcon.addEventListener("click", () => {
+          drawer.classList.toggle("open");
+        });
+    
+        // Optional: Close drawer when clicking outside
+        document.addEventListener("click", (e) => {
+          if (
+            !drawer.contains(e.target) &&
+            !menuIcon.contains(e.target) &&
+            drawer.classList.contains("open")
+          ) {
+            drawer.classList.remove("open");
           }
         });
-      </script>
-      
+      });
+    </script>
+    
   </body>
 </html>
 
