@@ -1,0 +1,49 @@
+body {
+  background: repeating-linear-gradient(
+    to right,
+    #e6b481,
+    /* light wood stripe */ #e6b481 30px,
+    #dca36d 30px,
+    /* darker stripe */ #dca36d 60px
+  );
+}
+
+.container-nav {
+  background: #ddb887;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  width: 100%;
+  height: 50px;
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+/*fir naviagtion style*/
+.slide-bar {
+  background-color: #3c1213;
+  width: 260px;
+  max-width: 100%;
+}
+.menu-item{
+    text-decoration: none;
+    color: #B3B3B3;
+}
+.slide-bar-wrapper {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100%;
+    background-color: #3c1213;
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+  }
+  
+  .slide-bar-wrapper.open {
+    left: 0;
+  }
+  
+  body.drawer-open {
+    overflow: hidden; /* Optional: prevent scrolling when drawer is open */
+  }
+  

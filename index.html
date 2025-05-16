@@ -1,12 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    hell
-    
-</body>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="bootstrap-5.3.3-dist/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container-fluid m-0 p-0">
+        <!--
+      <header>
+        <div class="container-nav">
+            <div class="nav-icon">
+            <i class="fa-solid fa-bars m-3 ps-3"></i>
+            </div>
+          <nav>
+            <div class="slide-bar">
+              <div class="logo">
+                <img src="image/image_guitar_logo.png" alt="" />
+              </div>
+             
+                <div class="list-button">
+                    <ul class="list-item">
+                                <li class="menu-item"><i class="fa-solid fa-list"></i><b>Song List</b></li>
+                                <li class="menu-item"><i class="fa-solid fa-heart"></i><b>Favorites</b></li>
+                                <li class="menu-item"><i class="fa-solid fa-box-archive"></i><b>My Songs</b></li>
+                                <li class="menu-item"><i class="fa-solid fa-play"></i><b>Setlists</b></li>
+                                <li class="menu-item"><i class="fa-solid fa-clock-rotate-left"></i><b>History/Tops</b></li>
+                                <li class="menu-item"><i class="fa-solid fa-ellipsis-h"></i><b>Folders</b>
+                                </li>
+                                <li class="menu-item"><i class="fa-solid fa-music"></i><b>Chords</b></li>
+                                <hr>
+                                <li class="menu-item"><i class="fa-solid fa-gear"></i><b>Settings</b></li>
+                                <li class="menu-item"><i class="fa-solid fa-question"></i><b>F.A.Q</b></li>
+                            </ul>
+                </div>
+              
+            </div>
+          </nav>
+        </div>
+      </header>-->
+      <header>
+        <div class="container-nav">
+          <div class="nav-icon" id="menuIcon">
+            <i class="fa-solid fa-bars m-3 ps-3"></i>
+          </div>
+      
+          <nav>
+            <div class="slide-bar-wrapper" id="slideBar">
+              <div class="slide-bar">
+                <div class="logo">
+                  <img src="image/image_guitar_logo.png" alt="" />
+                </div>
+                <div class="list-button">
+                  <ul class="list-item">
+                    <li class="menu-item"><i class="fa-solid fa-list"></i><b>Song List</b></li>
+                    <li class="menu-item"><i class="fa-solid fa-heart"></i><b>Favorites</b></li>
+                    <li class="menu-item"><i class="fa-solid fa-box-archive"></i><b>My Songs</b></li>
+                    <li class="menu-item"><i class="fa-solid fa-play"></i><b>Setlists</b></li>
+                    <li class="menu-item"><i class="fa-solid fa-clock-rotate-left"></i><b>History/Tops</b></li>
+                    <li class="menu-item"><i class="fa-solid fa-ellipsis-h"></i><b>Folders</b></li>
+                    <li class="menu-item"><i class="fa-solid fa-music"></i><b>Chords</b></li>
+                    <hr>
+                    <li class="menu-item"><i class="fa-solid fa-gear"></i><b>Settings</b></li>
+                    <li class="menu-item"><i class="fa-solid fa-question"></i><b>F.A.Q</b></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+      
+      <main></main>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const menuIcon = document.getElementById("menuIcon");
+          const drawer = document.getElementById("navigationDrawer");
+          const overlay = document.getElementById("overlay");
+      
+          // Check if elements exist
+          if (menuIcon && drawer && overlay) {
+            menuIcon.addEventListener("click", () => {
+              drawer.classList.toggle("open");
+              overlay.classList.toggle("show");
+            });
+      
+            overlay.addEventListener("click", () => {
+              drawer.classList.remove("open");
+              overlay.classList.remove("show");
+            });
+          } else {
+            console.error("One or more navigation elements not found.");
+          }
+        });
+      </script>
+      
+  </body>
 </html>
+
+
