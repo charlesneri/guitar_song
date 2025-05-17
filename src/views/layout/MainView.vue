@@ -24,6 +24,21 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener('resize', updateDrawerSettings)
 })
+
+//for dialog
+const showCheckConnection = ref(false)
+const showSuggestions = ref(false)
+
+const openSuggestions = () => {
+  showCheckConnection.value = false
+  showSuggestions.value = true
+}
+
+onMounted(() => {
+  setTimeout(() => {
+    showCheckConnection.value = true
+  }, 1000) // 1 second delay after app load
+})
 </script>
 
 <template class="main-template">
@@ -259,7 +274,7 @@ onBeforeUnmount(() => {
         </div>
 
         <!--for songs only-->
-        <div class="scroll-area"  v-if="currentView === 'songs'">
+        <div class="scroll-area" v-if="currentView === 'songs'">
           <v-container class="pa-4 mt-16">
             <v-row>
               <!-- Box 1 -->
@@ -323,13 +338,46 @@ onBeforeUnmount(() => {
             </v-row>
           </v-container>
         </div>
+        <!--checking connections-->
+        <!-- Check Internet Connection Dialog -->
+        <v-dialog v-model="showCheckConnection" persistent max-width="400">
+          <v-card class="pa-4 text-center">
+            <v-card-title><b>Check for Internet Connection</b></v-card-title>
+            <v-card-actions class="d-flex justify-center">
+              <v-btn color="error" variant="outlined" @click="showCheckConnection = false"
+                >No</v-btn
+              >
+              <v-btn color="primary" variant="flat" @click="openSuggestions">Yes</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
+        <!-- Song Suggestions Dialog -->
+        <v-dialog v-model="showSuggestions" persistent max-width="500">
+          <v-card class="pa-4">
+            <v-card-title><b>Recommended Songs Based on Your Favorites:</b></v-card-title>
+            <v-card-text>
+              <div class="d-flex align-center justify-between my-2">
+                <div>
+                  <div><b>Cardigan</b></div>
+                  <div class="text-caption">Taylor Swift</div>
+                </div>
+                <v-btn icon><v-icon>mdi-plus</v-icon></v-btn>
+              </div>
+            </v-card-text>
+            <v-card-actions class="d-flex justify-end">
+              <v-btn variant="text" @click="showSuggestions = false">Back</v-btn>
+              <v-btn color="success" variant="flat">Download All</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-main>
     </v-app>
   </v-responsive>
 </template>
 <style scoped>
 .v-main {
-  background-image: url('/public/image/bg-wood.png'); /* Ensure the path is correct relative to your project structure */
+  background-image: url('/public/image/bg-wood.png');
   background-repeat: repeat;
   background-size: auto;
   background-position: center;
