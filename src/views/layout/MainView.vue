@@ -172,82 +172,91 @@ onBeforeUnmount(() => {
           </v-btn>
         </div>
       </v-app-bar>
+      <div class="top-button-bar d-flex justify-center align-center w-100">
+        <v-btn class="mx-2 rounded-xl btn-color"><b>Artists</b></v-btn>
+        <v-btn class="mx-2 rounded-xl btn-color"><b>Songs</b></v-btn>
+      </div>
 
       <!--main diri-->
       <v-main>
-        <v-container>
-          <div class="top-button-bar d-flex justify-center align-center w-100">
-            <v-btn class="mx-2 rounded-xl btn-color"><b>Artists</b></v-btn>
-            <v-btn class="mx-2 rounded-xl btn-color"><b>Songs</b></v-btn>
-          </div>
-
-          <v-dialog>
-            <!--delay appear dialog-->
-          </v-dialog>
-          <!--main content-->
-          <v-container class="pa-4 mt-16" fluid>
+        <div class="scroll-area">
+          <v-container class="pa-4 mt-16">
             <v-row>
               <!-- Box 1 -->
-              <v-col cols="6">
-                <v-card class="pa-4 text-center">
-                  <h3>Artist 1</h3>
-                  <p>Description or link</p>
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
+                  <span>Bruno Mars</span>
                 </v-card>
               </v-col>
 
               <!-- Box 2 -->
-              <v-col cols="6">
-                <v-card class="pa-4 text-center">
-                  <h3>Artist 2</h3>
-                  <p>Something else here</p>
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
+                  <span>Bruno Mars</span>
                 </v-card>
               </v-col>
 
               <!-- Box 3 -->
-              <v-col cols="6">
-                <v-card class="pa-4 text-center">
-                  <h3>Song Library</h3>
-                  <p>300+ songs</p>
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
+                  <span>Bruno Mars</span>
                 </v-card>
               </v-col>
 
               <!-- Box 4 -->
-              <v-col cols="6">
-                <v-card class="pa-4 text-center">
-                  <h3>Favorites</h3>
-                  <p>Top picks</p>
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
+                  <span>Bruno Mars</span>
                 </v-card>
               </v-col>
-
               <!-- Box 5 -->
-              <v-col cols="6">
-                <v-card class="pa-4 text-center">
-                  <h3>History</h3>
-                  <p>Recently played</p>
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
+                  <span>Bruno Mars</span>
                 </v-card>
               </v-col>
 
               <!-- Box 6 -->
-              <v-col cols="6">
-                <v-card class="pa-4 text-center">
-                  <h3>Settings</h3>
-                  <p>Customize app</p>
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
+                  <span>Bruno Mars</span>
+                </v-card>
+              </v-col>
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
+                  <span>Bruno Mars</span>
+                </v-card>
+              </v-col>
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
+                  <span>Bruno Mars</span>
                 </v-card>
               </v-col>
             </v-row>
           </v-container>
-        </v-container>
+        </div>
       </v-main>
     </v-app>
   </v-responsive>
 </template>
 <style scoped>
-main {
+.v-main {
   background-image: url('/public/image/bg-wood.png'); /* Ensure the path is correct relative to your project structure */
   background-repeat: repeat;
   background-size: auto;
   background-position: center;
   background-attachment: fixed;
+  padding-top: 0;
+  overflow-y: visible;
+  height: auto;
 }
 .main-color {
   background: #ddb887;
@@ -305,5 +314,59 @@ main {
 .rotate-position {
   transform: rotate(-90deg); /* or 90deg */
   transform-origin: center;
+}
+html,
+body,
+.v-application {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.v-main {
+  padding-top: 130px; /* accounts for app-bar + button bar */
+  overflow-y: auto;
+  height: 100%;
+}
+
+.top-button-bar {
+  position: fixed;
+  top: 64px; /* height of app-bar */
+  left: 0;
+  width: 100%;
+  z-index: 998;
+  padding: 8px 0;
+}
+
+.artists-container {
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
+  background-color: #ddb887;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 1rem;
+  transition: transform 0.2s ease;
+}
+
+@media (min-width: 600px) {
+  .artists-container {
+    aspect-ratio: 1 / 1.1;
+  }
+}
+
+.img-rounded img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 8px;
+}
+
+/* This makes the actual card content scrollable */
+.scroll-area {
+  padding: 16px;
 }
 </style>
