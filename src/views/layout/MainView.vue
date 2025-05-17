@@ -25,7 +25,7 @@ onBeforeUnmount(() => {
 })
 </script>
 
-<template>
+<template class="main-template">
   <v-responsive class="border rounded">
     <v-app>
       <!-- Drawer Sidebar (right, collapsible) -->
@@ -150,25 +150,35 @@ onBeforeUnmount(() => {
         </v-list>
       </v-navigation-drawer>
 
-      <!-- App Bar -->
-      <v-app-bar flat class="backside-color main-color">
-        <!-- Menu Icon that toggles drawer size -->
-        <v-btn icon class="ms-5" @click="toggleDrawer">
-          <v-icon>mdi-menu</v-icon>
-        </v-btn>
-        <v-container
-          class="d-flex align-center pa-0"
-          :class="{
-            'transition-all': !isMobile,
-            'no-transition': isMobile,
-          }"
-        >
-        </v-container>
+      <v-app-bar flat fixed height="64" class="backside-color main-color">
+        <!-- Left: Menu + Title -->
+        <div class="left-group d-flex align-center">
+          <v-btn icon @click="toggleDrawer">
+            <v-icon size="35">mdi-menu</v-icon>
+          </v-btn>
+          <h1 class="app-title">Guitar Song</h1>
+        </div>
+
+        <!-- Right: Icon Group -->
+        <div class="icon-group-fixed d-flex align-center">
+          <v-btn icon class="ms-2">
+            <v-icon size="35">mdi-magnify</v-icon>
+          </v-btn>
+          <v-btn icon class="ms-2">
+            <v-icon size="35">mdi-reload</v-icon>
+          </v-btn>
+          <v-btn icon class="ms-2">
+            <v-icon size="35">mdi-dots-vertical</v-icon>
+          </v-btn>
+        </div>
       </v-app-bar>
+
       <!--main diri-->
       <v-main>
         <v-container>
-          <h1>Main Content</h1>
+          <v-dialog>
+            <!--delay appear dialog-->
+          </v-dialog>
         </v-container>
       </v-main>
     </v-app>
@@ -198,5 +208,28 @@ main,
   letter-spacing: 1px;
   font-size: 15px;
   margin-left: -20px;
+}
+.main-template {
+  border-radius: 20px;
+}
+/*for v-app-bar*/
+.left-group {
+  position: fixed;
+  top: 4px;
+  left: 10px;
+  z-index: 999;
+}
+
+.app-title {
+  font-size: 20px;
+  margin-left: 10px;
+  color: #000000;
+}
+
+.icon-group-fixed {
+  position: fixed;
+  top: 4px;
+  right: 10px;
+  z-index: 999;
 }
 </style>
