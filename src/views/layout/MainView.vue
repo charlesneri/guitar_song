@@ -12,7 +12,7 @@ const toggleDrawer = () => {
 
 const updateDrawerSettings = () => {
   isMobile.value = window.innerWidth <= 768
-  drawerWidth.value = isMobile.value ? window.innerWidth : 580 // you can customize width
+  drawerWidth.value = isMobile.value ? window.innerWidth : 580
 }
 
 onMounted(() => {
@@ -32,13 +32,12 @@ onBeforeUnmount(() => {
 
       <v-navigation-drawer
         v-model="drawer"
-  :mini-variant="mini"
-  :mini-variant-width="80"
-  width="280"
-  permanent
-  right
-  app
-  color="#3C1213"
+        :mini-variant="mini"
+        :mini-variant-width="80"
+        :temporary="true"
+        width="280"
+        right
+        color="#3C1213"
       >
         <!-- Profile -->
         <v-sheet class="text-center" rounded="lg">
