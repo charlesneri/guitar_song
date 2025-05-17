@@ -338,23 +338,32 @@ onMounted(() => {
             </v-row>
           </v-container>
         </div>
-        <!--checking connections-->
-        <!-- Check Internet Connection Dialog -->
-        <v-dialog v-model="showCheckConnection" persistent max-width="400">
-          <v-card class="pa-4 text-center">
-            <v-card-title><b>Check for Internet Connection</b></v-card-title>
-            <v-card-actions class="d-flex justify-center">
-              <v-btn color="error" variant="outlined" @click="showCheckConnection = false"
-                >No</v-btn
+
+        <!--for internet-->
+        <v-dialog v-model="showCheckConnection" persistent class="connection-dialog" scroll-strategy="none">
+          <v-card class="custom-dialog-card d-flex flex-column justify-space-between">
+            <v-card-title class="text-center text-h6 font-weight-bold mb-6">
+              Check for Internet<br />Connection
+            </v-card-title>
+
+            <v-card-actions class="justify-center pb-4">
+              <v-btn
+                class="btn-pill btn-no"
+                variant="outlined"
+                @click="showCheckConnection = false"
               >
-              <v-btn color="primary" variant="flat" @click="openSuggestions">Yes</v-btn>
+                No
+              </v-btn>
+              <v-btn class="btn-pill btn-yes" variant="outlined" @click="openSuggestions">
+                Yes
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
 
         <!-- Song Suggestions Dialog -->
         <v-dialog v-model="showSuggestions" persistent max-width="500">
-          <v-card class="pa-4">
+          <v-card class="pa-4 check-internet">
             <v-card-title><b>Recommended Songs Based on Your Favorites:</b></v-card-title>
             <v-card-text>
               <div class="d-flex align-center justify-between my-2">
@@ -479,12 +488,6 @@ body,
   transition: transform 0.2s ease;
 }
 
-@media (min-width: 600px) {
-  .artists-container {
-    aspect-ratio: 1 / 1.1;
-  }
-}
-
 .img-rounded img {
   width: 90px;
   height: 90px;
@@ -496,5 +499,44 @@ body,
 /* This makes the actual card content scrollable */
 .scroll-area {
   padding: 16px;
+}
+/* dialog */
+.connection-dialog .custom-dialog-card {
+  width: 300px;
+  max-width: 90vw;
+  height: auto;
+  border-radius: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  padding: 24px 16px;
+}
+
+/* Capsule-style buttons */
+.btn-pill {
+  border-radius: 999px !important;
+  min-width: 80px;
+  height: 36px;
+  font-weight: bold;
+  margin: 0 8px;
+  text-transform: none;
+  background-color: white;
+}
+
+/* Specific colors for each button */
+.btn-no {
+  color: red;
+  border: 1.5px solid #f4cccc;
+}
+
+.btn-yes {
+  color: green;
+  border: 1.5px solid #cce8cc;
+}
+
+@media (min-width: 600px) {
+  
+  .artists-container {
+    aspect-ratio: 1 / 1.1;
+  }
 }
 </style>
