@@ -165,7 +165,7 @@ onBeforeUnmount(() => {
             <v-icon size="35">mdi-magnify</v-icon>
           </v-btn>
           <v-btn icon class="ms-2">
-            <v-icon size="35">mdi-reload</v-icon>
+            <v-icon size="35" class="rotate-position">mdi-reload</v-icon>
           </v-btn>
           <v-btn icon class="ms-2">
             <v-icon size="35">mdi-dots-vertical</v-icon>
@@ -184,6 +184,58 @@ onBeforeUnmount(() => {
           <v-dialog>
             <!--delay appear dialog-->
           </v-dialog>
+          <!--main content-->
+          <v-container class="pa-4 mt-16" fluid>
+            <v-row>
+              <!-- Box 1 -->
+              <v-col cols="6">
+                <v-card class="pa-4 text-center">
+                  <h3>Artist 1</h3>
+                  <p>Description or link</p>
+                </v-card>
+              </v-col>
+
+              <!-- Box 2 -->
+              <v-col cols="6">
+                <v-card class="pa-4 text-center">
+                  <h3>Artist 2</h3>
+                  <p>Something else here</p>
+                </v-card>
+              </v-col>
+
+              <!-- Box 3 -->
+              <v-col cols="6">
+                <v-card class="pa-4 text-center">
+                  <h3>Song Library</h3>
+                  <p>300+ songs</p>
+                </v-card>
+              </v-col>
+
+              <!-- Box 4 -->
+              <v-col cols="6">
+                <v-card class="pa-4 text-center">
+                  <h3>Favorites</h3>
+                  <p>Top picks</p>
+                </v-card>
+              </v-col>
+
+              <!-- Box 5 -->
+              <v-col cols="6">
+                <v-card class="pa-4 text-center">
+                  <h3>History</h3>
+                  <p>Recently played</p>
+                </v-card>
+              </v-col>
+
+              <!-- Box 6 -->
+              <v-col cols="6">
+                <v-card class="pa-4 text-center">
+                  <h3>Settings</h3>
+                  <p>Customize app</p>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
         </v-container>
       </v-main>
     </v-app>
@@ -245,9 +297,13 @@ main {
   padding: 10px 0;
 }
 .btn-color {
-   background-image: url('/public/image/btn-color.png'); /* Ensure the path is correct relative to your project structure */
+  background-image: url('/public/image/btn-color.png'); /* Ensure the path is correct relative to your project structure */
 
   mix-blend-mode: multiply;
   opacity: 1;
+}
+.rotate-position {
+  transform: rotate(-90deg); /* or 90deg */
+  transform-origin: center;
 }
 </style>
