@@ -5,6 +5,7 @@ const drawer = ref(false)
 const mini = ref(false)
 const isMobile = ref(false)
 const drawerWidth = ref(280) // default width
+const currentView = ref('artists') // default view
 
 const toggleDrawer = () => {
   drawer.value = !drawer.value
@@ -173,13 +174,26 @@ onBeforeUnmount(() => {
         </div>
       </v-app-bar>
       <div class="top-button-bar d-flex justify-center align-center w-100">
-        <v-btn class="mx-2 rounded-xl btn-color"><b>Artists</b></v-btn>
-        <v-btn class="mx-2 rounded-xl btn-color"><b>Songs</b></v-btn>
+        <v-btn
+          class="mx-2 rounded-xl btn-color"
+          :variant="currentView === 'artists' ? 'flat' : 'outlined'"
+          @click="currentView = 'artists'"
+        >
+          <b>Artists</b>
+        </v-btn>
+        <v-btn
+          class="mx-2 rounded-xl btn-color"
+          :variant="currentView === 'songs' ? 'flat' : 'outlined'"
+          @click="currentView = 'songs'"
+        >
+          <b>Songs</b>
+        </v-btn>
       </div>
 
       <!--main diri-->
       <v-main>
-        <div class="scroll-area">
+        <!--for artists only-->
+        <div class="scroll-area" v-if="currentView === 'artists'">
           <v-container class="pa-4 mt-16">
             <v-row>
               <!-- Box 1 -->
@@ -231,6 +245,72 @@ onBeforeUnmount(() => {
               <v-col cols="6" sm="6" md="4" lg="4" xl="4">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
+                  <span>Bruno Mars</span>
+                </v-card>
+              </v-col>
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
+                  <span>Bruno Mars</span>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
+        </div>
+
+        <!--for songs only-->
+        <div class="scroll-area"  v-if="currentView === 'songs'">
+          <v-container class="pa-4 mt-16">
+            <v-row>
+              <!-- Box 1 -->
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
+                  <span>Bruno Mars</span>
+                </v-card>
+              </v-col>
+
+              <!-- Box 2 -->
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
+                  <span>Bruno Mars</span>
+                </v-card>
+              </v-col>
+
+              <!-- Box 3 -->
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
+                  <span>Bruno Mars</span>
+                </v-card>
+              </v-col>
+
+              <!-- Box 4 -->
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
+                  <span>Bruno Mars</span>
+                </v-card>
+              </v-col>
+              <!-- Box 5 -->
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
+                  <span>Bruno Mars</span>
+                </v-card>
+              </v-col>
+
+              <!-- Box 6 -->
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
+                  <span>Bruno Mars</span>
+                </v-card>
+              </v-col>
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
                   <span>Bruno Mars</span>
                 </v-card>
               </v-col>
