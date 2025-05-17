@@ -150,7 +150,7 @@ onBeforeUnmount(() => {
         </v-list>
       </v-navigation-drawer>
 
-      <v-app-bar flat fixed height="64" class="backside-color main-color">
+      <v-app-bar flat fixed height="64" class="main-color">
         <!-- Left: Menu + Title -->
         <div class="left-group d-flex align-center">
           <v-btn icon @click="toggleDrawer">
@@ -176,6 +176,11 @@ onBeforeUnmount(() => {
       <!--main diri-->
       <v-main>
         <v-container>
+          <div class="top-button-bar d-flex justify-center align-center w-100">
+            <v-btn class="mx-2 rounded-xl btn-color"><b>Artists</b></v-btn>
+            <v-btn class="mx-2 rounded-xl btn-color"><b>Songs</b></v-btn>
+          </div>
+
           <v-dialog>
             <!--delay appear dialog-->
           </v-dialog>
@@ -185,11 +190,10 @@ onBeforeUnmount(() => {
   </v-responsive>
 </template>
 <style scoped>
-main,
-.backside-color {
+main {
   background-image: url('/public/image/bg-wood.png'); /* Ensure the path is correct relative to your project structure */
   background-repeat: repeat;
-  background-size: auto; /* 'cover' would stretch; use 'auto' or 'contain' for repeating natural texture */
+  background-size: auto;
   background-position: center;
   background-attachment: fixed;
 }
@@ -231,5 +235,19 @@ main,
   top: 4px;
   right: 10px;
   z-index: 999;
+}
+.top-button-bar {
+  position: fixed;
+  top: 70px; /* 64px app-bar + spacing */
+  left: 0;
+  width: 100%;
+  z-index: 0;
+  padding: 10px 0;
+}
+.btn-color {
+   background-image: url('/public/image/btn-color.png'); /* Ensure the path is correct relative to your project structure */
+
+  mix-blend-mode: multiply;
+  opacity: 1;
 }
 </style>
