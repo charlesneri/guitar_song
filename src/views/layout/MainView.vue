@@ -36,6 +36,7 @@ onBeforeUnmount(() => {
         right
         app
         :scrim="isMobile"
+        color="#3C1213"
       >
         <!-- Profile -->
         <v-sheet class="text-center" rounded="lg">
