@@ -4,22 +4,24 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
 const drawer = ref(false)
 const mini = ref(false)
 const isMobile = ref(false)
+const drawerWidth = ref(280) // default width
 
 const toggleDrawer = () => {
   drawer.value = !drawer.value
 }
 
-const checkMobile = () => {
+const updateDrawerSettings = () => {
   isMobile.value = window.innerWidth <= 768
+  drawerWidth.value = isMobile.value ? window.innerWidth : 580 // you can customize width
 }
 
 onMounted(() => {
-  checkMobile()
-  window.addEventListener('resize', checkMobile)
+  updateDrawerSettings()
+  window.addEventListener('resize', updateDrawerSettings)
 })
 
 onBeforeUnmount(() => {
-  window.removeEventListener('resize', checkMobile)
+  window.removeEventListener('resize', updateDrawerSettings)
 })
 </script>
 
@@ -30,13 +32,13 @@ onBeforeUnmount(() => {
 
       <v-navigation-drawer
         v-model="drawer"
-        :temporary="isMobile"
-        :permanent="!isMobile"
-        :width="isMobile ? '100%' : 280"
-        right
-        app
-        :scrim="isMobile"
-        color="#3C1213"
+  :mini-variant="mini"
+  :mini-variant-width="80"
+  width="280"
+  permanent
+  right
+  app
+  color="#3C1213"
       >
         <!-- Profile -->
         <v-sheet class="text-center" rounded="lg">
@@ -44,57 +46,106 @@ onBeforeUnmount(() => {
         </v-sheet>
 
         <v-list nav dense>
-          <v-list-item :to="'/home'" tag="RouterLink" @click="isMobile && (drawer = false)">
+          <v-list-item
+            :to="'/home'"
+            class="font-color-nav"
+            tag="RouterLink"
+            @click="isMobile && (drawer = false)"
+          >
             <div class="d-flex align-center" style="gap: 8px; width: 100%">
-              <v-icon size="30" style="margin-left: 15px">mdi-home-outline</v-icon>
-              <span v-if="!mini" class="icon-mdi">Home</span>
+              <v-icon size="30" style="margin-left: 15px">mdi-format-list-bulleted</v-icon>
+              <span v-if="!mini" class="icon-mdi">Song Lists</span>
             </div>
           </v-list-item>
 
-          <v-list-item :to="'/profile'" tag="RouterLink" @click="isMobile && (drawer = false)">
+          <v-list-item
+            :to="'/profile'"
+            class="font-color-nav"
+            tag="RouterLink"
+            @click="isMobile && (drawer = false)"
+          >
             <div class="d-flex align-center" style="gap: 8px; width: 100%">
-              <v-icon size="30" style="margin-left: 15px">mdi-account-outline</v-icon>
-              <span v-if="!mini" class="icon-mdi">My Profile</span>
+              <v-icon size="30" style="margin-left: 15px">mdi-heart</v-icon>
+              <span v-if="!mini" class="icon-mdi">Favorites</span>
             </div>
           </v-list-item>
 
-          <v-list-item :to="'/appointments'" tag="RouterLink" @click="isMobile && (drawer = false)">
+          <v-list-item
+            :to="'/appointments'"
+            class="font-color-nav"
+            tag="RouterLink"
+            @click="isMobile && (drawer = false)"
+          >
             <div class="d-flex align-center" style="gap: 8px; width: 100%">
-              <v-icon size="30" style="margin-left: 15px">mdi-calendar</v-icon>
-              <span v-if="!mini" class="icon-mdi">My Appointments</span>
+              <v-icon size="30" style="margin-left: 15px">mdi-archive</v-icon>
+              <span v-if="!mini" class="icon-mdi">My songs</span>
             </div>
           </v-list-item>
 
           <v-list-item
             :to="'/DeleteHistory'"
+            class="font-color-nav"
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
           >
             <div class="d-flex align-center" style="gap: 8px; width: 100%">
-              <v-icon size="30" style="margin-left: 15px"> mdi-delete-outline</v-icon>
-              <span v-if="!mini" class="icon-mdi">Deleted Appointments</span>
+              <v-icon size="30" style="margin-left: 15px"> mdi-history</v-icon>
+              <span v-if="!mini" class="icon-mdi">History/Top</span>
             </div>
           </v-list-item>
 
-          <v-divider class="my-2" />
-
-          <v-list-item :to="'/about'" tag="RouterLink" @click="isMobile && (drawer = false)">
+          <v-list-item
+            :to="'/about'"
+            class="font-color-nav"
+            tag="RouterLink"
+            @click="isMobile && (drawer = false)"
+          >
             <div class="d-flex align-center" style="gap: 8px; width: 100%">
               <v-icon size="30" style="margin-left: 15px">mdi-information-outline</v-icon>
               <span v-if="!mini" class="icon-mdi">About Us</span>
             </div>
           </v-list-item>
-
-          <v-list-item :to="'/contact'" tag="RouterLink" @click="isMobile && (drawer = false)">
+          <v-list-item
+            :to="'/about'"
+            class="font-color-nav"
+            tag="RouterLink"
+            @click="isMobile && (drawer = false)"
+          >
             <div class="d-flex align-center" style="gap: 8px; width: 100%">
-              <v-icon size="30" style="margin-left: 15px">mdi-phone-outline</v-icon>
-              <span v-if="!mini" class="icon-mdi">Contact Us</span>
+              <v-icon size="30" style="margin-left: 15px">mdi-server</v-icon>
+              <span v-if="!mini" class="icon-mdi">Folders</span>
             </div>
           </v-list-item>
-          <v-list-item @click="handleLogoutClick">
+
+          <v-list-item
+            :to="'/about'"
+            class="font-color-nav"
+            tag="RouterLink"
+            @click="isMobile && (drawer = false)"
+          >
             <div class="d-flex align-center" style="gap: 8px; width: 100%">
-              <v-icon size="30" style="margin-left: 15px">mdi-logout</v-icon>
-              <span v-if="!mini" class="icon-mdi">Logout</span>
+              <v-icon size="30" style="margin-left: 15px">mdi-music</v-icon>
+              <span v-if="!mini" class="icon-mdi">Chords</span>
+            </div>
+          </v-list-item>
+
+          <v-divider class="my-2" />
+
+          <v-list-item
+            :to="'/contact'"
+            class="font-color-nav"
+            tag="RouterLink"
+            @click="isMobile && (drawer = false)"
+          >
+            <div class="d-flex align-center" style="gap: 8px; width: 100%">
+              <v-icon size="30" style="margin-left: 15px">mdi-cog</v-icon>
+              <span v-if="!mini" class="icon-mdi">Settings</span>
+            </div>
+          </v-list-item>
+          <v-list-item @click="handleLogoutClick" class="font-color-nav">
+            <div class="d-flex align-center" style="gap: 8px; width: 100%">
+              <v-icon size="30" style="margin-left: 15px"> mdi-help</v-icon>
+              <span v-if="!mini" class="icon-mdi">F.A.Q.</span>
             </div>
           </v-list-item>
         </v-list>
@@ -127,13 +178,11 @@ onBeforeUnmount(() => {
 <style scoped>
 main,
 .backside-color {
-  background: repeating-linear-gradient(
-    to right,
-    #e6b481,
-    #e6b481 30px,
-    #dca36d 30px,
-    #dca36d 60px
-  );
+  background-image: url('/public/image/bg-wood.png'); /* Ensure the path is correct relative to your project structure */
+  background-repeat: repeat;
+  background-size: auto; /* 'cover' would stretch; use 'auto' or 'contain' for repeating natural texture */
+  background-position: center;
+  background-attachment: fixed;
 }
 .main-color {
   background: #ddb887;
@@ -143,5 +192,12 @@ main,
   max-height: 100%;
   margin: 0;
   padding: 0;
+}
+.font-color-nav {
+  color: #b3b3b3;
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-size: 15px;
+  margin-left: -20px;
 }
 </style>
