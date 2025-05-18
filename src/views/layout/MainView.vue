@@ -188,26 +188,31 @@ onMounted(() => {
           </v-btn>
         </div>
       </v-app-bar>
-      <div class="top-button-bar d-flex justify-center align-center w-100">
-        <v-btn
-          class="mx-2 rounded-xl btn-color"
-          :variant="currentView === 'artists' ? 'flat' : 'outlined'"
-          @click="currentView = 'artists'"
-        >
-          <b>Artists</b>
-        </v-btn>
-        <v-btn
-          class="mx-2 rounded-xl btn-color"
-          :variant="currentView === 'songs' ? 'flat' : 'outlined'"
-          @click="currentView = 'songs'"
-        >
-          <b>Songs</b>
-        </v-btn>
-      </div>
 
       <!--main diri-->
       <v-main>
+        <div class="top-button-bar d-flex justify-center align-center w-100">
+          <v-btn
+            class="mx-2 rounded-xl btn-color"
+            :class="[currentView === 'artists' ? 'tab-active' : 'tab-inactive']"
+            :variant="currentView === 'artists' ? 'flat' : 'text'"
+            @click="currentView = 'artists'"
+          >
+            <b>Artists</b>
+          </v-btn>
+
+          <v-btn
+            class="mx-2 rounded-xl btn-color"
+            :class="[currentView === 'songs' ? 'tab-active' : 'tab-inactive']"
+            :variant="currentView === 'songs' ? 'flat' : 'text'"
+            @click="currentView = 'songs'"
+          >
+            <b>Songs</b>
+          </v-btn>
+        </div>
+
         <!--for artists only-->
+
         <div class="scroll-area" v-if="currentView === 'artists'">
           <v-container class="pa-4 mt-16">
             <v-row>
@@ -441,10 +446,10 @@ onMounted(() => {
   background-size: auto;
   background-position: center;
   background-attachment: fixed;
-  padding-top: 0;
-  overflow-y: visible;
-  height: auto;
+  overflow-y: auto;
+  height: 100%;
 }
+
 .main-color {
   position: relative;
   background: rgba(221, 184, 135, 0.85);
@@ -454,6 +459,7 @@ onMounted(() => {
   height: 64px;
   padding: 0;
 }
+
 .font-color-nav {
   color: #b3b3b3;
   font-weight: 800;
@@ -492,6 +498,18 @@ onMounted(() => {
   z-index: 0;
   padding: 10px 0;
 }
+.tab-active {
+  background-color: #c78c3f !important; /* or any color you prefer */
+  color: #D6D6D6 !important;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  border: 2px solid #a6793e !important;
+  transition: all 0.2s ease;
+}
+.tab-inactive {
+  border: none !important;
+  box-shadow: none !important;
+}
 .btn-color {
   background-image: url('/public/image/btn-color.png'); /* Ensure the path is correct relative to your project structure */
   opacity: 1;
@@ -505,12 +523,6 @@ body,
 .v-application {
   height: 100%;
   overflow-y: auto;
-}
-
-.v-main {
-  padding-top: 130px; /* accounts for app-bar + button bar */
-  overflow-y: auto;
-  height: 100%;
 }
 
 .top-button-bar {
@@ -544,10 +556,6 @@ body,
   margin-bottom: 8px;
 }
 
-/* This makes the actual card content scrollable */
-.scroll-area {
-  padding: 16px;
-}
 /* dialog */
 ::v-deep(.centered-dialog-wrapper) {
   display: flex !important;
