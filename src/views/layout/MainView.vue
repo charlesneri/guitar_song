@@ -42,6 +42,7 @@ setTimeout(() => {
 const currentAudio = ref(null)
 const currentPlayingIndex = ref(null)
 const isManuallyPaused = ref({})
+const audioStatusUpdateTrigger = ref(0)
 
 const toggleAudio = (index, src) => {
   if (currentPlayingIndex.value !== null && currentPlayingIndex.value !== index) {
@@ -50,33 +51,45 @@ const toggleAudio = (index, src) => {
   }
 
   if (!currentAudio.value || currentPlayingIndex.value !== index) {
+    if (currentAudio.value) {
+      currentAudio.value.pause()
+      currentAudio.value.currentTime = 0
+    }
+
     currentAudio.value = new Audio(src)
     currentPlayingIndex.value = index
-    isManuallyPaused.value[index] = false
 
-    currentAudio.value.play().catch((err) => console.error(err))
+    currentAudio.value
+      .play()
+      .then(() => {
+        audioStatusUpdateTrigger.value++ // force UI update
+      })
+      .catch((err) => console.error(err))
+
     currentAudio.value.onended = () => {
       currentPlayingIndex.value = null
+      audioStatusUpdateTrigger.value++
     }
   } else {
     if (currentAudio.value.paused) {
-      currentAudio.value.play().catch((err) => console.error(err))
-      isManuallyPaused.value[index] = false
+      currentAudio.value
+        .play()
+        .then(() => {
+          audioStatusUpdateTrigger.value++
+        })
+        .catch((err) => console.error(err))
     } else {
       currentAudio.value.pause()
-      isManuallyPaused.value[index] = true
+      audioStatusUpdateTrigger.value++
     }
   }
 }
 
 const isPlaying = (index) => {
-  return (
-    currentPlayingIndex.value === index &&
-    currentAudio.value &&
-    !currentAudio.value.paused &&
-    !isManuallyPaused.value[index]
-  )
+  audioStatusUpdateTrigger.value // access to make it reactive
+  return currentPlayingIndex.value === index && currentAudio.value && !currentAudio.value.paused
 }
+
 //stop music back or download all butn
 const stopAudio = () => {
   if (currentAudio.value) {
@@ -87,8 +100,30 @@ const stopAudio = () => {
   currentPlayingIndex.value = null
   isManuallyPaused.value = {}
 }
+//for back dialog
+const showConfirmExitDialog = ref(false)
+
 const handleBack = () => {
+  showConfirmExitDialog.value = true
+}
+
+const confirmExit = () => {
   stopAudio()
+  showSuggestions.value = false
+  showConfirmExitDialog.value = false
+}
+
+const cancelExit = () => {
+  showConfirmExitDialog.value = false
+}
+//for download all dialog
+const snackbar = ref(false)
+const snackbarText = ref('')
+
+const handleDownloadAll = () => {
+  stopAudio()
+  snackbarText.value = 'Successfully added the songs to your playlist!'
+  snackbar.value = true
   showSuggestions.value = false
 }
 </script>
@@ -314,18 +349,7 @@ const handleBack = () => {
                   <span>Bruno Mars</span>
                 </v-card>
               </v-col>
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
-                </v-card>
-              </v-col>
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
-                </v-card>
-              </v-col>
+             
             </v-row>
           </v-container>
         </div>
@@ -380,18 +404,7 @@ const handleBack = () => {
                   <span>Bruno Mars</span>
                 </v-card>
               </v-col>
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
-                </v-card>
-              </v-col>
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
-                </v-card>
-              </v-col>
+           
             </v-row>
           </v-container>
         </div>
@@ -427,86 +440,142 @@ const handleBack = () => {
         </v-dialog>
 
         <!-- Song Suggestions Dialog -->
-        <v-dialog v-model="showSuggestions" persistent max-width="500" scrim="rgba(0, 0, 0, 7)">
+        <v-dialog
+          v-model="showSuggestions"
+          max-width="90vw"
+          scrollable
+          scrim="rgba(0, 0, 0, 0.7)"
+          content-class="suggestion-dialog-wrapper"
+        >
           <v-card class="pa-4 suggestion-dialog" color="#3C1213">
-            <v-card-title
-              ><b
-                >Here are some recommended <br />
-                songs based on Your Favorites:</b
-              ></v-card-title
-            >
+            <v-card-title class="responsive-title">
+              <b class="responsive-text">
+                Here are some recommended <br />
+                songs based on Your Favorites:
+              </b>
+            </v-card-title>
+
             <v-divider thickness="2"></v-divider>
             <v-card-text class="mb-16 pb-16">
               <!--song 1-->
-              <div class="d-flex align-center justify-between my-2">
-                <div>
-                  <span class="song-title"><b>Cardigan</b></span>
+              <div class="song-entry">
+                <div class="song-info">
+                  <div class="song-title">Cardigan</div>
                   <div class="artist-name">Taylor Swift</div>
                 </div>
-                <v-spacer></v-spacer>
-                <v-btn flat class="btn-no-color" @click="toggleAudio(0, '/audio/cardigan.mp3')">
-                  <v-icon>{{ isPlaying(0) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
-                </v-btn>
-                <v-btn flat class="btn-no-color"><v-icon>mdi-plus</v-icon></v-btn>
-              </div>
-              <!--song 2-->
-              <div class="d-flex align-center justify-between my-2">
-                <div>
-                  <span class="song-title"><b>Ceilings</b></span>
-                  <div class="artist-name">Lizyy McAlpine</div>
+                <div class="song-actions">
+                  <v-btn flat class="btn-no-color" @click="toggleAudio(0, '/audio/cardigan.mp3')">
+                    <v-icon>{{ isPlaying(0) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
+                  </v-btn>
+                  <v-btn flat class="btn-no-color">
+                    <v-icon>mdi-plus</v-icon>
+                  </v-btn>
                 </div>
-                <v-spacer></v-spacer>
-                <v-btn flat class="btn-no-color" @click="toggleAudio(1, '/audio/ceilings.mp3')">
-                  <v-icon>{{ isPlaying(1) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
-                </v-btn>
-                <v-btn flat class="btn-no-color"><v-icon>mdi-plus</v-icon></v-btn>
               </div>
+
+              <!--song 2-->
+              <div class="song-entry">
+                <div class="song-info">
+                  <div class="song-title">Ceilings</div>
+                  <div class="artist-name">Lizzy McAlpine</div>
+                </div>
+                <div class="song-actions">
+                  <v-btn flat class="btn-no-color" @click="toggleAudio(1, '/audio/ceilings.mp3')">
+                    <v-icon>{{ isPlaying(1) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
+                  </v-btn>
+                  <v-btn flat class="btn-no-color">
+                    <v-icon>mdi-plus</v-icon>
+                  </v-btn>
+                </div>
+              </div>
+
               <!--song 3-->
-              <div class="d-flex align-center justify-between my-2">
-                <div>
-                  <span class="song-title"><b>Die with a smile</b></span>
+              <div class="song-entry">
+                <div class="song-info">
+                  <div class="song-title">Die With A Smile</div>
                   <div class="artist-name">Lady Gaga, Bruno Mars</div>
                 </div>
-
-                <v-spacer></v-spacer>
-                <v-btn flat class="btn-no-color" @click="toggleAudio(2, '/audio/lady gaga.mp3')">
-                  <v-icon>{{ isPlaying(2) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
-                </v-btn>
-                <v-btn flat class="btn-no-color"><v-icon>mdi-plus</v-icon></v-btn>
-              </div>
-              <!--song 4-->
-              <div class="d-flex align-center justify-between my-2">
-                <div>
-                  <span class="song-title"> <b>Good Luck Babe!</b></span>
-                  <div class="artist-name">Drake</div>
+                <div class="song-actions">
+                  <v-btn flat class="btn-no-color" @click="toggleAudio(2, '/audio/lady gaga.mp3')">
+                    <v-icon>{{ isPlaying(2) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
+                  </v-btn>
+                  <v-btn flat class="btn-no-color">
+                    <v-icon>mdi-plus</v-icon>
+                  </v-btn>
                 </div>
-                <v-spacer></v-spacer>
-                <v-btn flat class="btn-no-color" @click="toggleAudio(3, '/audio/goodluck.mp3')">
-                  <v-icon>{{ isPlaying(3) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
-                </v-btn>
-                <v-btn flat class="btn-no-color"><v-icon>mdi-plus</v-icon></v-btn>
               </div>
-              <!--song 5-->
-              <div class="d-flex align-center justify-between my-2">
-                <div>
-                  <span class="song-title"><b>Slim Pickins</b></span>
+
+              <!--song 4-->
+              <div class="song-entry">
+                <div class="song-info">
+                  <div class="song-title">Good Luck Babe!</div>
                   <div class="artist-name">Sabrina Carpenter</div>
                 </div>
-                <v-spacer></v-spacer>
-                <v-btn flat class="btn-no-color" @click="toggleAudio(4, '/audio/slim.mp3')">
-                  <v-icon>{{ isPlaying(4) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
-                </v-btn>
-                <v-btn flat class="btn-no-color"><v-icon>mdi-plus</v-icon></v-btn>
+                <div class="song-actions">
+                  <v-btn flat class="btn-no-color" @click="toggleAudio(3, '/audio/goodluck.mp3')">
+                    <v-icon>{{ isPlaying(3) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
+                  </v-btn>
+                  <v-btn flat class="btn-no-color">
+                    <v-icon>mdi-plus</v-icon>
+                  </v-btn>
+                </div>
+              </div>
+
+              <!--song 5-->
+              <div class="song-entry">
+                <div class="song-info">
+                  <div class="song-title">Slim Pickins</div>
+                  <div class="artist-name">Sabrina Carpenter</div>
+                </div>
+                <div class="song-actions">
+                  <v-btn flat class="btn-no-color" @click="toggleAudio(4, '/audio/slim.mp3')">
+                    <v-icon>{{ isPlaying(4) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
+                  </v-btn>
+                  <v-btn flat class="btn-no-color">
+                    <v-icon>mdi-plus</v-icon>
+                  </v-btn>
+                </div>
               </div>
             </v-card-text>
 
-            <v-card-actions class="d-flex justify-end">
+            <v-card-actions class="d-flex justify-end suggest-dialog-btn">
               <v-btn variant="text" @click="handleBack">Back</v-btn>
 
-              <v-btn color="success" variant="flat" @click="handleBack">Download All</v-btn>
+              <v-btn color="success" variant="flat" @click="handleDownloadAll">
+                Download All
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
+        <!--confirmation dialog-->
+        <v-dialog
+          v-model="showConfirmExitDialog"
+          persistent
+          scroll-strategy="none"
+          content-class="centered-dialog-wrapper"
+          scrim="rgba(0, 0, 0, 0.7)"
+        >
+          <v-card class="hidden-card-shell">
+            <v-sheet class="perfect-square-sheet">
+              <div class="dialog-body">
+                <h2 class="dialog-title">
+                  Are you sure you want to go back?<br />
+                  These recommended songs will not appear again.
+                </h2>
+              </div>
+
+              <div class="dialog-actions">
+                <v-btn class="btn-pill btn-no" variant="outlined" @click="cancelExit">No</v-btn>
+                <v-btn class="btn-pill btn-yes" variant="outlined" @click="confirmExit">Yes</v-btn>
+              </div>
+            </v-sheet>
+          </v-card>
+        </v-dialog>
+        <!--download all snackbar -->
+        <v-snackbar v-model="snackbar" timeout="3000" color="success" location="top" elevation="4">
+          {{ snackbarText }}
+        </v-snackbar>
+
         <!--for audio-->
         <audio ref="audioPlayer" src="/audio/lady gaga.mp3" preload="auto" />
       </v-main>
@@ -755,6 +824,82 @@ body,
 .artist-name {
   font-size: 10px;
 }
+/*for suggestion songs dialog*/
+::v-deep(.suggestion-dialog-wrapper) {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+::v-deep(.suggestion-dialog) {
+  border-radius: 20px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.suggest-dialog-btn {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/*for audio*/
+.song-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.song-info {
+  flex: 1;
+  min-width: 0; /* Ensures truncation works */
+  overflow: hidden;
+}
+
+.song-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-weight: bold;
+  color: #f1f3f4;
+}
+
+.artist-name {
+  font-size: 10px;
+  color: #f1f3f4;
+}
+
+.song-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0; /* Prevents shrinking */
+}
+.responsive-title {
+  text-align: left;
+  padding: 8px 12px;
+  word-break: break-word;
+  margin-left: 3%;
+}
+
+.responsive-text {
+  font-size: clamp(0.9rem, 2.5vw, 1.4rem); /* Responsive from small to large */
+  line-height: 1.3;
+  display: inline-block;
+  width: 100%;
+  max-width: 100%;
+  white-space: normal;
+}
+
 /* Tablet and below (≤768px) */
 @media (max-width: 768px) {
   .btn-pill {
@@ -763,11 +908,19 @@ body,
     font-size: 0.95rem;
     padding: 0.35rem 1rem;
   }
+  .suggest-dialog-btn {
+    justify-content: center;
+  }
 }
 
 @media (min-width: 600px) {
   .artists-container {
     aspect-ratio: 1 / 1.1;
+  }
+  ::v-deep(.suggestion-dialog) {
+    border-radius: 0;
+    max-height: 100vh;
+    padding: 12px !important;
   }
 }
 /* Mobile (≤480px) */
@@ -777,6 +930,15 @@ body,
     height: 36px;
     font-size: 0.9rem;
     padding: 0.3rem 0.9rem;
+  }
+  .suggest-dialog-btn {
+    flex-direction: column-reverse !important;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .suggest-dialog-btn .v-btn {
+    width: 100%;
   }
 }
 /* Very small devices (≤360px) */
