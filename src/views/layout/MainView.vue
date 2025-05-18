@@ -371,7 +371,7 @@ onMounted(() => {
 
         <!-- Song Suggestions Dialog -->
         <v-dialog v-model="showSuggestions" persistent max-width="500" scrim="rgba(0, 0, 0, 7)">
-          <v-card class="pa-4 check-internet" color="#3C1213">
+          <v-card class="pa-4 suggestion-dialog" color="#3C1213">
             <v-card-title
               ><b
                 >Here are some recommended <br />
@@ -382,44 +382,44 @@ onMounted(() => {
             <v-card-text class="mb-16 pb-16">
               <div class="d-flex align-center justify-between my-2">
                 <div>
-                  <div><b>Cardigan</b></div>
-                  <div class="text-caption">Taylor Swift</div>
+                  <span class="song-title"><b>Cardigan</b></span>
+                  <div class="artist-name">Taylor Swift</div>
                 </div>
                 <v-spacer></v-spacer>
-                <v-btn icon><v-icon>mdi-plus</v-icon></v-btn>
+                <v-btn flat class="btn-no-color"><v-icon>mdi-plus</v-icon></v-btn>
               </div>
               <div class="d-flex align-center justify-between my-2">
                 <div>
-                  <div><b>Cardigan</b></div>
-                  <div class="text-caption">Taylor Swift</div>
+                  <span class="song-title"><b>Ceilings</b></span>
+                  <div class="artist-name">Lizyy McAlpine</div>
                 </div>
                 <v-spacer></v-spacer>
-                <v-btn icon><v-icon>mdi-plus</v-icon></v-btn>
+                <v-btn flat class="btn-no-color"><v-icon>mdi-plus</v-icon></v-btn>
               </div>
               <div class="d-flex align-center justify-between my-2">
                 <div>
-                  <div><b>Cardigan</b></div>
-                  <div class="text-caption">Taylor Swift</div>
+                  <span class="song-title"><b>Die with a smile</b></span>
+                  <div class="artist-name">Lady Gaga, Bruno Mars</div>
                 </div>
-                <v-space></v-space>
+
                 <v-spacer></v-spacer>
-                <v-btn icon><v-icon>mdi-plus</v-icon></v-btn>
+                <v-btn flat class="btn-no-color"><v-icon>mdi-plus</v-icon></v-btn>
               </div>
               <div class="d-flex align-center justify-between my-2">
                 <div>
-                  <div><b>Cardigan</b></div>
-                  <div class="text-caption">Taylor Swift</div>
+                  <span class="song-title"> <b>Good Luck Babe!</b></span>
+                  <div class="artist-name">Drake</div>
                 </div>
                 <v-spacer></v-spacer>
-                <v-btn icon><v-icon>mdi-plus</v-icon></v-btn>
+                <v-btn flat class="btn-no-color"><v-icon>mdi-plus</v-icon></v-btn>
               </div>
               <div class="d-flex align-center justify-between my-2">
                 <div>
-                  <div><b>Cardigan</b></div>
-                  <div class="text-caption">Taylor Swift</div>
+                  <span class="song-title"><b>Slim Pickins</b></span>
+                  <div class="artist-name">Sabrina Carpenter</div>
                 </div>
                 <v-spacer></v-spacer>
-                <v-btn icon><v-icon>mdi-plus</v-icon></v-btn>
+                <v-btn flat class="btn-no-color"><v-icon>mdi-plus</v-icon></v-btn>
               </div>
             </v-card-text>
 
@@ -578,7 +578,6 @@ body,
   padding: 24px;
 }
 
-
 /* Center the title text vertically */
 .dialog-body {
   flex-grow: 1;
@@ -622,6 +621,34 @@ body,
 .btn-yes {
   color: green;
   border: 1.5px solid #cce8cc;
+}
+::v-deep(.suggestion-dialog) {
+  border-radius: 20px !important;
+  overflow: hidden; /* optional */
+}
+.btn-no-color {
+  background-color: transparent;
+  padding: 0;
+  width: 36px; /* or any desired size */
+  height: 36px;
+  min-width: 0; /* override Vuetify's default min-width */
+  border-radius: 8px; /* optional: for slight rounding */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.artist-name,
+.song-title,
+.btn-no-color {
+  color: #f1f3f4;
+}
+.song-title,
+.btn-no-color {
+  opacity: 0.9;
+  font-size: 20px;
+}
+.artist-name {
+  font-size: 10px;
 }
 
 @media (min-width: 600px) {
