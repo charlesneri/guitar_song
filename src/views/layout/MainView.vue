@@ -340,13 +340,18 @@ onMounted(() => {
         </div>
 
         <!--for internet-->
-        <v-dialog v-model="showCheckConnection" persistent class="connection-dialog" scroll-strategy="none">
-          <v-card class="custom-dialog-card d-flex flex-column justify-space-between">
-            <v-card-title class="text-center text-h6 font-weight-bold mb-6">
-              Check for Internet<br />Connection
-            </v-card-title>
+        <v-dialog
+          v-model="showCheckConnection"
+          persistent
+          scroll-strategy="none"
+          content-class="custom-dialog-wrapper"
+        >
+          <v-card class="custom-dialog-card">
+            <div class="dialog-body">
+              <h2 class="dialog-title">Check for Internet<br />Connection</h2>
+            </div>
 
-            <v-card-actions class="justify-center pb-4">
+            <v-card-actions class="dialog-actions">
               <v-btn
                 class="btn-pill btn-no"
                 variant="outlined"
@@ -384,7 +389,7 @@ onMounted(() => {
     </v-app>
   </v-responsive>
 </template>
-<style scoped>
+<style>
 .v-main {
   background-image: url('/public/image/bg-wood.png');
   background-repeat: repeat;
@@ -501,14 +506,49 @@ body,
   padding: 16px;
 }
 /* dialog */
-.connection-dialog .custom-dialog-card {
-  width: 300px;
-  max-width: 90vw;
-  height: auto;
+.custom-dialog-wrapper {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.custom-dialog-card {
+  width: 90vw;
+  max-width: 400px;
+  aspect-ratio: 1 / 1; /* Perfect square */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   border-radius: 20px;
   background-color: #ffffff;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  padding: 24px 16px;
+  padding: 24px;
+  overflow: hidden;
+}
+
+/* Center the title text vertically */
+.dialog-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+
+/* Move buttons to bottom right */
+.dialog-actions {
+  justify-content: flex-end;
+  gap: 12px;
+  padding-bottom: 12px;
 }
 
 /* Capsule-style buttons */
@@ -517,12 +557,10 @@ body,
   min-width: 80px;
   height: 36px;
   font-weight: bold;
-  margin: 0 8px;
   text-transform: none;
   background-color: white;
 }
 
-/* Specific colors for each button */
 .btn-no {
   color: red;
   border: 1.5px solid #f4cccc;
@@ -534,7 +572,6 @@ body,
 }
 
 @media (min-width: 600px) {
-  
   .artists-container {
     aspect-ratio: 1 / 1.1;
   }
