@@ -306,8 +306,8 @@ const handleDownloadAll = () => {
               <!-- Box 1 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
+                  <div class="img-rounded"><img src="/image/gaga.jpg" alt="" /></div>
+                  <span>Lady Gaga</span>
                 </v-card>
               </v-col>
 
@@ -322,34 +322,33 @@ const handleDownloadAll = () => {
               <!-- Box 3 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
+                  <div class="img-rounded"><img src="/image/taylor.jpg" alt="" /></div>
+                  <span>Taylor Swift</span>
                 </v-card>
               </v-col>
 
               <!-- Box 4 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
+                  <div class="img-rounded"><img src="/image/ed.jpg" alt="" /></div>
+                  <span>Ed Sheeran</span>
                 </v-card>
               </v-col>
               <!-- Box 5 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
+                  <div class="img-rounded"><img src="/image/gomez.jpg" alt="" /></div>
+                  <span>Selena Gomez</span>
                 </v-card>
               </v-col>
 
               <!-- Box 6 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
+                  <div class="img-rounded"><img src="/image/grande.jpg" alt="" /></div>
+                  <span>Ariana Grande</span>
                 </v-card>
               </v-col>
-             
             </v-row>
           </v-container>
         </div>
@@ -404,7 +403,6 @@ const handleDownloadAll = () => {
                   <span>Bruno Mars</span>
                 </v-card>
               </v-col>
-           
             </v-row>
           </v-container>
         </div>
@@ -509,7 +507,7 @@ const handleDownloadAll = () => {
               <div class="song-entry">
                 <div class="song-info">
                   <div class="song-title">Good Luck Babe!</div>
-                  <div class="artist-name">Sabrina Carpenter</div>
+                  <div class="artist-name">Chappell Roan</div>
                 </div>
                 <div class="song-actions">
                   <v-btn flat class="btn-no-color" @click="toggleAudio(3, '/audio/goodluck.mp3')">
