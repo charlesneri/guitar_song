@@ -77,6 +77,20 @@ const isPlaying = (index) => {
     !isManuallyPaused.value[index]
   )
 }
+//stop music back or download all butn
+const stopAudio = () => {
+  if (currentAudio.value) {
+    currentAudio.value.pause()
+    currentAudio.value.currentTime = 0
+    currentAudio.value = null
+  }
+  currentPlayingIndex.value = null
+  isManuallyPaused.value = {}
+}
+const handleBack = () => {
+  stopAudio()
+  showSuggestions.value = false
+}
 </script>
 
 <template class="main-template">
@@ -487,8 +501,9 @@ const isPlaying = (index) => {
             </v-card-text>
 
             <v-card-actions class="d-flex justify-end">
-              <v-btn variant="text" @click="showSuggestions = false">Back</v-btn>
-              <v-btn color="success" variant="flat">Download All</v-btn>
+              <v-btn variant="text" @click="handleBack">Back</v-btn>
+
+              <v-btn color="success" variant="flat" @click="handleBack">Download All</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
