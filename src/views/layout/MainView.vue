@@ -166,7 +166,7 @@ onMounted(() => {
         </v-list>
       </v-navigation-drawer>
 
-      <v-app-bar flat fixed height="64" class="main-color ">
+      <v-app-bar flat fixed height="64" class="main-color">
         <!-- Left: Menu + Title -->
         <div class="left-group d-flex align-center">
           <v-btn icon @click="toggleDrawer">
@@ -344,35 +344,42 @@ onMounted(() => {
           v-model="showCheckConnection"
           persistent
           scroll-strategy="none"
-          content-class="custom-dialog-wrapper"
-          scrim="rgba(0, 0, 0, 7)"
+          content-class="centered-dialog-wrapper"
+          scrim="rgba(0, 0, 0, 0.7)"
         >
-          <v-card class="custom-dialog-card">
-            <div class="dialog-body">
-              <h2 class="dialog-title">Check for Internet<br />Connection</h2>
-            </div>
+          <v-card class="hidden-card-shell">
+            <v-sheet class="perfect-square-sheet">
+              <div class="dialog-body">
+                <h2 class="dialog-title">Check for Internet<br />Connection</h2>
+              </div>
 
-            <v-card-actions class="dialog-actions">
-              <v-btn
-                class="btn-pill btn-no"
-                variant="outlined"
-                @click="showCheckConnection = false"
-              >
-                No
-              </v-btn>
-              <v-btn class="btn-pill btn-yes" variant="outlined" @click="openSuggestions">
-                Yes
-              </v-btn>
-            </v-card-actions>
+              <div class="dialog-actions">
+                <v-btn
+                  class="btn-pill btn-no"
+                  variant="outlined"
+                  @click="showCheckConnection = false"
+                >
+                  No
+                </v-btn>
+                <v-btn class="btn-pill btn-yes" variant="outlined" @click="openSuggestions">
+                  Yes
+                </v-btn>
+              </div>
+            </v-sheet>
           </v-card>
         </v-dialog>
 
         <!-- Song Suggestions Dialog -->
-        <v-dialog v-model="showSuggestions" persistent max-width="500"   scrim="rgba(0, 0, 0, 7)">
+        <v-dialog v-model="showSuggestions" persistent max-width="500" scrim="rgba(0, 0, 0, 7)">
           <v-card class="pa-4 check-internet" color="#3C1213">
-            <v-card-title><b>Here are some recommended <br> songs based on Your Favorites:</b></v-card-title>
-            <v-divider thickness="2" ></v-divider>
-            <v-card-text class="mb-16 pb-16" >
+            <v-card-title
+              ><b
+                >Here are some recommended <br />
+                songs based on Your Favorites:</b
+              ></v-card-title
+            >
+            <v-divider thickness="2"></v-divider>
+            <v-card-text class="mb-16 pb-16">
               <div class="d-flex align-center justify-between my-2">
                 <div>
                   <div><b>Cardigan</b></div>
@@ -381,42 +388,41 @@ onMounted(() => {
                 <v-spacer></v-spacer>
                 <v-btn icon><v-icon>mdi-plus</v-icon></v-btn>
               </div>
-                <div class="d-flex align-center justify-between my-2">
+              <div class="d-flex align-center justify-between my-2">
                 <div>
                   <div><b>Cardigan</b></div>
                   <div class="text-caption">Taylor Swift</div>
                 </div>
-                    <v-spacer></v-spacer>
+                <v-spacer></v-spacer>
                 <v-btn icon><v-icon>mdi-plus</v-icon></v-btn>
               </div>
-                <div class="d-flex align-center justify-between my-2">
+              <div class="d-flex align-center justify-between my-2">
                 <div>
                   <div><b>Cardigan</b></div>
                   <div class="text-caption">Taylor Swift</div>
                 </div>
                 <v-space></v-space>
-                    <v-spacer></v-spacer>
+                <v-spacer></v-spacer>
                 <v-btn icon><v-icon>mdi-plus</v-icon></v-btn>
               </div>
-                <div class="d-flex align-center justify-between my-2">
+              <div class="d-flex align-center justify-between my-2">
                 <div>
                   <div><b>Cardigan</b></div>
                   <div class="text-caption">Taylor Swift</div>
                 </div>
-                    <v-spacer></v-spacer>
+                <v-spacer></v-spacer>
                 <v-btn icon><v-icon>mdi-plus</v-icon></v-btn>
               </div>
-                <div class="d-flex align-center justify-between my-2">
+              <div class="d-flex align-center justify-between my-2">
                 <div>
                   <div><b>Cardigan</b></div>
                   <div class="text-caption">Taylor Swift</div>
                 </div>
-                    <v-spacer></v-spacer>
+                <v-spacer></v-spacer>
                 <v-btn icon><v-icon>mdi-plus</v-icon></v-btn>
               </div>
-
             </v-card-text>
-         
+
             <v-card-actions class="d-flex justify-end">
               <v-btn variant="text" @click="showSuggestions = false">Back</v-btn>
               <v-btn color="success" variant="flat">Download All</v-btn>
@@ -430,7 +436,7 @@ onMounted(() => {
 <style scoped>
 .v-main {
   background-image: url('/public/image/bg-wood.png');
- background-color: #ffffff; /* Add this if missing */
+  background-color: #ffffff; /* Add this if missing */
   background-repeat: repeat;
   background-size: auto;
   background-position: center;
@@ -443,7 +449,7 @@ onMounted(() => {
   position: relative;
   background: rgba(221, 184, 135, 0.85);
   mix-blend-mode: multiply;
-  z-index:1;
+  z-index: 1;
   width: 100%;
   height: 64px;
   padding: 0;
@@ -543,39 +549,44 @@ body,
   padding: 16px;
 }
 /* dialog */
-.custom-dialog-wrapper {
-    position: fixed !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 16px; /* Added padding for smaller screens */
-  width: 100%;
-  max-width: 100vw;
+::v-deep(.centered-dialog-wrapper) {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100vh !important;
+  padding: 16px;
   box-sizing: border-box;
 }
-.custom-dialog-card {
-  width: 100%;
+.hidden-card-shell {
+  background: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border: none !important;
+  outline: none !important;
+  display: contents !important; /* 🔥 KEY TRICK */
+}
+.perfect-square-sheet {
+  aspect-ratio: 1 / 1;
+  width: 90vw;
   max-width: 400px;
-  aspect-ratio: 1 / 1; /* Perfect square */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   border-radius: 20px;
   background-color: #ffffff;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 24px;
-  overflow: hidden;
 }
+
 
 /* Center the title text vertically */
 .dialog-body {
-  flex: 1;
+  flex-grow: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  overflow: hidden;
 }
 
 .dialog-title {
@@ -587,9 +598,10 @@ body,
 
 /* Move buttons to bottom right */
 .dialog-actions {
+  display: flex;
   justify-content: flex-end;
   gap: 12px;
-  padding-bottom: 12px;
+  margin-top: 16px;
 }
 
 /* Capsule-style buttons */
@@ -617,5 +629,4 @@ body,
     aspect-ratio: 1 / 1.1;
   }
 }
-
 </style>
