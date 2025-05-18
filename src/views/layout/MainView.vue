@@ -4,8 +4,8 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
 const drawer = ref(false)
 const mini = ref(false)
 const isMobile = ref(false)
-const drawerWidth = ref(280) // default width
-const currentView = ref('artists') // default view
+const drawerWidth = ref(280)
+const currentView = ref('artists')
 
 const toggleDrawer = () => {
   drawer.value = !drawer.value
@@ -25,7 +25,7 @@ onBeforeUnmount(() => {
   window.removeEventListener('resize', updateDrawerSettings)
 })
 
-//for dialog
+// dialog
 const showCheckConnection = ref(false)
 const showSuggestions = ref(false)
 
@@ -34,11 +34,49 @@ const openSuggestions = () => {
   showSuggestions.value = true
 }
 
-onMounted(() => {
-  setTimeout(() => {
-    showCheckConnection.value = true
-  }, 1000) // 1 second delay after app load
-})
+setTimeout(() => {
+  showCheckConnection.value = true
+}, 1000)
+
+// audio control
+const currentAudio = ref(null)
+const currentPlayingIndex = ref(null)
+const isManuallyPaused = ref({})
+
+const toggleAudio = (index, src) => {
+  if (currentPlayingIndex.value !== null && currentPlayingIndex.value !== index) {
+    currentAudio.value.pause()
+    currentAudio.value.currentTime = 0
+  }
+
+  if (!currentAudio.value || currentPlayingIndex.value !== index) {
+    currentAudio.value = new Audio(src)
+    currentPlayingIndex.value = index
+    isManuallyPaused.value[index] = false
+
+    currentAudio.value.play().catch((err) => console.error(err))
+    currentAudio.value.onended = () => {
+      currentPlayingIndex.value = null
+    }
+  } else {
+    if (currentAudio.value.paused) {
+      currentAudio.value.play().catch((err) => console.error(err))
+      isManuallyPaused.value[index] = false
+    } else {
+      currentAudio.value.pause()
+      isManuallyPaused.value[index] = true
+    }
+  }
+}
+
+const isPlaying = (index) => {
+  return (
+    currentPlayingIndex.value === index &&
+    currentAudio.value &&
+    !currentAudio.value.paused &&
+    !isManuallyPaused.value[index]
+  )
+}
 </script>
 
 <template class="main-template">
@@ -170,21 +208,21 @@ onMounted(() => {
         <!-- Left: Menu + Title -->
         <div class="left-group d-flex align-center">
           <v-btn icon @click="toggleDrawer">
-            <v-icon size="35">mdi-menu</v-icon>
+            <v-icon class="icon-size">mdi-menu</v-icon>
           </v-btn>
           <h1 class="app-title">Guitar Song</h1>
         </div>
 
         <!-- Right: Icon Group -->
         <div class="icon-group-fixed d-flex align-center">
-          <v-btn icon class="ms-2">
-            <v-icon size="35">mdi-magnify</v-icon>
+          <v-btn icon class="icon-margin">
+            <v-icon class="icon-size">mdi-magnify</v-icon>
           </v-btn>
-          <v-btn icon class="ms-2">
-            <v-icon size="35" class="rotate-position">mdi-reload</v-icon>
+          <v-btn icon class="icon-margin">
+            <v-icon class="rotate-position icon-size icon-margin">mdi-reload</v-icon>
           </v-btn>
-          <v-btn icon class="ms-2">
-            <v-icon size="35">mdi-dots-vertical</v-icon>
+          <v-btn icon class="icon-margin">
+            <v-icon class="icon-size">mdi-dots-vertical</v-icon>
           </v-btn>
         </div>
       </v-app-bar>
@@ -217,7 +255,7 @@ onMounted(() => {
           <v-container class="pa-4 mt-16">
             <v-row>
               <!-- Box 1 -->
-              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
                   <span>Bruno Mars</span>
@@ -225,7 +263,7 @@ onMounted(() => {
               </v-col>
 
               <!-- Box 2 -->
-              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
                   <span>Bruno Mars</span>
@@ -233,7 +271,7 @@ onMounted(() => {
               </v-col>
 
               <!-- Box 3 -->
-              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
                   <span>Bruno Mars</span>
@@ -241,14 +279,14 @@ onMounted(() => {
               </v-col>
 
               <!-- Box 4 -->
-              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
                   <span>Bruno Mars</span>
                 </v-card>
               </v-col>
               <!-- Box 5 -->
-              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
                   <span>Bruno Mars</span>
@@ -256,19 +294,19 @@ onMounted(() => {
               </v-col>
 
               <!-- Box 6 -->
-              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
                   <span>Bruno Mars</span>
                 </v-card>
               </v-col>
-              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
                   <span>Bruno Mars</span>
                 </v-card>
               </v-col>
-              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
                   <span>Bruno Mars</span>
@@ -283,7 +321,7 @@ onMounted(() => {
           <v-container class="pa-4 mt-16">
             <v-row>
               <!-- Box 1 -->
-              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
                   <span>Bruno Mars</span>
@@ -291,7 +329,7 @@ onMounted(() => {
               </v-col>
 
               <!-- Box 2 -->
-              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
                   <span>Bruno Mars</span>
@@ -299,7 +337,7 @@ onMounted(() => {
               </v-col>
 
               <!-- Box 3 -->
-              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
                   <span>Bruno Mars</span>
@@ -307,14 +345,14 @@ onMounted(() => {
               </v-col>
 
               <!-- Box 4 -->
-              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
                   <span>Bruno Mars</span>
                 </v-card>
               </v-col>
               <!-- Box 5 -->
-              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
                   <span>Bruno Mars</span>
@@ -322,19 +360,19 @@ onMounted(() => {
               </v-col>
 
               <!-- Box 6 -->
-              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
                   <span>Bruno Mars</span>
                 </v-card>
               </v-col>
-              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
                   <span>Bruno Mars</span>
                 </v-card>
               </v-col>
-              <v-col cols="6" sm="6" md="4" lg="4" xl="4">
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
                   <span>Bruno Mars</span>
@@ -385,22 +423,31 @@ onMounted(() => {
             >
             <v-divider thickness="2"></v-divider>
             <v-card-text class="mb-16 pb-16">
+              <!--song 1-->
               <div class="d-flex align-center justify-between my-2">
                 <div>
                   <span class="song-title"><b>Cardigan</b></span>
                   <div class="artist-name">Taylor Swift</div>
                 </div>
                 <v-spacer></v-spacer>
+                <v-btn flat class="btn-no-color" @click="toggleAudio(0, '/audio/cardigan.mp3')">
+                  <v-icon>{{ isPlaying(0) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
+                </v-btn>
                 <v-btn flat class="btn-no-color"><v-icon>mdi-plus</v-icon></v-btn>
               </div>
+              <!--song 2-->
               <div class="d-flex align-center justify-between my-2">
                 <div>
                   <span class="song-title"><b>Ceilings</b></span>
                   <div class="artist-name">Lizyy McAlpine</div>
                 </div>
                 <v-spacer></v-spacer>
+                <v-btn flat class="btn-no-color" @click="toggleAudio(1, '/audio/ceilings.mp3')">
+                  <v-icon>{{ isPlaying(1) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
+                </v-btn>
                 <v-btn flat class="btn-no-color"><v-icon>mdi-plus</v-icon></v-btn>
               </div>
+              <!--song 3-->
               <div class="d-flex align-center justify-between my-2">
                 <div>
                   <span class="song-title"><b>Die with a smile</b></span>
@@ -408,22 +455,33 @@ onMounted(() => {
                 </div>
 
                 <v-spacer></v-spacer>
+                <v-btn flat class="btn-no-color" @click="toggleAudio(2, '/audio/lady gaga.mp3')">
+                  <v-icon>{{ isPlaying(2) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
+                </v-btn>
                 <v-btn flat class="btn-no-color"><v-icon>mdi-plus</v-icon></v-btn>
               </div>
+              <!--song 4-->
               <div class="d-flex align-center justify-between my-2">
                 <div>
                   <span class="song-title"> <b>Good Luck Babe!</b></span>
                   <div class="artist-name">Drake</div>
                 </div>
                 <v-spacer></v-spacer>
+                <v-btn flat class="btn-no-color" @click="toggleAudio(3, '/audio/goodluck.mp3')">
+                  <v-icon>{{ isPlaying(3) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
+                </v-btn>
                 <v-btn flat class="btn-no-color"><v-icon>mdi-plus</v-icon></v-btn>
               </div>
+              <!--song 5-->
               <div class="d-flex align-center justify-between my-2">
                 <div>
                   <span class="song-title"><b>Slim Pickins</b></span>
                   <div class="artist-name">Sabrina Carpenter</div>
                 </div>
                 <v-spacer></v-spacer>
+                <v-btn flat class="btn-no-color" @click="toggleAudio(4, '/audio/slim.mp3')">
+                  <v-icon>{{ isPlaying(4) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
+                </v-btn>
                 <v-btn flat class="btn-no-color"><v-icon>mdi-plus</v-icon></v-btn>
               </div>
             </v-card-text>
@@ -434,6 +492,8 @@ onMounted(() => {
             </v-card-actions>
           </v-card>
         </v-dialog>
+        <!--for audio-->
+        <audio ref="audioPlayer" src="/audio/lady gaga.mp3" preload="auto" />
       </v-main>
     </v-app>
   </v-responsive>
@@ -479,17 +539,12 @@ onMounted(() => {
 }
 
 .app-title {
-  font-size: 20px;
+  font-size: clamp(1.2rem, 2.5vw, 2rem); /* responsive font size */
   margin-left: 10px;
   color: #000000;
+  font-weight: bold;
 }
 
-.icon-group-fixed {
-  position: fixed;
-  top: 4px;
-  right: 10px;
-  z-index: 999;
-}
 .top-button-bar {
   position: fixed;
   top: 70px; /* 64px app-bar + spacing */
@@ -500,7 +555,7 @@ onMounted(() => {
 }
 .tab-active {
   background-color: #c78c3f !important; /* or any color you prefer */
-  color: #D6D6D6 !important;
+  color: #d6d6d6 !important;
   font-weight: bold;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   border: 2px solid #a6793e !important;
@@ -517,6 +572,26 @@ onMounted(() => {
 .rotate-position {
   transform: rotate(-90deg); /* or 90deg */
   transform-origin: center;
+}
+.icon-group-fixed {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 999;
+  gap: 2px;
+}
+.icon-margin {
+  background-color: transparent;
+  width: 36px; /* or any desired size */
+  height: 36px;
+  min-width: 0; /* override Vuetify's default min-width */
+  border-radius: 8px; /* optional: for slight rounding */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-size {
+  font-size: 30px;
 }
 html,
 body,
@@ -561,8 +636,7 @@ body,
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  height: 100vh !important;
-  padding: 16px;
+  padding: clamp(12px, 4vw, 24px);
   box-sizing: border-box;
 }
 .hidden-card-shell {
@@ -593,16 +667,17 @@ body,
   align-items: center;
   justify-content: center;
   text-align: center;
-  overflow: hidden;
+  padding: 0.5rem;
 }
 
 .dialog-title {
   text-align: center;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 4vw, 1.8rem); /* responsive text */
   line-height: 1.4;
+  word-break: break-word;
+  padding: 0 8px;
 }
-
 /* Move buttons to bottom right */
 .dialog-actions {
   display: flex;
@@ -614,11 +689,17 @@ body,
 /* Capsule-style buttons */
 .btn-pill {
   border-radius: 999px !important;
-  min-width: 80px;
-  height: 36px;
-  font-weight: bold;
+  min-width: 100px;
+  height: 40px;
+  font-size: 1rem;
+  font-weight: 600;
   text-transform: none;
+  padding: 0.4rem 1.2rem;
   background-color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 .btn-no {
@@ -644,6 +725,7 @@ body,
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 5px;
 }
 .artist-name,
 .song-title,
@@ -653,15 +735,48 @@ body,
 .song-title,
 .btn-no-color {
   opacity: 0.9;
-  font-size: 20px;
+  font-size: clamp(1rem, 2vw, 1.5rem);
 }
 .artist-name {
   font-size: 10px;
+}
+/* Tablet and below (≤768px) */
+@media (max-width: 768px) {
+  .btn-pill {
+    min-width: 90px;
+    height: 38px;
+    font-size: 0.95rem;
+    padding: 0.35rem 1rem;
+  }
 }
 
 @media (min-width: 600px) {
   .artists-container {
     aspect-ratio: 1 / 1.1;
+  }
+}
+/* Mobile (≤480px) */
+@media (max-width: 480px) {
+  .btn-pill {
+    min-width: 80px;
+    height: 36px;
+    font-size: 0.9rem;
+    padding: 0.3rem 0.9rem;
+  }
+}
+/* Very small devices (≤360px) */
+@media (max-width: 360px) {
+  .btn-pill {
+    width: 100%;
+    font-size: 0.85rem;
+    height: 34px;
+    padding: 0.3rem 0.8rem;
+  }
+
+  .dialog-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
   }
 }
 </style>
