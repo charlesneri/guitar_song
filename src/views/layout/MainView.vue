@@ -166,7 +166,7 @@ onMounted(() => {
         </v-list>
       </v-navigation-drawer>
 
-      <v-app-bar flat fixed height="64" class="main-color">
+      <v-app-bar flat fixed height="64" class="main-color ">
         <!-- Left: Menu + Title -->
         <div class="left-group d-flex align-center">
           <v-btn icon @click="toggleDrawer">
@@ -345,6 +345,7 @@ onMounted(() => {
           persistent
           scroll-strategy="none"
           content-class="custom-dialog-wrapper"
+          scrim="rgba(0, 0, 0, 7)"
         >
           <v-card class="custom-dialog-card">
             <div class="dialog-body">
@@ -367,18 +368,55 @@ onMounted(() => {
         </v-dialog>
 
         <!-- Song Suggestions Dialog -->
-        <v-dialog v-model="showSuggestions" persistent max-width="500">
-          <v-card class="pa-4 check-internet">
-            <v-card-title><b>Recommended Songs Based on Your Favorites:</b></v-card-title>
-            <v-card-text>
+        <v-dialog v-model="showSuggestions" persistent max-width="500"   scrim="rgba(0, 0, 0, 7)">
+          <v-card class="pa-4 check-internet" color="#3C1213">
+            <v-card-title><b>Here are some recommended <br> songs based on Your Favorites:</b></v-card-title>
+            <v-divider thickness="2" ></v-divider>
+            <v-card-text class="mb-16 pb-16" >
               <div class="d-flex align-center justify-between my-2">
                 <div>
                   <div><b>Cardigan</b></div>
                   <div class="text-caption">Taylor Swift</div>
                 </div>
+                <v-spacer></v-spacer>
                 <v-btn icon><v-icon>mdi-plus</v-icon></v-btn>
               </div>
+                <div class="d-flex align-center justify-between my-2">
+                <div>
+                  <div><b>Cardigan</b></div>
+                  <div class="text-caption">Taylor Swift</div>
+                </div>
+                    <v-spacer></v-spacer>
+                <v-btn icon><v-icon>mdi-plus</v-icon></v-btn>
+              </div>
+                <div class="d-flex align-center justify-between my-2">
+                <div>
+                  <div><b>Cardigan</b></div>
+                  <div class="text-caption">Taylor Swift</div>
+                </div>
+                <v-space></v-space>
+                    <v-spacer></v-spacer>
+                <v-btn icon><v-icon>mdi-plus</v-icon></v-btn>
+              </div>
+                <div class="d-flex align-center justify-between my-2">
+                <div>
+                  <div><b>Cardigan</b></div>
+                  <div class="text-caption">Taylor Swift</div>
+                </div>
+                    <v-spacer></v-spacer>
+                <v-btn icon><v-icon>mdi-plus</v-icon></v-btn>
+              </div>
+                <div class="d-flex align-center justify-between my-2">
+                <div>
+                  <div><b>Cardigan</b></div>
+                  <div class="text-caption">Taylor Swift</div>
+                </div>
+                    <v-spacer></v-spacer>
+                <v-btn icon><v-icon>mdi-plus</v-icon></v-btn>
+              </div>
+
             </v-card-text>
+         
             <v-card-actions class="d-flex justify-end">
               <v-btn variant="text" @click="showSuggestions = false">Back</v-btn>
               <v-btn color="success" variant="flat">Download All</v-btn>
@@ -389,9 +427,10 @@ onMounted(() => {
     </v-app>
   </v-responsive>
 </template>
-<style>
+<style scoped>
 .v-main {
   background-image: url('/public/image/bg-wood.png');
+ background-color: #ffffff; /* Add this if missing */
   background-repeat: repeat;
   background-size: auto;
   background-position: center;
@@ -401,12 +440,12 @@ onMounted(() => {
   height: auto;
 }
 .main-color {
-  background: #ddb887;
+  position: relative;
+  background: rgba(221, 184, 135, 0.85);
   mix-blend-mode: multiply;
+  z-index:1;
   width: 100%;
-  height: 50px;
-  max-height: 100%;
-  margin: 0;
+  height: 64px;
   padding: 0;
 }
 .font-color-nav {
@@ -449,8 +488,6 @@ onMounted(() => {
 }
 .btn-color {
   background-image: url('/public/image/btn-color.png'); /* Ensure the path is correct relative to your project structure */
-
-  mix-blend-mode: multiply;
   opacity: 1;
 }
 .rotate-position {
@@ -507,16 +544,20 @@ body,
 }
 /* dialog */
 .custom-dialog-wrapper {
-  position: fixed !important;
+    position: fixed !important;
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 16px; /* Added padding for smaller screens */
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
 }
 .custom-dialog-card {
-  width: 90vw;
+  width: 100%;
   max-width: 400px;
   aspect-ratio: 1 / 1; /* Perfect square */
   display: flex;
@@ -576,4 +617,5 @@ body,
     aspect-ratio: 1 / 1.1;
   }
 }
+
 </style>
