@@ -218,7 +218,7 @@ const filteredSongs = computed(() => {
           </v-list-item>
 
           <v-list-item
-            :to="'/appointments'"
+            :to="'/mysongs'"
             class="font-color-nav"
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
@@ -230,7 +230,7 @@ const filteredSongs = computed(() => {
           </v-list-item>
 
           <v-list-item
-            :to="'/DeleteHistory'"
+            :to="'/history'"
             class="font-color-nav"
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
@@ -242,18 +242,7 @@ const filteredSongs = computed(() => {
           </v-list-item>
 
           <v-list-item
-            :to="'/about'"
-            class="font-color-nav"
-            tag="RouterLink"
-            @click="isMobile && (drawer = false)"
-          >
-            <div class="d-flex align-center" style="gap: 8px; width: 100%">
-              <v-icon size="30" style="margin-left: 15px">mdi-play</v-icon>
-              <span v-if="!mini" class="icon-mdi">Setlists</span>
-            </div>
-          </v-list-item>
-          <v-list-item
-            :to="'/about'"
+            :to="'/folders'"
             class="font-color-nav"
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
@@ -265,7 +254,7 @@ const filteredSongs = computed(() => {
           </v-list-item>
 
           <v-list-item
-            :to="'/about'"
+            :to="'/chords'"
             class="font-color-nav"
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
@@ -279,7 +268,7 @@ const filteredSongs = computed(() => {
           <v-divider class="my-2" />
 
           <v-list-item
-            :to="'/contact'"
+            :to="'/settings'"
             class="font-color-nav"
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
@@ -289,7 +278,7 @@ const filteredSongs = computed(() => {
               <span v-if="!mini" class="icon-mdi">Settings</span>
             </div>
           </v-list-item>
-          <v-list-item @click="handleLogoutClick" class="font-color-nav">
+          <v-list-item :to="'/faq'" @click="handleLogoutClick" class="font-color-nav">
             <div class="d-flex align-center" style="gap: 8px; width: 100%">
               <v-icon size="30" style="margin-left: 15px"> mdi-help</v-icon>
               <span v-if="!mini" class="icon-mdi">F.A.Q.</span>

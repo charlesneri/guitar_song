@@ -64,7 +64,7 @@ onBeforeUnmount(() => {
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
           >
-            <div class="d-flex align-center" to="/favorites" style="gap: 8px; width: 100%">
+            <div class="d-flex align-center" style="gap: 8px; width: 100%">
               <v-icon size="30" style="margin-left: 15px">mdi-heart</v-icon>
               <span v-if="!mini" class="icon-mdi">Favorites</span>
             </div>
@@ -83,17 +83,6 @@ onBeforeUnmount(() => {
           </v-list-item>
 
           <v-list-item
-            :to="'/setlists'"
-            class="font-color-nav"
-            tag="RouterLink"
-            @click="isMobile && (drawer = false)"
-          >
-            <div class="d-flex align-center" style="gap: 8px; width: 100%">
-              <v-icon size="30" style="margin-left: 15px">mdi-play</v-icon>
-              <span v-if="!mini" class="icon-mdi">Setlists</span>
-            </div>
-          </v-list-item>
-          <v-list-item
             :to="'/history'"
             class="font-color-nav"
             tag="RouterLink"
@@ -104,6 +93,7 @@ onBeforeUnmount(() => {
               <span v-if="!mini" class="icon-mdi">History/Top</span>
             </div>
           </v-list-item>
+
           <v-list-item
             :to="'/folders'"
             class="font-color-nav"
@@ -141,13 +131,7 @@ onBeforeUnmount(() => {
               <span v-if="!mini" class="icon-mdi">Settings</span>
             </div>
           </v-list-item>
-          <v-list-item
-            :to="'/faq'"
-            class="font-color-nav"
-            tag="RouterLink"
-            @click="isMobile && (drawer = false)"
-         
-          >
+          <v-list-item :to="'/faq'" @click="handleLogoutClick" class="font-color-nav">
             <div class="d-flex align-center" style="gap: 8px; width: 100%">
               <v-icon size="30" style="margin-left: 15px"> mdi-help</v-icon>
               <span v-if="!mini" class="icon-mdi">F.A.Q.</span>
