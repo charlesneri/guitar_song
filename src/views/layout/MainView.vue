@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
+const showMoreOptions = ref(false)
 const drawer = ref(false)
 const mini = ref(false)
 const isMobile = ref(false)
@@ -45,7 +46,6 @@ onMounted(() => {
     }, 1000)
   }
 })
-
 
 // audio control
 const currentAudio = ref(null)
@@ -135,6 +135,42 @@ const handleDownloadAll = () => {
   snackbar.value = true
   showSuggestions.value = false
 }
+
+// fro search
+const showSearch = ref(false)
+const searchQuery = ref('')
+import { computed } from 'vue'
+
+// Example filteredArtists (modify this to match your artist data source)
+const artists = [
+  { name: 'Lady Gaga', image: '/image/gaga.jpg', route: '/gagaview' },
+  { name: 'Bruno Mars', image: '/image/bruno.jpg' },
+  { name: 'Taylor Swift', image: '/image/taylor.jpg' },
+  { name: 'Ed Sheeran', image: '/image/ed.jpg' },
+  { name: 'Selena Gomez', image: '/image/gomez.jpg' },
+  { name: 'Ariana Grande', image: '/image/grande.jpg' },
+]
+const songs = ref([
+  { name: '10000 Reasons', image: '/image/bini.jpg' },
+  { name: '25 Minutes', image: '/image/bini.jpg' },
+  { name: 'A Thousand Years', image: '/image/bini.jpg' },
+  { name: 'Best Part', image: '/image/bini.jpg' },
+  { name: 'Everglow', image: '/image/bini.jpg' },
+  { name: 'Heather', image: '/image/bini.jpg' },
+])
+
+const filteredArtists = computed(() => {
+  if (!searchQuery.value) return artists
+  return artists.filter((artist) =>
+    artist.name.toLowerCase().includes(searchQuery.value.toLowerCase()),
+  )
+})
+const filteredSongs = computed(() => {
+  if (!searchQuery.value) return songs.value
+  return songs.value.filter((song) =>
+    song.name.toLowerCase().includes(searchQuery.value.toLowerCase()),
+  )
+})
 </script>
 
 <template class="main-template">
@@ -163,7 +199,7 @@ const handleDownloadAll = () => {
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
           >
-            <div class="d-flex align-center"  style="gap: 8px; width: 100%">
+            <div class="d-flex align-center" style="gap: 8px; width: 100%">
               <v-icon size="30" style="margin-left: 15px">mdi-format-list-bulleted</v-icon>
               <span v-if="!mini" class="icon-mdi">Song Lists</span>
             </div>
@@ -175,7 +211,7 @@ const handleDownloadAll = () => {
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
           >
-            <div class="d-flex align-center"  style="gap: 8px; width: 100%">
+            <div class="d-flex align-center" style="gap: 8px; width: 100%">
               <v-icon size="30" style="margin-left: 15px">mdi-heart</v-icon>
               <span v-if="!mini" class="icon-mdi">Favorites</span>
             </div>
@@ -261,32 +297,74 @@ const handleDownloadAll = () => {
           </v-list-item>
         </v-list>
       </v-navigation-drawer>
-
       <v-app-bar flat fixed height="64" class="main-color">
-        <!-- Left: Menu + Title -->
-        <div class="left-group d-flex align-center">
-          <v-btn icon @click="toggleDrawer">
-            <v-icon class="icon-size">mdi-menu</v-icon>
-          </v-btn>
-          <h1 class="app-title">Guitar Song</h1>
-        </div>
+        <template v-if="!showSearch">
+          <!-- Menu + Title -->
+          <div class="left-group d-flex align-center">
+            <v-btn icon @click="toggleDrawer">
+              <v-icon class="icon-size">mdi-menu</v-icon>
+            </v-btn>
+            <h1 class="app-title">Guitar Song</h1>
+          </div>
 
-        <!-- Right: Icon Group -->
-        <div class="icon-group-fixed d-flex align-center">
-          <v-btn icon class="icon-margin">
-            <v-icon class="icon-size">mdi-magnify</v-icon>
-          </v-btn>
-          <v-btn icon class="icon-margin">
-            <v-icon class="rotate-position icon-size icon-margin">mdi-reload</v-icon>
-          </v-btn>
-          <v-btn icon class="icon-margin">
-            <v-icon class="icon-size">mdi-dots-vertical</v-icon>
-          </v-btn>
-        </div>
+          <!-- Icon group -->
+          <div class="icon-group-fixed d-flex align-center">
+            <v-btn icon class="icon-margin" @click="showSearch = true">
+              <v-icon class="icon-size">mdi-magnify</v-icon>
+            </v-btn>
+
+            <v-btn icon class="icon-margin">
+              <v-icon class="rotate-position icon-size">mdi-reload</v-icon>
+            </v-btn>
+
+            <v-menu offset-y>
+              <template #activator="{ props }">
+                <v-btn icon v-bind="props" class="icon-margin">
+                  <v-icon class="icon-size">mdi-dots-vertical</v-icon>
+                </v-btn>
+              </template>
+
+              <v-list class="menu-list">
+                <v-list-item>
+                  <v-list-item-title>Song Language</v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>View</v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>Help</v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>Disable</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
+        </template>
+
+        <template v-else>
+          <!-- Overlay Search Bar -->
+          <v-text-field
+            v-model="searchQuery"
+            autofocus
+            flat
+            hide-details
+            placeholder="Search..."
+            prepend-inner-icon="mdi-magnify"
+            append-inner-icon="mdi-close"
+            @click:append-inner="
+              () => {
+                showSearch = false
+                searchQuery = ''
+              }
+            "
+            class="search-overlay-bar"
+          />
+        </template>
       </v-app-bar>
 
       <!--main diri-->
-        <v-main>
+      <v-main>
         <div class="top-button-bar d-flex justify-center align-center w-100">
           <v-btn
             class="mx-2 rounded-xl btn-color"
@@ -308,110 +386,47 @@ const handleDownloadAll = () => {
         </div>
 
         <!--for artists only-->
-
+        <!--for artists only-->
         <div class="scroll-area" v-if="currentView === 'artists'">
           <v-container class="pa-4 mt-16">
             <v-row>
-              <!-- Box 1 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <router-link to="/gagaview" style="text-decoration: none">
+              <v-col
+                v-for="(artist, index) in filteredArtists"
+                :key="index"
+                cols="6"
+                sm="6"
+                md="4"
+                lg="3"
+                xl="3"
+              >
+                <router-link :to="artist.route || '#'" style="text-decoration: none">
                   <v-card class="pa-4 text-center artists-container">
-                    <div class="img-rounded"><img src="/image/gaga.jpg" alt="" /></div>
-                    <span>Lady Gaga</span>
+                    <div class="img-rounded">
+                      <img :src="artist.image" alt="" />
+                    </div>
+                    <span>{{ artist.name }}</span>
                   </v-card>
                 </router-link>
-              </v-col>
-
-              <!-- Box 2 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 3 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/taylor.jpg" alt="" /></div>
-                  <span>Taylor Swift</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 4 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/ed.jpg" alt="" /></div>
-                  <span>Ed Sheeran</span>
-                </v-card>
-              </v-col>
-              <!-- Box 5 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/gomez.jpg" alt="" /></div>
-                  <span>Selena Gomez</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 6 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/grande.jpg" alt="" /></div>
-                  <span>Ariana Grande</span>
-                </v-card>
               </v-col>
             </v-row>
           </v-container>
         </div>
-
         <!--for songs only-->
         <div class="scroll-area" v-if="currentView === 'songs'">
           <v-container class="pa-4 mt-16">
             <v-row>
-              <!-- Box 1 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
+              <v-col
+                v-for="(song, index) in filteredSongs"
+                :key="index"
+                cols="6"
+                sm="6"
+                md="4"
+                lg="3"
+                xl="3"
+              >
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>10000 Reasons</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 2 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>25 Minutes</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 3 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>A Thousand Years</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 4 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Best Part</span>
-                </v-card>
-              </v-col>
-              <!-- Box 5 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Everglow</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 6 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Heather</span>
+                  <div class="img-rounded"><img :src="song.image" alt="" /></div>
+                  <span>{{ song.name }}</span>
                 </v-card>
               </v-col>
             </v-row>
@@ -907,6 +922,30 @@ body,
   width: 100%;
   max-width: 100%;
   white-space: normal;
+}
+/*for search */
+.overlay-search {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  right: 10px;
+  z-index: 1000;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  max-width: 100%;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 30px; /* Adjust based on your layout */
+  right: 10px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 12px;
+  z-index: 1001;
+  font-size: 14px;
+  min-width: 150px;
 }
 
 /* Tablet and below (≤768px) */
