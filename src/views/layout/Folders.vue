@@ -101,7 +101,12 @@ onBeforeUnmount(() => {
             @click="isMobile && (drawer = false)"
           >
             <div class="d-flex align-center" style="gap: 8px; width: 100%">
-              <v-icon size="30" style="margin-left: 15px">mdi-server</v-icon>
+              <iconify-icon
+                icon="fluent:storage-32-filled"
+                width="32"
+                height="32"
+                style="margin-left: 15px"
+              ></iconify-icon>
               <span v-if="!mini" class="icon-mdi">Folders</span>
             </div>
           </v-list-item>

@@ -211,8 +211,10 @@ onMounted(() => {
     favoriteSongs.value = JSON.parse(stored)
     isFavorited.value = favoriteSongs.value.some((song) => song.title === 'Alejandro')
   }
-})
 
+  // optional default render position
+  iconPosition.value = 'bottom'
+})
 const toggleFavorite = () => {
   isFavorited.value = !isFavorited.value
 
@@ -231,6 +233,57 @@ const toggleFavorite = () => {
 
   localStorage.setItem('favoriteSongs', JSON.stringify(favoriteSongs.value))
 }
+const showPositionPicker = ref(false)
+
+const setIconPosition = (position) => {
+  iconPosition.value = position
+  showPositionPicker.value = false // hide after selecting
+}
+
+const iconPosition = ref('bottom') // default position
+
+const iconDirectionClass = computed(() => {
+  return ['top', 'bottom'].includes(iconPosition.value) ? 'horizontal-icons' : 'vertical-icons'
+})
+
+const iconPositionStyles = computed(() => {
+  switch (iconPosition.value) {
+    case 'top':
+      return {
+        top: '20px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        bottom: 'auto',
+        right: 'auto',
+      }
+    case 'right':
+      return {
+        top: '50%',
+        right: '20px',
+        transform: 'translateY(-50%)',
+        bottom: 'auto',
+        left: 'auto',
+      }
+    case 'bottom':
+      return {
+        bottom: '20px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        top: 'auto',
+        right: 'auto',
+      }
+    case 'left':
+      return {
+        top: '50%',
+        left: '20px',
+        transform: 'translateY(-50%)',
+        bottom: 'auto',
+        right: 'auto',
+      }
+    default:
+      return {}
+  }
+})
 </script>
 
 <template class="main-template">
@@ -259,9 +312,64 @@ const toggleFavorite = () => {
           <v-btn icon class="icon-margin">
             <v-icon class="icon-margin">mdi-reload</v-icon>
           </v-btn>
-          <v-btn icon class="icon-margin">
-            <v-icon class="icon-margin">mdi-dots-vertical</v-icon>
-          </v-btn>
+          <v-menu offset-y>
+            <template #activator="{ props }">
+              <v-btn icon v-bind="props" class="icon-margin">
+                <v-icon class="icon-size">mdi-dots-vertical</v-icon>
+              </v-btn>
+            </template>
+
+            <v-list class="menu-list">
+              <v-list-group value="Preference">
+                <template #activator="{ props }">
+                  <v-list-item v-bind="props">
+                    <v-list-item-title>Preference</v-list-item-title>
+                  </v-list-item>
+                </template>
+
+                <v-list-item
+                  @click="setIconPosition('top')"
+                  :class="{ 'active-position': iconPosition === 'top' }"
+                >
+                  <v-list-item-title>Top</v-list-item-title>
+                </v-list-item>
+
+                <v-list-item
+                  @click="setIconPosition('bottom')"
+                  :class="{ 'active-position': iconPosition === 'bottom' }"
+                >
+                  <v-list-item-title>Bottom</v-list-item-title>
+                </v-list-item>
+
+                <v-list-item
+                  @click="setIconPosition('left')"
+                  :class="{ 'active-position': iconPosition === 'left' }"
+                >
+                  <v-list-item-title>Left</v-list-item-title>
+                </v-list-item>
+
+                <v-list-item
+                  @click="setIconPosition('right')"
+                  :class="{ 'active-position': iconPosition === 'right' }"
+                >
+                  <v-list-item-title>Right</v-list-item-title>
+                </v-list-item>
+              </v-list-group>
+
+              <v-list-item>
+                <v-list-item-title>Song Language</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>View</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>Help</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>Disable</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </div>
       </v-app-bar>
 
@@ -270,7 +378,7 @@ const toggleFavorite = () => {
         <div class="lyrics-container pa-6" ref="lyricsContainer">
           <div class="lyrics" v-html="formattedLyrics"></div>
           <!-- Fixed button group -->
-          <div class="fixed-footer-icons">
+          <div class="fixed-footer-icons" :class="iconDirectionClass" :style="iconPositionStyles">
             <v-btn flat class="icon-trans" @click="toggleFavorite">
               <v-icon class="icon-size">
                 {{ isFavorited ? 'mdi-star' : 'mdi-star-outline' }}
@@ -413,18 +521,60 @@ body,
 
 .square-9,
 .icon-size {
-  font-size: 50px;
+  font-size: clamp(24px, 4vw, 50px);
 }
 
 .fixed-footer-icons {
   position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 12px;
-  padding: 8px 16px;
-  border-radius: 12px;
   z-index: 1000;
+  background-color: transparent;
+  padding: 8px 12px;
+  border-radius: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  max-width: 90vw;
 }
+
+.horizontal-icons {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.vertical-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.position-picker {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background-color: #fff;
+  padding: 12px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.active-position {
+  background-color: #ca9b5e !important;
+  color: white !important;
+  font-weight: bold;
+}
+@media (max-width: 600px) {
+  .fixed-footer-icons {
+    padding: 6px 8px;
+    gap: 8px;
+  }
+
+  .icon-size {
+    font-size: 32px;
+  }
+}
+
 </style>

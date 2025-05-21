@@ -322,7 +322,7 @@ const suggestionSongs = [
             @click="isMobile && (drawer = false)"
           >
             <div class="d-flex align-center" style="gap: 8px; width: 100%">
-              <v-icon size="30" style="margin-left: 15px">mdi-server</v-icon>
+              <iconify-icon icon="fluent:storage-32-filled" width="32" height="32" style="margin-left: 15px"></iconify-icon>
               <span v-if="!mini" class="icon-mdi">Folders</span>
             </div>
           </v-list-item>
@@ -389,16 +389,19 @@ const suggestionSongs = [
 
               <v-list class="menu-list">
                 <v-list-item>
-                  <v-list-item-title>Song Language</v-list-item-title>
+                  <div><v-list-item-title>Preference</v-list-item-title></div>
                 </v-list-item>
                 <v-list-item>
-                  <v-list-item-title>View</v-list-item-title>
+                  <div><v-list-item-title>Song Language</v-list-item-title></div>
                 </v-list-item>
                 <v-list-item>
-                  <v-list-item-title>Help</v-list-item-title>
+                  <div><v-list-item-title>View</v-list-item-title></div>
                 </v-list-item>
                 <v-list-item>
-                  <v-list-item-title>Disable</v-list-item-title>
+                  <div><v-list-item-title>Help</v-list-item-title></div>
+                </v-list-item>
+                <v-list-item>
+                  <div><v-list-item-title>Disable</v-list-item-title></div>
                 </v-list-item>
               </v-list>
             </v-menu>
