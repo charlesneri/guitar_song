@@ -190,7 +190,7 @@ onBeforeUnmount(() => {
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
+                  <span>LAdy Gaga</span>
                 </v-card>
               </v-col>
 

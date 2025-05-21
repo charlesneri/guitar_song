@@ -277,7 +277,7 @@ const handleDownloadAll = () => {
       </v-app-bar>
 
       <!--main diri-->
-      <v-main>
+        <v-main>
         <div class="top-button-bar d-flex justify-center align-center w-100">
           <v-btn
             class="mx-2 rounded-xl btn-color"
@@ -362,7 +362,7 @@ const handleDownloadAll = () => {
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
+                  <span>Lady Gaga</span>
                 </v-card>
               </v-col>
 
