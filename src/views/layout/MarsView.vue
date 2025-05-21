@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
-const showMoreOptions = ref(false)
 const drawer = ref(false)
 const mini = ref(false)
 const isMobile = ref(false)
@@ -34,18 +33,10 @@ const openSuggestions = () => {
   showCheckConnection.value = false
   showSuggestions.value = true
 }
-onMounted(() => {
-  updateDrawerSettings()
-  window.addEventListener('resize', updateDrawerSettings)
 
-  // Show dialog only if not shown before in this session
-  if (!sessionStorage.getItem('hasShownDialog')) {
-    setTimeout(() => {
-      showCheckConnection.value = true
-      sessionStorage.setItem('hasShownDialog', 'true')
-    }, 1000)
-  }
-})
+setTimeout(() => {
+  showCheckConnection.value = true
+}, 1000)
 
 // audio control
 const currentAudio = ref(null)
@@ -135,42 +126,6 @@ const handleDownloadAll = () => {
   snackbar.value = true
   showSuggestions.value = false
 }
-
-// fro search
-const showSearch = ref(false)
-const searchQuery = ref('')
-import { computed } from 'vue'
-
-// Example filteredArtists (modify this to match your artist data source)
-const artists = [
-  { name: 'Lady Gaga', image: '/image/gaga.jpg', route: '/gagaview' },
-  { name: 'Bruno Mars', image: '/image/bruno.jpg', route: '/marsview' },
-  { name: 'Taylor Swift', image: '/image/taylor.jpg' },
-  { name: 'Ed Sheeran', image: '/image/ed.jpg' },
-  { name: 'Selena Gomez', image: '/image/gomez.jpg' },
-  { name: 'Ariana Grande', image: '/image/grande.jpg' },
-]
-const songs = ref([
-  { name: '10000 Reasons', image: '/image/bini.jpg' },
-  { name: '25 Minutes', image: '/image/bini.jpg' },
-  { name: 'A Thousand Years', image: '/image/bini.jpg' },
-  { name: 'Best Part', image: '/image/bini.jpg' },
-  { name: 'Everglow', image: '/image/bini.jpg' },
-  { name: 'Heather', image: '/image/bini.jpg' },
-])
-
-const filteredArtists = computed(() => {
-  if (!searchQuery.value) return artists
-  return artists.filter((artist) =>
-    artist.name.toLowerCase().includes(searchQuery.value.toLowerCase()),
-  )
-})
-const filteredSongs = computed(() => {
-  if (!searchQuery.value) return songs.value
-  return songs.value.filter((song) =>
-    song.name.toLowerCase().includes(searchQuery.value.toLowerCase()),
-  )
-})
 </script>
 
 <template class="main-template">
@@ -194,7 +149,7 @@ const filteredSongs = computed(() => {
 
         <v-list nav dense>
           <v-list-item
-            :to="'/'"
+            :to="'/home'"
             class="font-color-nav"
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
@@ -206,7 +161,7 @@ const filteredSongs = computed(() => {
           </v-list-item>
 
           <v-list-item
-            :to="'/favorites'"
+            :to="'/profile'"
             class="font-color-nav"
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
@@ -248,8 +203,8 @@ const filteredSongs = computed(() => {
             @click="isMobile && (drawer = false)"
           >
             <div class="d-flex align-center" style="gap: 8px; width: 100%">
-              <v-icon size="30" style="margin-left: 15px">mdi-play</v-icon>
-              <span v-if="!mini" class="icon-mdi">Setlists</span>
+              <v-icon size="30" style="margin-left: 15px">mdi-information-outline</v-icon>
+              <span v-if="!mini" class="icon-mdi">About Us</span>
             </div>
           </v-list-item>
           <v-list-item
@@ -297,311 +252,91 @@ const filteredSongs = computed(() => {
           </v-list-item>
         </v-list>
       </v-navigation-drawer>
+
       <v-app-bar flat fixed height="64" class="main-color">
-        <template v-if="!showSearch">
-          <!-- Menu + Title -->
-          <div class="left-group d-flex align-center">
-            <v-btn icon @click="toggleDrawer">
-              <v-icon class="icon-size">mdi-menu</v-icon>
-            </v-btn>
-            <h1 class="app-title">Guitar Song</h1>
-          </div>
+        <!-- Left: Menu + Title -->
+        <div class="left-group d-flex align-center">
+          <v-btn icon @click="toggleDrawer">
+            <v-icon class="icon-size">mdi-menu</v-icon>
+          </v-btn>
+          <h1 class="app-title">Guitar Song</h1>
+        </div>
 
-          <!-- Icon group -->
-          <div class="icon-group-fixed d-flex align-center">
-            <v-btn icon class="icon-margin" @click="showSearch = true">
-              <v-icon class="icon-size">mdi-magnify</v-icon>
-            </v-btn>
-
-            <v-btn icon class="icon-margin">
-              <v-icon class="rotate-position icon-size">mdi-reload</v-icon>
-            </v-btn>
-
-            <v-menu offset-y>
-              <template #activator="{ props }">
-                <v-btn icon v-bind="props" class="icon-margin">
-                  <v-icon class="icon-size">mdi-dots-vertical</v-icon>
-                </v-btn>
-              </template>
-
-              <v-list class="menu-list">
-                <v-list-item>
-                  <v-list-item-title>Song Language</v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>View</v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>Help</v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>Disable</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </div>
-        </template>
-
-        <template v-else>
-          <!-- Overlay Search Bar -->
-          <v-text-field
-            v-model="searchQuery"
-            autofocus
-            flat
-            hide-details
-            placeholder="Search..."
-            prepend-inner-icon="mdi-magnify"
-            append-inner-icon="mdi-close"
-            @click:append-inner="
-              () => {
-                showSearch = false
-                searchQuery = ''
-              }
-            "
-            class="search-overlay-bar"
-          />
-        </template>
+        <!-- Right: Icon Group -->
+        <div class="icon-group-fixed d-flex align-center">
+          <v-btn icon class="icon-margin">
+            <v-icon class="icon-size">mdi-magnify</v-icon>
+          </v-btn>
+          <v-btn icon class="icon-margin">
+            <v-icon class="rotate-position icon-size icon-margin">mdi-reload</v-icon>
+          </v-btn>
+          <v-btn icon class="icon-margin">
+            <v-icon class="icon-size">mdi-dots-vertical</v-icon>
+          </v-btn>
+        </div>
       </v-app-bar>
 
       <!--main diri-->
       <v-main>
-        <div class="top-button-bar d-flex justify-center align-center w-100">
-          <v-btn
-            class="mx-2 rounded-xl btn-color"
-            :class="[currentView === 'artists' ? 'tab-active' : 'tab-inactive']"
-            :variant="currentView === 'artists' ? 'flat' : 'text'"
-            @click="currentView = 'artists'"
-          >
-            <b>Artists</b>
-          </v-btn>
-
-          <v-btn
-            class="mx-2 rounded-xl btn-color"
-            :class="[currentView === 'songs' ? 'tab-active' : 'tab-inactive']"
-            :variant="currentView === 'songs' ? 'flat' : 'text'"
-            @click="currentView = 'songs'"
-          >
-            <b>Songs</b>
-          </v-btn>
-        </div>
-
-        <!--for artists only-->
-
-        <div class="scroll-area" v-if="currentView === 'artists'">
-          <v-container class="pa-4 mt-16">
-            <v-row>
-              <v-col
-                v-for="(artist, index) in filteredArtists"
-                :key="index"
-                cols="6"
-                sm="6"
-                md="4"
-                lg="3"
-                xl="3"
-              >
-                <router-link :to="artist.route || '#'" style="text-decoration: none">
-                  <v-card class="pa-4 text-center artists-container">
-                    <div class="img-rounded">
-                      <img :src="artist.image" alt="" />
-                    </div>
-                    <span>{{ artist.name }}</span>
-                  </v-card>
-                </router-link>
-              </v-col>
-            </v-row>
-          </v-container>
-        </div>
         <!--for songs only-->
-        <div class="scroll-area" v-if="currentView === 'songs'">
-          <v-container class="pa-4 mt-16">
+        <div class="scroll-area">
+          <v-container class="pa-4">
+            <div class="mb-4 font-weight-bold">Bruno Mars Songs</div>
             <v-row>
-              <v-col
-                v-for="(song, index) in filteredSongs"
-                :key="index"
-                cols="6"
-                sm="6"
-                md="4"
-                lg="3"
-                xl="3"
-              >
+              <!-- Box 1 -->
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img :src="song.image" alt="" /></div>
-                  <span>{{ song.name }}</span>
+                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
+                  <span>24k Magic</span>
+                </v-card>
+              </v-col>
+
+              <!-- Box 2 -->
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
+                  <span>Billionaire</span>
+                </v-card>
+              </v-col>
+
+              <!-- Box 3 -->
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
+                  <span>Bloody Mary</span>
+                </v-card>
+              </v-col>
+
+              <!-- Box 4 -->
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
+                  <span>Edge of Glory</span>
+                </v-card>
+              </v-col>
+              <!-- Box 5 -->
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
+                  <span>Joanne</span>
+                </v-card>
+              </v-col>
+
+              <!-- Box 6 -->
+              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
+                <v-card class="pa-4 text-center artists-container">
+                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
+                  <span>Million Reasons</span>
                 </v-card>
               </v-col>
             </v-row>
+            <v-row justify="center" class="mt-16">
+              <v-btn class="mx-2 rounded-xl btn-color" to="/" exact active-class="my-active-class">
+                <b>Back</b>
+              </v-btn>
+            </v-row>
           </v-container>
         </div>
-
-        <!--for internet-->
-        <v-dialog
-          v-model="showCheckConnection"
-          persistent
-          scroll-strategy="none"
-          content-class="centered-dialog-wrapper"
-          scrim="rgba(0, 0, 0, 0.7)"
-        >
-          <v-card class="hidden-card-shell">
-            <v-sheet class="perfect-square-sheet">
-              <div class="dialog-body">
-                <h2 class="dialog-title">Check for Internet<br />Connection</h2>
-              </div>
-
-              <div class="dialog-actions">
-                <v-btn
-                  class="btn-pill btn-no"
-                  variant="outlined"
-                  @click="showCheckConnection = false"
-                >
-                  No
-                </v-btn>
-                <v-btn class="btn-pill btn-yes" variant="outlined" @click="openSuggestions">
-                  Yes
-                </v-btn>
-              </div>
-            </v-sheet>
-          </v-card>
-        </v-dialog>
-
-        <!-- Song Suggestions Dialog -->
-        <v-dialog
-          v-model="showSuggestions"
-          max-width="90vw"
-          scrollable
-          scrim="rgba(0, 0, 0, 0.7)"
-          content-class="suggestion-dialog-wrapper"
-        >
-          <v-card class="pa-4 suggestion-dialog" color="#3C1213">
-            <v-card-title class="responsive-title">
-              <b class="responsive-text">
-                Here are some recommended <br />
-                songs based on Your Favorites:
-              </b>
-            </v-card-title>
-
-            <v-divider thickness="2"></v-divider>
-            <v-card-text class="mb-16 pb-16">
-              <!--song 1-->
-              <div class="song-entry">
-                <div class="song-info">
-                  <div class="song-title">Cardigan</div>
-                  <div class="artist-name">Taylor Swift</div>
-                </div>
-                <div class="song-actions">
-                  <v-btn flat class="btn-no-color" @click="toggleAudio(0, '/audio/cardigan.mp3')">
-                    <v-icon>{{ isPlaying(0) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
-                  </v-btn>
-                  <v-btn flat class="btn-no-color">
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
-                </div>
-              </div>
-
-              <!--song 2-->
-              <div class="song-entry">
-                <div class="song-info">
-                  <div class="song-title">Ceilings</div>
-                  <div class="artist-name">Lizzy McAlpine</div>
-                </div>
-                <div class="song-actions">
-                  <v-btn flat class="btn-no-color" @click="toggleAudio(1, '/audio/ceilings.mp3')">
-                    <v-icon>{{ isPlaying(1) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
-                  </v-btn>
-                  <v-btn flat class="btn-no-color">
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
-                </div>
-              </div>
-
-              <!--song 3-->
-              <div class="song-entry">
-                <div class="song-info">
-                  <div class="song-title">Die With A Smile</div>
-                  <div class="artist-name">Lady Gaga, Bruno Mars</div>
-                </div>
-                <div class="song-actions">
-                  <v-btn flat class="btn-no-color" @click="toggleAudio(2, '/audio/lady gaga.mp3')">
-                    <v-icon>{{ isPlaying(2) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
-                  </v-btn>
-                  <v-btn flat class="btn-no-color">
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
-                </div>
-              </div>
-
-              <!--song 4-->
-              <div class="song-entry">
-                <div class="song-info">
-                  <div class="song-title">Good Luck Babe!</div>
-                  <div class="artist-name">Chappell Roan</div>
-                </div>
-                <div class="song-actions">
-                  <v-btn flat class="btn-no-color" @click="toggleAudio(3, '/audio/goodluck.mp3')">
-                    <v-icon>{{ isPlaying(3) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
-                  </v-btn>
-                  <v-btn flat class="btn-no-color">
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
-                </div>
-              </div>
-
-              <!--song 5-->
-              <div class="song-entry">
-                <div class="song-info">
-                  <div class="song-title">Slim Pickins</div>
-                  <div class="artist-name">Sabrina Carpenter</div>
-                </div>
-                <div class="song-actions">
-                  <v-btn flat class="btn-no-color" @click="toggleAudio(4, '/audio/slim.mp3')">
-                    <v-icon>{{ isPlaying(4) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
-                  </v-btn>
-                  <v-btn flat class="btn-no-color">
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
-                </div>
-              </div>
-            </v-card-text>
-
-            <v-card-actions class="d-flex justify-end suggest-dialog-btn">
-              <v-btn variant="text" @click="handleBack">Back</v-btn>
-
-              <v-btn color="success" variant="flat" @click="handleDownloadAll">
-                Download All
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-        <!--confirmation dialog-->
-        <v-dialog
-          v-model="showConfirmExitDialog"
-          persistent
-          scroll-strategy="none"
-          content-class="centered-dialog-wrapper"
-          scrim="rgba(0, 0, 0, 0.7)"
-        >
-          <v-card class="hidden-card-shell">
-            <v-sheet class="perfect-square-sheet">
-              <div class="dialog-body">
-                <h2 class="dialog-title">
-                  Are you sure you want to go back?<br />
-                  These recommended songs will not appear again.
-                </h2>
-              </div>
-
-              <div class="dialog-actions">
-                <v-btn class="btn-pill btn-no" variant="outlined" @click="cancelExit">No</v-btn>
-                <v-btn class="btn-pill btn-yes" variant="outlined" @click="confirmExit">Yes</v-btn>
-              </div>
-            </v-sheet>
-          </v-card>
-        </v-dialog>
-        <!--download all snackbar -->
-        <v-snackbar v-model="snackbar" timeout="3000" color="success" location="top" elevation="4">
-          {{ snackbarText }}
-        </v-snackbar>
-
-        <!--for audio-->
-        <audio ref="audioPlayer" src="/audio/lady gaga.mp3" preload="auto" />
       </v-main>
     </v-app>
   </v-responsive>
@@ -674,9 +409,15 @@ const filteredSongs = computed(() => {
   box-shadow: none !important;
 }
 .btn-color {
-  background-image: url('/public/image/btn-color.png'); /* Ensure the path is correct relative to your project structure */
+  background-image: url('/image/btn-color.png'); /* remove /public if you're in Vue/Vite */
+  background-size: cover;
+  background-repeat: no-repeat;
   opacity: 1;
+  width: 25%;
+  max-width: 250px; /* limit max width for large screens */
+  min-width: 150px; /* ensure it doesn't get too small */
 }
+
 .rotate-position {
   transform: rotate(-90deg); /* or 90deg */
   transform-origin: center;
@@ -922,30 +663,6 @@ body,
   width: 100%;
   max-width: 100%;
   white-space: normal;
-}
-/*for search */
-.overlay-search {
-  position: absolute;
-  top: 8px;
-  left: 10px;
-  right: 10px;
-  z-index: 1000;
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  max-width: 100%;
-}
-.dropdown-menu {
-  position: absolute;
-  top: 30px; /* Adjust based on your layout */
-  right: 10px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  padding: 12px;
-  z-index: 1001;
-  font-size: 14px;
-  min-width: 150px;
 }
 
 /* Tablet and below (≤768px) */

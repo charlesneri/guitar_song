@@ -9,6 +9,7 @@ import Setlists from '@/views/layout/Setlists.vue'
 import Settings from '@/views/layout/Settings.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import GagaView from '@/views/layout/GagaView.vue'
+import MarsView from '@/views/layout/MarsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,47 +24,51 @@ const router = createRouter({
       name: 'GagaView',
       component: GagaView,
     },
-      {
-     path: '/favorites',
-     name: 'favorites',
-    component: Favorites,
+    {
+      path: '/marsview',
+      name: 'MarsView',
+      component: MarsView,
     },
-       {
-     path: '/mysongs',
-     name: 'mysongs',
-    component: Mysongs,
+    {
+      path: '/favorites',
+      name: 'favorites',
+      component: Favorites,
     },
-       {
-     path: '/setlists',
-     name: 'setlists',
-    component:Setlists ,
+    {
+      path: '/mysongs',
+      name: 'mysongs',
+      component: Mysongs,
     },
-       {
-     path: '/history',
-     name: 'history',
-    component: History,
+    {
+      path: '/setlists',
+      name: 'setlists',
+      component: Setlists,
     },
-       {
-     path: '/folders',
-     name: 'folders',
-    component: Folders,
+    {
+      path: '/history',
+      name: 'history',
+      component: History,
     },
-       {
-     path: '/chords',
-     name: 'chords',
-    component: Chords,
+    {
+      path: '/folders',
+      name: 'folders',
+      component: Folders,
     },
-       {
-     path: '/settings',
-     name: 'settings',
-    component: Settings,
+    {
+      path: '/chords',
+      name: 'chords',
+      component: Chords,
     },
-       {
-     path: '/faq',
-     name: 'faq',
-    component: Faq,
+    {
+      path: '/settings',
+      name: 'settings',
+      component: Settings,
     },
-   
+    {
+      path: '/faq',
+      name: 'faq',
+      component: Faq,
+    },
   ],
 })
 
