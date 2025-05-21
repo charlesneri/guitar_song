@@ -386,7 +386,7 @@ const filteredSongs = computed(() => {
         </div>
 
         <!--for artists only-->
-        <!--for artists only-->
+   
         <div class="scroll-area" v-if="currentView === 'artists'">
           <v-container class="pa-4 mt-16">
             <v-row>

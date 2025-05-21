@@ -24,6 +24,29 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener('resize', updateDrawerSettings)
 })
+
+//for search
+const showSearch = ref(false)
+const searchQuery = ref('')
+import { computed } from 'vue'
+
+const favoriteArtists = ref([
+  { name: 'Lady Gaga', image: '/image/gaga.jpg' },
+  { name: 'Bruno Mars', image: '/image/bruno.jpg' },
+  { name: 'Charles Neri', image: '/image/ed.jpg' },
+  { name: 'Nikki Margarette', image: '/image/ed.jpg' },
+  { name: 'James Bongato', image: '/image/ed.jpg' },
+  { name: 'Nel Ochate', image: '/image/ed.jpg' },
+
+  // Add more if needed
+])
+
+const filteredFavorites = computed(() => {
+  if (!searchQuery.value) return favoriteArtists.value
+  return favoriteArtists.value.filter((artist) =>
+    artist.name.toLowerCase().includes(searchQuery.value.toLowerCase()),
+  )
+})
 </script>
 
 <template class="main-template">
@@ -146,7 +169,6 @@ onBeforeUnmount(() => {
             class="font-color-nav"
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
-         
           >
             <div class="d-flex align-center" style="gap: 8px; width: 100%">
               <v-icon size="30" style="margin-left: 15px"> mdi-help</v-icon>
@@ -155,28 +177,70 @@ onBeforeUnmount(() => {
           </v-list-item>
         </v-list>
       </v-navigation-drawer>
-
       <v-app-bar flat fixed height="64" class="main-color">
-        <!-- Left: Menu + Title -->
-        <div class="left-group d-flex align-center">
-          <v-btn icon @click="toggleDrawer">
-            <v-icon class="icon-size">mdi-menu</v-icon>
-          </v-btn>
-          <h1 class="app-title">Favorites</h1>
-        </div>
+        <template v-if="!showSearch">
+          <!-- Menu + Title -->
+          <div class="left-group d-flex align-center">
+            <v-btn icon @click="toggleDrawer">
+              <v-icon class="icon-size">mdi-menu</v-icon>
+            </v-btn>
+            <h1 class="app-title">Favorites</h1>
+          </div>
 
-        <!-- Right: Icon Group -->
-        <div class="icon-group-fixed d-flex align-center">
-          <v-btn icon class="icon-margin">
-            <v-icon class="icon-size">mdi-magnify</v-icon>
-          </v-btn>
-          <v-btn icon class="icon-margin">
-            <v-icon class="icon-size icon-margin">mdi-share-variant-outline</v-icon>
-          </v-btn>
-          <v-btn icon class="icon-margin">
-            <v-icon class="icon-size">mdi-dots-vertical</v-icon>
-          </v-btn>
-        </div>
+          <!-- Icon group -->
+          <div class="icon-group-fixed d-flex align-center">
+            <v-btn icon class="icon-margin" @click="showSearch = true">
+              <v-icon class="icon-size">mdi-magnify</v-icon>
+            </v-btn>
+            <v-btn icon class="icon-margin">
+              <v-icon class="icon-size">mdi-share-variant-outline</v-icon>
+            </v-btn>
+
+            <v-menu offset-y>
+              <template #activator="{ props }">
+                <v-btn icon v-bind="props" class="icon-margin">
+                  <v-icon class="icon-size">mdi-dots-vertical</v-icon>
+                </v-btn>
+              </template>
+
+              <v-list class="menu-list">
+                <v-list-item>
+                  <v-list-item-title>Song Language</v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>View</v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>Help</v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>Disable</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
+        </template>
+
+        <template v-else>
+          <!-- Overlay Search Bar -->
+          <v-text-field
+            v-model="searchQuery"
+            autofocus
+            flat
+            hide-details
+            placeholder="Search favorites..."
+            prepend-inner-icon="mdi-magnify"
+            append-inner-icon="mdi-close"
+            @click:append-inner="
+              () => {
+                showSearch = false
+                searchQuery = ''
+              }
+            "
+            class="search-overlay-bar"
+            style="width: 100%; margin: 0 10px"
+          />
+        </template>
       </v-app-bar>
 
       <!--main diri-->
@@ -187,49 +251,20 @@ onBeforeUnmount(() => {
           <v-container class="pa-4 mt-5">
             <v-row>
               <!-- Box 1 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
+              <v-col
+                v-for="(artist, index) in filteredFavorites"
+                :key="index"
+                cols="6"
+                sm="6"
+                md="4"
+                lg="3"
+                xl="3"
+              >
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>LAdy Gaga</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 2 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 3 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 4 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
-                </v-card>
-              </v-col>
-              <!-- Box 5 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 6 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
+                  <div class="img-rounded">
+                    <img :src="artist.image" alt="" />
+                  </div>
+                  <span>{{ artist.name }}</span>
                 </v-card>
               </v-col>
             </v-row>
