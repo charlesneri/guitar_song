@@ -149,24 +149,24 @@ const handleDownloadAll = () => {
 
         <v-list nav dense>
           <v-list-item
-            :to="'/'"
+            :to="'/home'"
             class="font-color-nav"
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
           >
-            <div class="d-flex align-center"  style="gap: 8px; width: 100%">
+            <div class="d-flex align-center" style="gap: 8px; width: 100%">
               <v-icon size="30" style="margin-left: 15px">mdi-format-list-bulleted</v-icon>
               <span v-if="!mini" class="icon-mdi">Song Lists</span>
             </div>
           </v-list-item>
 
           <v-list-item
-            :to="'/favorites'"
+            :to="'/profile'"
             class="font-color-nav"
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
           >
-            <div class="d-flex align-center"  style="gap: 8px; width: 100%">
+            <div class="d-flex align-center" style="gap: 8px; width: 100%">
               <v-icon size="30" style="margin-left: 15px">mdi-heart</v-icon>
               <span v-if="!mini" class="icon-mdi">Favorites</span>
             </div>
@@ -203,8 +203,8 @@ const handleDownloadAll = () => {
             @click="isMobile && (drawer = false)"
           >
             <div class="d-flex align-center" style="gap: 8px; width: 100%">
-              <v-icon size="30" style="margin-left: 15px">mdi-play</v-icon>
-              <span v-if="!mini" class="icon-mdi">Setlists</span>
+              <v-icon size="30" style="margin-left: 15px">mdi-information-outline</v-icon>
+              <span v-if="!mini" class="icon-mdi">About Us</span>
             </div>
           </v-list-item>
           <v-list-item
@@ -277,93 +277,17 @@ const handleDownloadAll = () => {
       </v-app-bar>
 
       <!--main diri-->
-        <v-main>
-        <div class="top-button-bar d-flex justify-center align-center w-100">
-          <v-btn
-            class="mx-2 rounded-xl btn-color"
-            :class="[currentView === 'artists' ? 'tab-active' : 'tab-inactive']"
-            :variant="currentView === 'artists' ? 'flat' : 'text'"
-            @click="currentView = 'artists'"
-          >
-            <b>Artists</b>
-          </v-btn>
-
-          <v-btn
-            class="mx-2 rounded-xl btn-color"
-            :class="[currentView === 'songs' ? 'tab-active' : 'tab-inactive']"
-            :variant="currentView === 'songs' ? 'flat' : 'text'"
-            @click="currentView = 'songs'"
-          >
-            <b>Songs</b>
-          </v-btn>
-        </div>
-
-        <!--for artists only-->
-
-        <div class="scroll-area" v-if="currentView === 'artists'">
-          <v-container class="pa-4 mt-16">
-            <v-row>
-              <!-- Box 1 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <router-link to="/gagaview" style="text-decoration: none">
-                  <v-card class="pa-4 text-center artists-container">
-                    <div class="img-rounded"><img src="/image/gaga.jpg" alt="" /></div>
-                    <span>Lady Gaga</span>
-                  </v-card>
-                </router-link>
-              </v-col>
-
-              <!-- Box 2 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 3 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/taylor.jpg" alt="" /></div>
-                  <span>Taylor Swift</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 4 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/ed.jpg" alt="" /></div>
-                  <span>Ed Sheeran</span>
-                </v-card>
-              </v-col>
-              <!-- Box 5 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/gomez.jpg" alt="" /></div>
-                  <span>Selena Gomez</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 6 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/grande.jpg" alt="" /></div>
-                  <span>Ariana Grande</span>
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-container>
-        </div>
-
+      <v-main>
         <!--for songs only-->
-        <div class="scroll-area" v-if="currentView === 'songs'">
-          <v-container class="pa-4 mt-16">
+        <div class="scroll-area">
+          <v-container class="pa-4">
+            <div class="mb-4 font-weight-bold">Lady Gaga Songs</div>
             <v-row>
               <!-- Box 1 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>10000 Reasons</span>
+                  <span>Alejandro</span>
                 </v-card>
               </v-col>
 
@@ -371,7 +295,7 @@ const handleDownloadAll = () => {
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>25 Minutes</span>
+                  <span>Bad Romance</span>
                 </v-card>
               </v-col>
 
@@ -379,7 +303,7 @@ const handleDownloadAll = () => {
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>A Thousand Years</span>
+                  <span>Bloody Mary</span>
                 </v-card>
               </v-col>
 
@@ -387,14 +311,14 @@ const handleDownloadAll = () => {
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Best Part</span>
+                  <span>Edge of Glory</span>
                 </v-card>
               </v-col>
               <!-- Box 5 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Everglow</span>
+                  <span>Joanne</span>
                 </v-card>
               </v-col>
 
@@ -402,182 +326,12 @@ const handleDownloadAll = () => {
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Heather</span>
+                  <span>Million Reasons</span>
                 </v-card>
               </v-col>
             </v-row>
           </v-container>
         </div>
-
-        <!--for internet-->
-        <v-dialog
-          v-model="showCheckConnection"
-          persistent
-          scroll-strategy="none"
-          content-class="centered-dialog-wrapper"
-          scrim="rgba(0, 0, 0, 0.7)"
-        >
-          <v-card class="hidden-card-shell">
-            <v-sheet class="perfect-square-sheet">
-              <div class="dialog-body">
-                <h2 class="dialog-title">Check for Internet<br />Connection</h2>
-              </div>
-
-              <div class="dialog-actions">
-                <v-btn
-                  class="btn-pill btn-no"
-                  variant="outlined"
-                  @click="showCheckConnection = false"
-                >
-                  No
-                </v-btn>
-                <v-btn class="btn-pill btn-yes" variant="outlined" @click="openSuggestions">
-                  Yes
-                </v-btn>
-              </div>
-            </v-sheet>
-          </v-card>
-        </v-dialog>
-
-        <!-- Song Suggestions Dialog -->
-        <v-dialog
-          v-model="showSuggestions"
-          max-width="90vw"
-          scrollable
-          scrim="rgba(0, 0, 0, 0.7)"
-          content-class="suggestion-dialog-wrapper"
-        >
-          <v-card class="pa-4 suggestion-dialog" color="#3C1213">
-            <v-card-title class="responsive-title">
-              <b class="responsive-text">
-                Here are some recommended <br />
-                songs based on Your Favorites:
-              </b>
-            </v-card-title>
-
-            <v-divider thickness="2"></v-divider>
-            <v-card-text class="mb-16 pb-16">
-              <!--song 1-->
-              <div class="song-entry">
-                <div class="song-info">
-                  <div class="song-title">Cardigan</div>
-                  <div class="artist-name">Taylor Swift</div>
-                </div>
-                <div class="song-actions">
-                  <v-btn flat class="btn-no-color" @click="toggleAudio(0, '/audio/cardigan.mp3')">
-                    <v-icon>{{ isPlaying(0) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
-                  </v-btn>
-                  <v-btn flat class="btn-no-color">
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
-                </div>
-              </div>
-
-              <!--song 2-->
-              <div class="song-entry">
-                <div class="song-info">
-                  <div class="song-title">Ceilings</div>
-                  <div class="artist-name">Lizzy McAlpine</div>
-                </div>
-                <div class="song-actions">
-                  <v-btn flat class="btn-no-color" @click="toggleAudio(1, '/audio/ceilings.mp3')">
-                    <v-icon>{{ isPlaying(1) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
-                  </v-btn>
-                  <v-btn flat class="btn-no-color">
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
-                </div>
-              </div>
-
-              <!--song 3-->
-              <div class="song-entry">
-                <div class="song-info">
-                  <div class="song-title">Die With A Smile</div>
-                  <div class="artist-name">Lady Gaga, Bruno Mars</div>
-                </div>
-                <div class="song-actions">
-                  <v-btn flat class="btn-no-color" @click="toggleAudio(2, '/audio/lady gaga.mp3')">
-                    <v-icon>{{ isPlaying(2) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
-                  </v-btn>
-                  <v-btn flat class="btn-no-color">
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
-                </div>
-              </div>
-
-              <!--song 4-->
-              <div class="song-entry">
-                <div class="song-info">
-                  <div class="song-title">Good Luck Babe!</div>
-                  <div class="artist-name">Chappell Roan</div>
-                </div>
-                <div class="song-actions">
-                  <v-btn flat class="btn-no-color" @click="toggleAudio(3, '/audio/goodluck.mp3')">
-                    <v-icon>{{ isPlaying(3) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
-                  </v-btn>
-                  <v-btn flat class="btn-no-color">
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
-                </div>
-              </div>
-
-              <!--song 5-->
-              <div class="song-entry">
-                <div class="song-info">
-                  <div class="song-title">Slim Pickins</div>
-                  <div class="artist-name">Sabrina Carpenter</div>
-                </div>
-                <div class="song-actions">
-                  <v-btn flat class="btn-no-color" @click="toggleAudio(4, '/audio/slim.mp3')">
-                    <v-icon>{{ isPlaying(4) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
-                  </v-btn>
-                  <v-btn flat class="btn-no-color">
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
-                </div>
-              </div>
-            </v-card-text>
-
-            <v-card-actions class="d-flex justify-end suggest-dialog-btn">
-              <v-btn variant="text" @click="handleBack">Back</v-btn>
-
-              <v-btn color="success" variant="flat" @click="handleDownloadAll">
-                Download All
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-        <!--confirmation dialog-->
-        <v-dialog
-          v-model="showConfirmExitDialog"
-          persistent
-          scroll-strategy="none"
-          content-class="centered-dialog-wrapper"
-          scrim="rgba(0, 0, 0, 0.7)"
-        >
-          <v-card class="hidden-card-shell">
-            <v-sheet class="perfect-square-sheet">
-              <div class="dialog-body">
-                <h2 class="dialog-title">
-                  Are you sure you want to go back?<br />
-                  These recommended songs will not appear again.
-                </h2>
-              </div>
-
-              <div class="dialog-actions">
-                <v-btn class="btn-pill btn-no" variant="outlined" @click="cancelExit">No</v-btn>
-                <v-btn class="btn-pill btn-yes" variant="outlined" @click="confirmExit">Yes</v-btn>
-              </div>
-            </v-sheet>
-          </v-card>
-        </v-dialog>
-        <!--download all snackbar -->
-        <v-snackbar v-model="snackbar" timeout="3000" color="success" location="top" elevation="4">
-          {{ snackbarText }}
-        </v-snackbar>
-
-        <!--for audio-->
-        <audio ref="audioPlayer" src="/audio/lady gaga.mp3" preload="auto" />
       </v-main>
     </v-app>
   </v-responsive>
