@@ -394,6 +394,7 @@ const handleDownloadAll = () => {
 }
 
 .app-title {
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(1.2rem, 2.5vw, 2rem); /* responsive font size */
   margin-left: 10px;
   color: #000000;
@@ -470,10 +471,26 @@ body,
   padding: 8px 0;
 }
 
+.tc {
+  font-weight: bold;
+  color: #78362a;
+  text-shadow: 0 1px 2px rgba(120, 54, 42, 0.3);
+}
 .artists-container {
   aspect-ratio: 1 / 1;
   border-radius: 16px;
-  background-color: #ddb887;
+  background-image: url('/public/image/bg-wood.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  /* Original varnish color with opacity */
+  background-color: rgba(236, 194, 139, 0.851); /* #ECD5B7 with 50% opacity */
+
+  background-blend-mode: multiply;
+
+  /* Optional slight glassy effect */
+  backdrop-filter: brightness(0.9) saturate(1.05);
 
   display: flex;
   flex-direction: column;
@@ -481,17 +498,15 @@ body,
   justify-content: center;
   overflow: hidden;
   padding: 1rem;
+  cursor: pointer;
   transition: all 0.3s ease;
-  cursor: pointer; /* Makes it clear that it's interactive */
 }
-.tc {
-  font-weight: bold;
-  color: #78362a;
-  text-shadow: 0 1px 2px rgba(120, 54, 42, 0.3);
-}
+
 .artists-container:hover {
-  transform: scale(1.03); /* Slight zoom-in effect */
-  box-shadow: 0 8px 20px rgba(67, 37, 37, 0.5); /* Softer and more visible shadow */
+  background-color: rgba(226, 146, 42, 0.803); /* a bit stronger on hover */
+  backdrop-filter: brightness(0.85) saturate(1.1);
+  box-shadow: 0 8px 20px rgba(172, 145, 102, 0.4);
+  transform: scale(1.03);
 }
 
 .img-rounded img {
