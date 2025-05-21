@@ -131,8 +131,25 @@ const snackbarText = ref('')
 
 const handleDownloadAll = () => {
   stopAudio()
+
+  // Add all suggestion songs to favorites if not already added
+  suggestionSongs.forEach((song) => {
+    const isAlreadyFavorite = favoriteSongs.value.some(
+      (fav) => fav.title === song.title && fav.artist === song.artist,
+    )
+    if (!isAlreadyFavorite) {
+      favoriteSongs.value.push(song)
+    }
+  })
+
+  // Save to localStorage
+  localStorage.setItem('favoriteSongs', JSON.stringify(favoriteSongs.value))
+
+  // Show snackbar confirmation
   snackbarText.value = 'Successfully added the songs to your playlist!'
   snackbar.value = true
+
+  // Close suggestions dialog
   showSuggestions.value = false
 }
 
@@ -171,6 +188,63 @@ const filteredSongs = computed(() => {
     song.name.toLowerCase().includes(searchQuery.value.toLowerCase()),
   )
 })
+
+//add faves
+import { watch } from 'vue'
+
+// 1. Store and load favorites
+const favoriteSongs = ref([])
+
+onMounted(() => {
+  const stored = localStorage.getItem('favoriteSongs')
+  if (stored) {
+    favoriteSongs.value = JSON.parse(stored)
+  }
+})
+
+// 2. Save updates to localStorage
+watch(
+  favoriteSongs,
+  (newVal) => {
+    localStorage.setItem('favoriteSongs', JSON.stringify(newVal))
+  },
+  { deep: true },
+)
+
+// 3. Helper functions
+const isFavorite = (title) => {
+  return favoriteSongs.value.some((s) => s.title === title)
+}
+
+const addToFavorites = (song) => {
+  if (!isFavorite(song.title)) {
+    favoriteSongs.value.push(song)
+  }
+}
+
+const removeFromFavorites = (title) => {
+  favoriteSongs.value = favoriteSongs.value.filter((s) => s.title !== title)
+}
+
+const toggleFavorite = (song) => {
+  if (isFavorite(song.title)) {
+    removeFromFavorites(song.title)
+  } else {
+    addToFavorites(song)
+  }
+}
+//for songs
+const suggestionSongs = [
+  { title: 'Cardigan', artist: 'Taylor Swift', src: '/audio/cardigan.mp3' },
+  { title: 'Ceilings', artist: 'Lizzy McAlpine', src: '/audio/ceilings.mp3' },
+  { title: 'Die With A Smile', artist: 'Lady Gaga, Bruno Mars', src: '/audio/lady gaga.mp3' },
+  { title: 'Good Luck Babe!', artist: 'Chappell Roan', src: '/audio/goodluck.mp3' },
+  {
+    title: 'Slim Pickins',
+    artist: 'Sabrina Carpenter',
+    src: '/audio/slim.mp3',
+  },
+]
 </script>
 
 <template class="main-template">
@@ -472,82 +546,92 @@ const filteredSongs = computed(() => {
 
             <v-divider thickness="2"></v-divider>
             <v-card-text class="mb-16 pb-16">
-              <!--song 1-->
-              <div class="song-entry">
+              <!-- Song 1: Cardigan -->
+              <div class="song-entry" v-if="suggestionSongs[0]">
                 <div class="song-info">
-                  <div class="song-title">Cardigan</div>
-                  <div class="artist-name">Taylor Swift</div>
+                  <div class="song-title">{{ suggestionSongs[0].title }}</div>
+                  <div class="artist-name">{{ suggestionSongs[0].artist }}</div>
                 </div>
                 <div class="song-actions">
-                  <v-btn flat class="btn-no-color" @click="toggleAudio(0, '/audio/cardigan.mp3')">
+                  <v-btn flat class="btn-no-color" @click="toggleAudio(0, suggestionSongs[0].src)">
                     <v-icon>{{ isPlaying(0) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
                   </v-btn>
-                  <v-btn flat class="btn-no-color">
-                    <v-icon>mdi-plus</v-icon>
+                  <v-btn flat class="btn-no-color" @click="toggleFavorite(suggestionSongs[0])">
+                    <v-icon>{{
+                      isFavorite(suggestionSongs[0].title) ? 'mdi-minus' : 'mdi-plus'
+                    }}</v-icon>
                   </v-btn>
                 </div>
               </div>
 
-              <!--song 2-->
-              <div class="song-entry">
+              <!-- Song 2: Ceilings -->
+              <div class="song-entry" v-if="suggestionSongs[1]">
                 <div class="song-info">
-                  <div class="song-title">Ceilings</div>
-                  <div class="artist-name">Lizzy McAlpine</div>
+                  <div class="song-title">{{ suggestionSongs[1].title }}</div>
+                  <div class="artist-name">{{ suggestionSongs[1].artist }}</div>
                 </div>
                 <div class="song-actions">
-                  <v-btn flat class="btn-no-color" @click="toggleAudio(1, '/audio/ceilings.mp3')">
+                  <v-btn flat class="btn-no-color" @click="toggleAudio(1, suggestionSongs[1].src)">
                     <v-icon>{{ isPlaying(1) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
                   </v-btn>
-                  <v-btn flat class="btn-no-color">
-                    <v-icon>mdi-plus</v-icon>
+                  <v-btn flat class="btn-no-color" @click="toggleFavorite(suggestionSongs[1])">
+                    <v-icon>{{
+                      isFavorite(suggestionSongs[1].title) ? 'mdi-minus' : 'mdi-plus'
+                    }}</v-icon>
                   </v-btn>
                 </div>
               </div>
 
-              <!--song 3-->
-              <div class="song-entry">
+              <!-- Song 3: Die With A Smile -->
+              <div class="song-entry" v-if="suggestionSongs[2]">
                 <div class="song-info">
-                  <div class="song-title">Die With A Smile</div>
-                  <div class="artist-name">Lady Gaga, Bruno Mars</div>
+                  <div class="song-title">{{ suggestionSongs[2].title }}</div>
+                  <div class="artist-name">{{ suggestionSongs[2].artist }}</div>
                 </div>
                 <div class="song-actions">
-                  <v-btn flat class="btn-no-color" @click="toggleAudio(2, '/audio/lady gaga.mp3')">
+                  <v-btn flat class="btn-no-color" @click="toggleAudio(2, suggestionSongs[2].src)">
                     <v-icon>{{ isPlaying(2) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
                   </v-btn>
-                  <v-btn flat class="btn-no-color">
-                    <v-icon>mdi-plus</v-icon>
+                  <v-btn flat class="btn-no-color" @click="toggleFavorite(suggestionSongs[2])">
+                    <v-icon>{{
+                      isFavorite(suggestionSongs[2].title) ? 'mdi-minus' : 'mdi-plus'
+                    }}</v-icon>
                   </v-btn>
                 </div>
               </div>
 
-              <!--song 4-->
-              <div class="song-entry">
+              <!-- Song 4: Good Luck Babe -->
+              <div class="song-entry" v-if="suggestionSongs[3]">
                 <div class="song-info">
-                  <div class="song-title">Good Luck Babe!</div>
-                  <div class="artist-name">Chappell Roan</div>
+                  <div class="song-title">{{ suggestionSongs[3].title }}</div>
+                  <div class="artist-name">{{ suggestionSongs[3].artist }}</div>
                 </div>
                 <div class="song-actions">
-                  <v-btn flat class="btn-no-color" @click="toggleAudio(3, '/audio/goodluck.mp3')">
+                  <v-btn flat class="btn-no-color" @click="toggleAudio(3, suggestionSongs[3].src)">
                     <v-icon>{{ isPlaying(3) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
                   </v-btn>
-                  <v-btn flat class="btn-no-color">
-                    <v-icon>mdi-plus</v-icon>
+                  <v-btn flat class="btn-no-color" @click="toggleFavorite(suggestionSongs[3])">
+                    <v-icon>{{
+                      isFavorite(suggestionSongs[3].title) ? 'mdi-minus' : 'mdi-plus'
+                    }}</v-icon>
                   </v-btn>
                 </div>
               </div>
 
-              <!--song 5-->
-              <div class="song-entry">
+              <!-- Song 5: Slim Pickins -->
+              <div class="song-entry" v-if="suggestionSongs[4]">
                 <div class="song-info">
-                  <div class="song-title">Slim Pickins</div>
-                  <div class="artist-name">Sabrina Carpenter</div>
+                  <div class="song-title">{{ suggestionSongs[4].title }}</div>
+                  <div class="artist-name">{{ suggestionSongs[4].artist }}</div>
                 </div>
                 <div class="song-actions">
-                  <v-btn flat class="btn-no-color" @click="toggleAudio(4, '/audio/slim.mp3')">
+                  <v-btn flat class="btn-no-color" @click="toggleAudio(4, suggestionSongs[4].src)">
                     <v-icon>{{ isPlaying(4) ? 'mdi-pause' : 'mdi-play' }}</v-icon>
                   </v-btn>
-                  <v-btn flat class="btn-no-color">
-                    <v-icon>mdi-plus</v-icon>
+                  <v-btn flat class="btn-no-color" @click="toggleFavorite(suggestionSongs[4])">
+                    <v-icon>{{
+                      isFavorite(suggestionSongs[4].title) ? 'mdi-minus' : 'mdi-plus'
+                    }}</v-icon>
                   </v-btn>
                 </div>
               </div>

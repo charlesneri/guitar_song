@@ -147,6 +147,15 @@ const handleDownloadAll = () => {
   snackbar.value = true
   showSuggestions.value = false
 }
+
+const suggestionSongs = [
+  { title: 'Cardigan', artist: 'Taylor Swift', src: '/audio/cardigan.mp3' },
+  { title: 'Ceilings', artist: 'Lizzy McAlpine', src: '/audio/ceilings.mp3' },
+  { title: 'Die With A Smile', artist: 'Lady Gaga, Bruno Mars', src: '/audio/lady gaga.mp3' },
+  { title: 'Good Luck Babe!', artist: 'Chappell Roan', src: '/audio/goodluck.mp3' },
+  { title: 'Slim Pickins', artist: 'Sabrina Carpenter', src: '/audio/slim.mp3' },
+]
+
 </script>
 
 <template class="main-template">
