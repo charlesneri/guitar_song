@@ -29,22 +29,21 @@ onBeforeUnmount(() => {
 const showSearch = ref(false)
 const searchQuery = ref('')
 import { computed } from 'vue'
+const favoriteSongs = ref([])
 
-const favoriteArtists = ref([
-  { name: 'Lady Gaga', image: '/image/gaga.jpg' },
-  { name: 'Bruno Mars', image: '/image/bruno.jpg' },
-  { name: 'Charles Neri', image: '/image/ed.jpg' },
-  { name: 'Nikki Margarette', image: '/image/ed.jpg' },
-  { name: 'James Bongato', image: '/image/ed.jpg' },
-  { name: 'Nel Ochate', image: '/image/ed.jpg' },
-
-  // Add more if needed
-])
+onMounted(() => {
+  const stored = localStorage.getItem('favoriteSongs')
+  if (stored) {
+    favoriteSongs.value = JSON.parse(stored)
+  }
+})
 
 const filteredFavorites = computed(() => {
-  if (!searchQuery.value) return favoriteArtists.value
-  return favoriteArtists.value.filter((artist) =>
-    artist.name.toLowerCase().includes(searchQuery.value.toLowerCase()),
+  if (!searchQuery.value) return favoriteSongs.value
+  return favoriteSongs.value.filter(
+    (song) =>
+      song.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      song.artist.toLowerCase().includes(searchQuery.value.toLowerCase()),
   )
 })
 </script>
@@ -245,14 +244,11 @@ const filteredFavorites = computed(() => {
 
       <!--main diri-->
       <v-main>
-        <!--for artists only-->
-
         <div class="scroll-area" v-if="currentView === 'artists'">
           <v-container class="pa-4 mt-5">
             <v-row>
-              <!-- Box 1 -->
               <v-col
-                v-for="(artist, index) in filteredFavorites"
+                v-for="(song, index) in filteredFavorites"
                 :key="index"
                 cols="6"
                 sm="6"
@@ -262,16 +258,14 @@ const filteredFavorites = computed(() => {
               >
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded">
-                    <img :src="artist.image" alt="" />
+                    <img :src="song.image" alt="cover" />
                   </div>
-                  <span>{{ artist.name }}</span>
+                  <span>{{ song.title }} - {{ song.artist }}</span>
                 </v-card>
               </v-col>
             </v-row>
           </v-container>
         </div>
-        <!--for audio-->
-        <audio ref="audioPlayer" src="/audio/lady gaga.mp3" preload="auto" />
       </v-main>
     </v-app>
   </v-responsive>

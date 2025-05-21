@@ -10,6 +10,7 @@ import Settings from '@/views/layout/Settings.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import GagaView from '@/views/layout/GagaView.vue'
 import MarsView from '@/views/layout/MarsView.vue'
+import Alejandro from '@/views/Withchords/Alejandro.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -68,6 +69,12 @@ const router = createRouter({
       path: '/faq',
       name: 'faq',
       component: Faq,
+    },
+     {
+      path: '/alejandro',
+      name: 'Marsview/24kmagic',
+      component: Alejandro,
+
     },
   ],
 })

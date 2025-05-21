@@ -285,7 +285,7 @@ const handleDownloadAll = () => {
             <v-row>
               <!-- Box 1 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
+                <v-card class="pa-4 text-center artists-container" to="magic24">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
                   <span>24k Magic</span>
                 </v-card>

@@ -10,6 +10,20 @@ import '@mdi/font/css/materialdesignicons.css'
 
 import App from './App.vue'
 import router from './router'
+//for font awesome
+/* import the fontawesome core */
+import { library } from '@fortawesome/fontawesome-svg-core'
+
+/* import font awesome icon component */
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+/* import specific icons */
+import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { faUpDown } from '@fortawesome/free-solid-svg-icons'
+import { faUpRightAndDownLeftFromCenter } from '@fortawesome/free-solid-svg-icons'
+
+/* add icons to the library */
+library.add(faUserSecret, faUpRightAndDownLeftFromCenter)
 
 const app = createApp(App)
 const vuetify = createVuetify({
@@ -20,6 +34,7 @@ const vuetify = createVuetify({
   directives,
 })
 
+app.component('font-awesome-icon', FontAwesomeIcon)
 app.use(createPinia())
 app.use(router)
 app.use(vuetify)
