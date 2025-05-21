@@ -281,52 +281,65 @@ const handleDownloadAll = () => {
         <!--for songs only-->
         <div class="scroll-area">
           <v-container class="pa-4">
-            <div class="mb-4 font-weight-bold">Ariana Grande Songs</div>
+            <div class="mb-4 font-weight-bold tc">Ariana Grande Songs</div>
             <v-row>
               <!-- Box 1 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Break Free</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+
+                  <span class="tc">Break Free</span>
                 </v-card>
               </v-col>
 
               <!-- Box 2 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Dangerous Woman</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+                  <span class="tc">Dangerous Woman</span>
                 </v-card>
               </v-col>
 
               <!-- Box 3 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Daydreamin'</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+                  <span class="tc">Daydreamin'</span>
                 </v-card>
               </v-col>
 
               <!-- Box 4 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Focus</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+                  <span class="tc">Focus</span>
                 </v-card>
               </v-col>
               <!-- Box 5 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Into You</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+                  <span class="tc">Into You</span>
                 </v-card>
               </v-col>
 
               <!-- Box 6 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>My Everything</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+                  <span class="tc">My Everything</span>
                 </v-card>
               </v-col>
             </v-row>
@@ -362,7 +375,11 @@ const handleDownloadAll = () => {
   height: 64px;
   padding: 0;
 }
-
+.tc {
+  font-weight: bold;
+  color: #78362a;
+  text-shadow: 0 1px 2px rgba(120, 54, 42, 0.3);
+}
 .font-color-nav {
   color: #b3b3b3;
   font-weight: 800;
@@ -382,6 +399,7 @@ const handleDownloadAll = () => {
 }
 
 .app-title {
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(1.2rem, 2.5vw, 2rem); /* responsive font size */
   margin-left: 10px;
   color: #000000;
@@ -462,14 +480,20 @@ body,
   aspect-ratio: 1 / 1;
   border-radius: 16px;
   background-color: #ddb887;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   padding: 1rem;
-  transition: transform 0.2s ease;
+  transition: all 0.3s ease;
+  cursor: pointer; /* Makes it clear that it's interactive */
+}
+
+.artists-container:hover {
+  transform: scale(1.03); /* Slight zoom-in effect */
+  box-shadow: 0 8px 20px rgba(67, 37, 37, 0.5); /* Softer and more visible shadow */
 }
 
 .img-rounded img {

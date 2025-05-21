@@ -151,12 +151,12 @@ const artists = [
   { name: 'Ariana Grande', image: '/image/grande.jpg', route: '/grandeview' },
 ]
 const songs = ref([
-  { name: '10000 Reasons', image: '/image/bini.jpg' },
-  { name: '25 Minutes', image: '/image/bini.jpg' },
-  { name: 'A Thousand Years', image: '/image/bini.jpg' },
-  { name: 'Best Part', image: '/image/bini.jpg' },
-  { name: 'Everglow', image: '/image/bini.jpg' },
-  { name: 'Heather', image: '/image/bini.jpg' },
+  { name: '10000 Reasons' },
+  { name: '25 Minutes' },
+  { name: 'A Thousand Years' },
+  { name: 'Best Part' },
+  { name: 'Everglow' },
+  { name: 'Heather' },
 ])
 
 const filteredArtists = computed(() => {
@@ -404,7 +404,7 @@ const filteredSongs = computed(() => {
                     <div class="img-rounded">
                       <img :src="artist.image" alt="" />
                     </div>
-                    <span>{{ artist.name }}</span>
+                    <span class="tc">{{ artist.name }}</span>
                   </v-card>
                 </router-link>
               </v-col>
@@ -425,8 +425,10 @@ const filteredSongs = computed(() => {
                 xl="3"
               >
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img :src="song.image" alt="" /></div>
-                  <span>{{ song.name }}</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+                  <span class="tc">{{ song.name }}</span>
                 </v-card>
               </v-col>
             </v-row>
@@ -627,7 +629,11 @@ const filteredSongs = computed(() => {
   height: 64px;
   padding: 0;
 }
-
+.tc {
+  font-weight: bold;
+  color: #78362a;
+  text-shadow: 0 1px 2px rgba(120, 54, 42, 0.3);
+}
 .font-color-nav {
   color: #b3b3b3;
   font-weight: 800;
@@ -721,14 +727,20 @@ body,
   aspect-ratio: 1 / 1;
   border-radius: 16px;
   background-color: #ddb887;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   padding: 1rem;
-  transition: transform 0.2s ease;
+  transition: all 0.3s ease;
+  cursor: pointer; /* Makes it clear that it's interactive */
+}
+
+.artists-container:hover {
+  transform: scale(1.03); /* Slight zoom-in effect */
+  box-shadow: 0 8px 20px rgba(67, 37, 37, 0.5); /* Softer and more visible shadow */
 }
 
 .img-rounded img {

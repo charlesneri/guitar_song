@@ -281,52 +281,64 @@ const handleDownloadAll = () => {
         <!--for songs only-->
         <div class="scroll-area">
           <v-container class="pa-4">
-            <div class="mb-4 font-weight-bold">Bruno Mars Songs</div>
+            <div class="mb-4 font-weight-bold tc">Bruno Mars Songs</div>
             <v-row>
               <!-- Box 1 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>24K Magic</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+                  <span class="tc">24K Magic</span>
                 </v-card>
               </v-col>
 
               <!-- Box 2 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Billionaire</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+                  <span class="tc">Billionaire</span>
                 </v-card>
               </v-col>
 
               <!-- Box 3 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Grenade</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+                  <span class="tc">Grenade</span>
                 </v-card>
               </v-col>
 
               <!-- Box 4 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>It Will Rain</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+                  <span class="tc">It Will Rain</span>
                 </v-card>
               </v-col>
               <!-- Box 5 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Marry You</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+                  <span class="tc">Marry You</span>
                 </v-card>
               </v-col>
 
               <!-- Box 6 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Uptown Funk</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+                  <span class="tc">Uptown Funk</span>
                 </v-card>
               </v-col>
             </v-row>
@@ -462,16 +474,26 @@ body,
   aspect-ratio: 1 / 1;
   border-radius: 16px;
   background-color: #ddb887;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   padding: 1rem;
-  transition: transform 0.2s ease;
+  transition: all 0.3s ease;
+  cursor: pointer; /* Makes it clear that it's interactive */
 }
 
+.artists-container:hover {
+  transform: scale(1.03); /* Slight zoom-in effect */
+  box-shadow: 0 8px 20px rgba(67, 37, 37, 0.5); /* Softer and more visible shadow */
+}
+.tc {
+  font-weight: bold;
+  color: #78362a;
+  text-shadow: 0 1px 2px rgba(120, 54, 42, 0.3);
+}
 .img-rounded img {
   width: 90px;
   height: 90px;
