@@ -274,7 +274,7 @@ const handleDownloadAll = () => {
             <v-row>
               <!-- Box 1 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
+                <v-card class="pa-4 text-center artists-container" to="/alejandro">
                   <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
                     <v-icon size="90" color="#000000">mdi-music-note</v-icon>
                   </div>

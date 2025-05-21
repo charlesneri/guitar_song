@@ -1,11 +1,13 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { faUpRightAndDownLeftFromCenter } from '@fortawesome/free-solid-svg-icons'
+import { useRouter } from 'vue-router'
 
 import { computed } from 'vue'
 
 const isFavorited = ref(false)
 const favoriteSongs = ref([]) // You can later move this to a global store or shared state
+const router = useRouter()
 
 // Raw lyrics with chords
 const rawLyrics = ref(`
@@ -172,6 +174,7 @@ const formattedLyrics = computed(() => {
     .join('\n')
 })
 //autoscroll
+/*
 const lyricsContainer = ref(null)
 
 const isPlaying = ref(false)
@@ -201,6 +204,7 @@ const togglePlayback = () => {
 onBeforeUnmount(() => {
   clearInterval(scrollInterval.value)
 })
+  */
 onMounted(() => {
   const stored = localStorage.getItem('favoriteSongs')
   if (stored) {
@@ -235,7 +239,7 @@ const toggleFavorite = () => {
       <v-app-bar flat fixed height="64" class="main-color">
         <!-- Left: Menu + Title -->
         <div class="left-group d-flex align-center">
-          <v-btn icon to="magic24">
+          <v-btn icon @click="router.back()">
             <v-icon class="icon-size">mdi-arrow-left</v-icon>
           </v-btn>
           <h1 class="app-title">Alejandro</h1>

@@ -269,7 +269,7 @@ const handleDownloadAll = () => {
           <v-btn icon @click="toggleDrawer">
             <v-icon class="icon-size">mdi-menu</v-icon>
           </v-btn>
-          <h1 class="app-title">Guitar Song</h1>
+          <h1 class="app-title">Favorites</h1>
         </div>
 
         <!-- Right: Icon Group -->
@@ -300,71 +300,11 @@ const handleDownloadAll = () => {
                 lg="3"
                 xl="3"
               >
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded">
-                    <img :src="song.image" alt="cover" />
-                  </div>
-                  <span>{{ song.title }} - {{ song.artist }}</span>
-        <!--for songs only-->
-        <div class="scroll-area">
-          <v-container class="pa-4">
-            <v-row>
-              <!-- Box 1 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                <v-card class="pa-4 text-center artists-container"to="/alejandro">
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px" >
                     <v-icon size="90" color="#000000">mdi-music-note</v-icon>
                   </div>
-                  <span class="tc">24K Magic</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 2 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
-                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
-                  </div>
-                  <span class="tc">Billionaire</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 3 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
-                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
-                  </div>
-                  <span class="tc">Grenade</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 4 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
-                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
-                  </div>
-                  <span class="tc">It Will Rain</span>
-                </v-card>
-              </v-col>
-              <!-- Box 5 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
-                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
-                  </div>
-                  <span class="tc">Marry You</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 6 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
-                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
-                  </div>
-                  <span class="tc">Uptown Funk</span>
+                  <span>{{ song.title }}</span>
                 </v-card>
               </v-col>
             </v-row>
