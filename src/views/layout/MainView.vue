@@ -302,6 +302,17 @@ const suggestionSongs = [
               <span v-if="!mini" class="icon-mdi">My songs</span>
             </div>
           </v-list-item>
+          <v-list-item
+            :to="'/setlists'"
+            class="font-color-nav"
+            tag="RouterLink"
+            @click="isMobile && (drawer = false)"
+          >
+            <div class="d-flex align-center" style="gap: 8px; width: 100%">
+              <v-icon size="30" style="margin-left: 15px">mdi-heart</v-icon>
+              <span v-if="!mini" class="icon-mdi">Setlists</span>
+            </div>
+          </v-list-item>
 
           <v-list-item
             :to="'/history'"
@@ -322,7 +333,12 @@ const suggestionSongs = [
             @click="isMobile && (drawer = false)"
           >
             <div class="d-flex align-center" style="gap: 8px; width: 100%">
-              <iconify-icon icon="fluent:storage-32-filled" width="32" height="32" style="margin-left: 15px"></iconify-icon>
+              <iconify-icon
+                icon="fluent:storage-32-filled"
+                width="32"
+                height="32"
+                style="margin-left: 15px"
+              ></iconify-icon>
               <span v-if="!mini" class="icon-mdi">Folders</span>
             </div>
           </v-list-item>

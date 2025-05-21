@@ -155,7 +155,6 @@ const suggestionSongs = [
   { title: 'Good Luck Babe!', artist: 'Chappell Roan', src: '/audio/goodluck.mp3' },
   { title: 'Slim Pickins', artist: 'Sabrina Carpenter', src: '/audio/slim.mp3' },
 ]
-
 </script>
 
 <template class="main-template">
@@ -213,6 +212,17 @@ const suggestionSongs = [
               <span v-if="!mini" class="icon-mdi">My songs</span>
             </div>
           </v-list-item>
+          <v-list-item
+            :to="'/setlists'"
+            class="font-color-nav"
+            tag="RouterLink"
+            @click="isMobile && (drawer = false)"
+          >
+            <div class="d-flex align-center" style="gap: 8px; width: 100%">
+              <v-icon size="30" style="margin-left: 15px">mdi-heart</v-icon>
+              <span v-if="!mini" class="icon-mdi">Setlists</span>
+            </div>
+          </v-list-item>
 
           <v-list-item
             :to="'/history'"
@@ -233,7 +243,12 @@ const suggestionSongs = [
             @click="isMobile && (drawer = false)"
           >
             <div class="d-flex align-center" style="gap: 8px; width: 100%">
-              <iconify-icon icon="fluent:storage-32-filled" width="32" height="32" style="margin-left: 15px"></iconify-icon>
+              <iconify-icon
+                icon="fluent:storage-32-filled"
+                width="32"
+                height="32"
+                style="margin-left: 15px"
+              ></iconify-icon>
               <span v-if="!mini" class="icon-mdi">Folders</span>
             </div>
           </v-list-item>
@@ -287,7 +302,7 @@ const suggestionSongs = [
             <v-icon class="icon-size">mdi-magnify</v-icon>
           </v-btn>
           <v-btn icon class="icon-margin">
-            <v-icon class="rotate-position icon-size icon-margin">mdi-reload</v-icon>
+            <v-icon class=" icon-size icon-margin">mdi-share-variant-outline</v-icon>
           </v-btn>
           <v-btn icon class="icon-margin">
             <v-icon class="icon-size">mdi-dots-vertical</v-icon>
@@ -309,8 +324,8 @@ const suggestionSongs = [
                 lg="3"
                 xl="3"
               >
-                <v-card class="pa-4 text-center artists-container"to="/alejandro">
-                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px" >
+                <v-card class="pa-4 text-center artists-container" to="/alejandro">
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
                     <v-icon size="90" color="#000000">mdi-music-note</v-icon>
                   </div>
                   <span>{{ song.title }}</span>
@@ -401,10 +416,7 @@ const suggestionSongs = [
   min-width: 150px; /* ensure it doesn't get too small */
 }
 
-.rotate-position {
-  transform: rotate(-90deg); /* or 90deg */
-  transform-origin: center;
-}
+
 .icon-group-fixed {
   position: fixed;
   top: 10px;

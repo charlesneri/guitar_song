@@ -8,7 +8,6 @@ import { computed } from 'vue'
 const isFavorited = ref(false)
 const favoriteSongs = ref([]) // You can later move this to a global store or shared state
 const router = useRouter()
-
 // Raw lyrics with chords
 const rawLyrics = ref(`
  Capo 2
@@ -576,5 +575,4 @@ body,
     font-size: 32px;
   }
 }
-
 </style>

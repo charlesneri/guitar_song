@@ -81,6 +81,17 @@ onBeforeUnmount(() => {
               <span v-if="!mini" class="icon-mdi">My songs</span>
             </div>
           </v-list-item>
+          <v-list-item
+            :to="'/setlists'"
+            class="font-color-nav"
+            tag="RouterLink"
+            @click="isMobile && (drawer = false)"
+          >
+            <div class="d-flex align-center" style="gap: 8px; width: 100%">
+              <v-icon size="30" style="margin-left: 15px">mdi-heart</v-icon>
+              <span v-if="!mini" class="icon-mdi">Setlists</span>
+            </div>
+          </v-list-item>
 
           <v-list-item
             :to="'/history'"
@@ -156,76 +167,22 @@ onBeforeUnmount(() => {
 
         <!-- Right: Icon Group -->
         <div class="icon-group-fixed d-flex align-center">
+         
           <v-btn icon class="icon-margin">
-            <v-icon class="icon-size">mdi-magnify</v-icon>
+            <v-icon class=" icon-size icon-margin">mdi-file</v-icon>
           </v-btn>
-          <v-btn icon class="icon-margin">
-            <v-icon class="icon-size icon-margin">mdi-share-variant-outline</v-icon>
-          </v-btn>
-          <v-btn icon class="icon-margin">
-            <v-icon class="icon-size">mdi-dots-vertical</v-icon>
-          </v-btn>
+        
         </div>
       </v-app-bar>
 
       <!--main diri-->
       <v-main>
-        <!--for artists only-->
-
-        <div class="scroll-area" v-if="currentView === 'artists'">
-          <v-container class="pa-4 mt-5">
-            <v-row>
-              <!-- Box 1 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 2 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 3 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 4 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
-                </v-card>
-              </v-col>
-              <!-- Box 5 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 6 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bruno.jpg" alt="" /></div>
-                  <span>Bruno Mars</span>
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-container>
-        </div>
-        <!--for audio-->
-        <audio ref="audioPlayer" src="/audio/lady gaga.mp3" preload="auto" />
+        <v-container class="fill-height d-flex align-center justify-center">
+          <v-card class="text-center pa-6 card-no-color" flat  max-width="380">
+            <v-icon class="empty-folder-icon mb-3" > mdi-folder-open-outline </v-icon>
+            <div class="empty-folder-text">This folder is empty</div>
+          </v-card>
+        </v-container>
       </v-main>
     </v-app>
   </v-responsive>
@@ -259,21 +216,25 @@ onBeforeUnmount(() => {
   font-size: 15px;
   margin-left: -20px;
 }
-
+.main-template {
+  border-radius: 20px;
+}
+/*for v-app-bar*/
 .left-group {
-  /*for v-app-bar*/
   position: fixed;
   top: 4px;
   left: 10px;
   z-index: 999;
 }
 
+
 .app-title {
-  font-size: clamp(1.2rem, 2.5vw, 2rem); /* responsive font size */
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
   margin-left: 10px;
   color: #000000;
   font-weight: bold;
 }
+
 
 .icon-group-fixed {
   position: fixed;
@@ -293,7 +254,7 @@ onBeforeUnmount(() => {
   justify-content: center;
 }
 .icon-size {
-  font-size: 30px;
+  font-size: clamp(25px, 5vw, 32px);
 }
 html,
 body,
@@ -302,25 +263,19 @@ body,
   overflow-y: auto;
 }
 
-.artists-container {
-  aspect-ratio: 1 / 1;
-  border-radius: 16px;
-  background-color: #ddb887;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding: 1rem;
-  transition: transform 0.2s ease;
+.empty-folder-icon {
+  font-size: clamp(58px, 20vw, 122px);
+
 }
 
-.img-rounded img {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 8px;
+.empty-folder-text {
+  font-size: clamp(16px, 4vw, 22px);
+  font-weight: 500;
+  color: #666;
 }
+.card-no-color {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
 </style>
