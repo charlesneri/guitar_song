@@ -10,6 +10,10 @@ import Settings from '@/views/layout/Settings.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import GagaView from '@/views/layout/GagaView.vue'
 import MarsView from '@/views/layout/MarsView.vue'
+import SwiftView from '@/views/layout/SwiftView.vue'
+import SheeranView from '@/views/layout/SheeranView.vue'
+import GomezView from '@/views/layout/GomezView.vue'
+import GrandeView from '@/views/layout/GrandeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,6 +27,26 @@ const router = createRouter({
       path: '/gagaview',
       name: 'GagaView',
       component: GagaView,
+    },
+    {
+      path: '/swiftview',
+      name: 'SwiftView',
+      component: SwiftView,
+    },
+    {
+      path: '/sheeranview',
+      name: 'SheeranView',
+      component: SheeranView,
+    },
+    {
+      path: '/gomezview',
+      name: 'GomezView',
+      component: GomezView,
+    },
+    {
+      path: '/grandeview',
+      name: 'GrandeView',
+      component: GrandeView,
     },
     {
       path: '/marsview',

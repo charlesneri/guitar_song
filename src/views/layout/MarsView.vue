@@ -287,7 +287,7 @@ const handleDownloadAll = () => {
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>24k Magic</span>
+                  <span>24K Magic</span>
                 </v-card>
               </v-col>
 
@@ -303,7 +303,7 @@ const handleDownloadAll = () => {
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Bloody Mary</span>
+                  <span>Grenade</span>
                 </v-card>
               </v-col>
 
@@ -311,14 +311,14 @@ const handleDownloadAll = () => {
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Edge of Glory</span>
+                  <span>It Will Rain</span>
                 </v-card>
               </v-col>
               <!-- Box 5 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Joanne</span>
+                  <span>Marry You</span>
                 </v-card>
               </v-col>
 
@@ -326,7 +326,7 @@ const handleDownloadAll = () => {
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
                   <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Million Reasons</span>
+                  <span>Uptown Funk</span>
                 </v-card>
               </v-col>
             </v-row>
