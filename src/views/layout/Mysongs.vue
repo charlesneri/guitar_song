@@ -35,8 +35,8 @@ onBeforeUnmount(() => {
         v-model="drawer"
         :mini-variant="mini"
         :mini-variant-width="80"
-        :temporary="true"
-        width="280"
+        :temporary="isMobile"
+        :width="drawerWidth"
         right
         color="#3C1213"
       >
@@ -160,7 +160,7 @@ onBeforeUnmount(() => {
             <v-icon class="icon-size">mdi-magnify</v-icon>
           </v-btn>
           <v-btn icon class="icon-margin">
-            <v-icon class="icon-size icon-margin">mdi-share-variant-outline</v-icon>
+            <v-icon class="icon-size icon-margin">mdi-plus</v-icon>
           </v-btn>
           <v-btn icon class="icon-margin">
             <v-icon class="icon-size">mdi-dots-vertical</v-icon>
@@ -269,18 +269,20 @@ onBeforeUnmount(() => {
 }
 
 .app-title {
-  font-size: clamp(1.2rem, 2.5vw, 2rem); /* responsive font size */
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
   margin-left: 10px;
   color: #000000;
   font-weight: bold;
 }
 
 .icon-group-fixed {
-  position: fixed;
+display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
   top: 10px;
   right: 10px;
+  position: fixed;
   z-index: 999;
-  gap: 2px;
 }
 .icon-margin {
   background-color: transparent;
@@ -293,7 +295,7 @@ onBeforeUnmount(() => {
   justify-content: center;
 }
 .icon-size {
-  font-size: 30px;
+  font-size: clamp(20px, 4vw, 32px);
 }
 html,
 body,
@@ -317,10 +319,28 @@ body,
 }
 
 .img-rounded img {
-  width: 90px;
-  height: 90px;
+  width: clamp(60px, 20vw, 90px);
+  height: clamp(60px, 20vw, 90px);
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 8px;
 }
+@media (max-width: 400px) {
+  .artists-container {
+    padding: 0.5rem;
+  }
+
+  .app-title {
+    font-size: 1.2rem;
+  }
+
+  .icon-size {
+    font-size: 24px;
+  }
+
+  .v-main {
+    padding: 8px;
+  }
+}
+
 </style>
