@@ -149,7 +149,7 @@ const handleDownloadAll = () => {
 
         <v-list nav dense>
           <v-list-item
-            :to="'/home'"
+            :to="'/'"
             class="font-color-nav"
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
@@ -161,7 +161,7 @@ const handleDownloadAll = () => {
           </v-list-item>
 
           <v-list-item
-            :to="'/profile'"
+            :to="'/favorites'"
             class="font-color-nav"
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
@@ -173,7 +173,7 @@ const handleDownloadAll = () => {
           </v-list-item>
 
           <v-list-item
-            :to="'/appointments'"
+            :to="'/mysongs'"
             class="font-color-nav"
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
@@ -185,7 +185,7 @@ const handleDownloadAll = () => {
           </v-list-item>
 
           <v-list-item
-            :to="'/DeleteHistory'"
+            :to="'/history'"
             class="font-color-nav"
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
@@ -197,18 +197,7 @@ const handleDownloadAll = () => {
           </v-list-item>
 
           <v-list-item
-            :to="'/about'"
-            class="font-color-nav"
-            tag="RouterLink"
-            @click="isMobile && (drawer = false)"
-          >
-            <div class="d-flex align-center" style="gap: 8px; width: 100%">
-              <v-icon size="30" style="margin-left: 15px">mdi-information-outline</v-icon>
-              <span v-if="!mini" class="icon-mdi">About Us</span>
-            </div>
-          </v-list-item>
-          <v-list-item
-            :to="'/about'"
+            :to="'/folders'"
             class="font-color-nav"
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
@@ -220,7 +209,7 @@ const handleDownloadAll = () => {
           </v-list-item>
 
           <v-list-item
-            :to="'/about'"
+            :to="'/chords'"
             class="font-color-nav"
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
@@ -234,7 +223,7 @@ const handleDownloadAll = () => {
           <v-divider class="my-2" />
 
           <v-list-item
-            :to="'/contact'"
+            :to="'/settings'"
             class="font-color-nav"
             tag="RouterLink"
             @click="isMobile && (drawer = false)"
@@ -244,7 +233,7 @@ const handleDownloadAll = () => {
               <span v-if="!mini" class="icon-mdi">Settings</span>
             </div>
           </v-list-item>
-          <v-list-item @click="handleLogoutClick" class="font-color-nav">
+          <v-list-item :to="'/faq'" @click="handleLogoutClick" class="font-color-nav">
             <div class="d-flex align-center" style="gap: 8px; width: 100%">
               <v-icon size="30" style="margin-left: 15px"> mdi-help</v-icon>
               <span v-if="!mini" class="icon-mdi">F.A.Q.</span>
@@ -281,52 +270,64 @@ const handleDownloadAll = () => {
         <!--for songs only-->
         <div class="scroll-area">
           <v-container class="pa-4">
-            <div class="mb-4 font-weight-bold">Lady Gaga Songs</div>
+            <div class="mb-4 font-weight-bold tc">Lady Gaga Songs</div>
             <v-row>
               <!-- Box 1 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Alejandro</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+                  <span class="tc">Alejandro</span>
                 </v-card>
               </v-col>
 
               <!-- Box 2 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Bad Romance</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+                  <span class="tc">Bad Romance</span>
                 </v-card>
               </v-col>
 
               <!-- Box 3 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Bloody Mary</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+                  <span class="tc">Bloody Mary</span>
                 </v-card>
               </v-col>
 
               <!-- Box 4 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Edge of Glory</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+                  <span class="tc">Edge of Glory</span>
                 </v-card>
               </v-col>
               <!-- Box 5 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Joanne</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+                  <span class="tc">Joanne</span>
                 </v-card>
               </v-col>
 
               <!-- Box 6 -->
               <v-col cols="6" sm="6" md="4" lg="3" xl="3">
                 <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded"><img src="/image/bini.jpg" alt="" /></div>
-                  <span>Million Reasons</span>
+                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
+                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  </div>
+                  <span class="tc">Million Reasons</span>
                 </v-card>
               </v-col>
             </v-row>
@@ -382,6 +383,7 @@ const handleDownloadAll = () => {
 }
 
 .app-title {
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(1.2rem, 2.5vw, 2rem); /* responsive font size */
   margin-left: 10px;
   color: #000000;
@@ -458,18 +460,42 @@ body,
   padding: 8px 0;
 }
 
+.tc {
+  font-weight: bold;
+  color: #78362a;
+  text-shadow: 0 1px 2px rgba(120, 54, 42, 0.3);
+}
 .artists-container {
   aspect-ratio: 1 / 1;
   border-radius: 16px;
-  background-color: #ddb887;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-image: url('/public/image/bg-wood.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  /* Original varnish color with opacity */
+  background-color: rgba(236, 194, 139, 0.851); /* #ECD5B7 with 50% opacity */
+
+  background-blend-mode: multiply;
+
+  /* Optional slight glassy effect */
+  backdrop-filter: brightness(0.9) saturate(1.05);
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   padding: 1rem;
-  transition: transform 0.2s ease;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.artists-container:hover {
+  background-color: rgba(226, 146, 42, 0.803); /* a bit stronger on hover */
+  backdrop-filter: brightness(0.85) saturate(1.1);
+  box-shadow: 0 8px 20px rgba(172, 145, 102, 0.4);
+  transform: scale(1.03);
 }
 
 .img-rounded img {
