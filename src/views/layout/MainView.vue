@@ -33,10 +33,19 @@ const openSuggestions = () => {
   showCheckConnection.value = false
   showSuggestions.value = true
 }
+onMounted(() => {
+  updateDrawerSettings()
+  window.addEventListener('resize', updateDrawerSettings)
 
-setTimeout(() => {
-  showCheckConnection.value = true
-}, 1000)
+  // Show dialog only if not shown before in this session
+  if (!sessionStorage.getItem('hasShownDialog')) {
+    setTimeout(() => {
+      showCheckConnection.value = true
+      sessionStorage.setItem('hasShownDialog', 'true')
+    }, 1000)
+  }
+})
+
 
 // audio control
 const currentAudio = ref(null)
