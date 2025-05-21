@@ -330,6 +330,11 @@ const handleDownloadAll = () => {
                 </v-card>
               </v-col>
             </v-row>
+            <v-row justify="center" class="mt-16">
+              <v-btn class="mx-2 rounded-xl btn-color" to="/" exact active-class="my-active-class">
+                <b>Back</b>
+              </v-btn>
+            </v-row>
           </v-container>
         </div>
       </v-main>
@@ -404,9 +409,15 @@ const handleDownloadAll = () => {
   box-shadow: none !important;
 }
 .btn-color {
-  background-image: url('/public/image/btn-color.png'); /* Ensure the path is correct relative to your project structure */
+  background-image: url('/image/btn-color.png'); /* remove /public if you're in Vue/Vite */
+  background-size: cover;
+  background-repeat: no-repeat;
   opacity: 1;
+  width: 25%;
+  max-width: 250px; /* limit max width for large screens */
+  min-width: 150px; /* ensure it doesn't get too small */
 }
+
 .rotate-position {
   transform: rotate(-90deg); /* or 90deg */
   transform-origin: center;
