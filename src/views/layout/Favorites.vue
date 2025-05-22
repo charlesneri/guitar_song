@@ -155,6 +155,7 @@ const suggestionSongs = [
   { title: 'Good Luck Babe!', artist: 'Chappell Roan', src: '/audio/goodluck.mp3' },
   { title: 'Slim Pickins', artist: 'Sabrina Carpenter', src: '/audio/slim.mp3' },
 ]
+
 </script>
 
 <template class="main-template">

@@ -126,6 +126,26 @@ const handleDownloadAll = () => {
   snackbar.value = true
   showSuggestions.value = false
 }
+const favoriteSongs = ref([])
+
+onMounted(() => {
+  const stored = localStorage.getItem('favoriteSongs')
+  if (stored) {
+    favoriteSongs.value = JSON.parse(stored)
+  }
+})
+
+const isFavorite = (title) => {
+  return favoriteSongs.value.some((song) => song.title === title)
+}
+const ladyGagaSongs = [
+  'Alejandro',
+  'Bad Romance',
+  'Bloody Mary',
+  'Edge of Glory',
+  'Joanne',
+  'Million Reasons',
+]
 </script>
 
 <template class="main-template">
@@ -272,62 +292,27 @@ const handleDownloadAll = () => {
           <v-container class="pa-4">
             <div class="mb-4 font-weight-bold tc">Lady Gaga Songs</div>
             <v-row>
-              <!-- Box 1 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container" to="/alejandro">
+              <v-col
+                v-for="(title, index) in ladyGagaSongs"
+                :key="index"
+                cols="6"
+                sm="6"
+                md="4"
+                lg="3"
+                xl="3"
+              >
+                <v-card
+                  class="pa-4 text-center artists-container"
+                  :to="`/${title.toLowerCase().replace(/\s/g, '-')}`"
+                >
                   <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
                     <v-icon size="90" color="#000000">mdi-music-note</v-icon>
                   </div>
-                  <span class="tc">Alejandro</span>
-                </v-card>
-              </v-col>
+                  <span class="tc">{{ title }}</span>
 
-              <!-- Box 2 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
-                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                  <div v-if="isFavorite(title)" class="favorite-label mt-2">
+                    <v-icon color="#FFC000">mdi-star</v-icon>
                   </div>
-                  <span class="tc">Bad Romance</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 3 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
-                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
-                  </div>
-                  <span class="tc">Bloody Mary</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 4 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
-                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
-                  </div>
-                  <span class="tc">Edge of Glory</span>
-                </v-card>
-              </v-col>
-              <!-- Box 5 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
-                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
-                  </div>
-                  <span class="tc">Joanne</span>
-                </v-card>
-              </v-col>
-
-              <!-- Box 6 -->
-              <v-col cols="6" sm="6" md="4" lg="3" xl="3">
-                <v-card class="pa-4 text-center artists-container">
-                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
-                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
-                  </div>
-                  <span class="tc">Million Reasons</span>
                 </v-card>
               </v-col>
             </v-row>
