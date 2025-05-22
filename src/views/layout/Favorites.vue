@@ -337,7 +337,7 @@ const suggestionSongs = [
                     >
                       <v-icon size="90" color="#000000">mdi-music-note</v-icon>
                     </div>
-                    <span>{{ song.title }}</span>
+                    <span class="tc">{{ song.title }}</span>
                   </v-card>
                 </v-col>
               </v-row>
@@ -377,9 +377,7 @@ const suggestionSongs = [
   font-size: 15px;
   margin-left: -20px;
 }
-.main-template {
-  border-radius: 20px;
-}
+
 /*for v-app-bar*/
 .left-group {
   position: fixed;
@@ -403,27 +401,6 @@ const suggestionSongs = [
   width: 100%;
   z-index: 0;
   padding: 10px 0;
-}
-.tab-active {
-  background-color: #c78c3f !important; /* or any color you prefer */
-  color: #d6d6d6 !important;
-  font-weight: bold;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  border: 2px solid #a6793e !important;
-  transition: all 0.2s ease;
-}
-.tab-inactive {
-  border: none !important;
-  box-shadow: none !important;
-}
-.btn-color {
-  background-image: url('/image/btn-color.png'); /* remove /public if you're in Vue/Vite */
-  background-size: cover;
-  background-repeat: no-repeat;
-  opacity: 1;
-  width: 25%;
-  max-width: 250px; /* limit max width for large screens */
-  min-width: 150px; /* ensure it doesn't get too small */
 }
 
 .icon-group-fixed {
@@ -469,15 +446,11 @@ body,
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-
   /* Original varnish color with opacity */
   background-color: rgba(236, 194, 139, 0.851); /* #ECD5B7 with 50% opacity */
-
   background-blend-mode: multiply;
-
   /* Optional slight glassy effect */
   backdrop-filter: brightness(0.9) saturate(1.05);
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -578,19 +551,6 @@ body,
   box-sizing: border-box;
 }
 
-.btn-no {
-  color: red;
-  border: 1.5px solid #f4cccc;
-}
-
-.btn-yes {
-  color: green;
-  border: 1.5px solid #cce8cc;
-}
-::v-deep(.suggestion-dialog) {
-  border-radius: 20px !important;
-  overflow: hidden; /* optional */
-}
 .btn-no-color {
   background-color: transparent;
   padding: 0;
@@ -706,17 +666,13 @@ body,
 }
 
 .empty-icon {
-  font-size: clamp(60px, 12vw, 100px);
-  color: #b3b3b3;
-  margin-bottom: 16px;
+  font-size: clamp(16px, 4vw, 22px);
 }
 
 .empty-text {
-  font-size: clamp(1rem, 3vw, 1.75rem);
-  font-weight: 600;
-  color: #5a5a5a;
-  max-width: 90%;
-  line-height: 1.4;
+  font-size: clamp(16px, 4vw, 22px);
+  font-weight: 500;
+  color: #666;
 }
 
 /* Tablet and below (≤768px) */
