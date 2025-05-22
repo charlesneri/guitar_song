@@ -331,13 +331,19 @@ const suggestionSongs = [
                   xl="3"
                 >
                   <v-card class="pa-4 text-center artists-container" to="/alejandro">
-                    <div
-                      class="img-rounded d-flex justify-center align-center"
-                      style="height: 100px"
-                    >
-                      <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                    <div class="img-rounded d-flex justify-center align-center">
+                      <v-icon :size="iconSize" class="note-icon">mdi-music-note</v-icon>
                     </div>
-                    <span class="tc">{{ song.title }}</span>
+                    <div class="song-info-block">
+                      <span class="tc song-title-text">{{ song.title }}</span>
+                      <div
+                        class="favorite-label d-flex align-center justify-center"
+                        style="gap: 4px"
+                      >
+                        <v-icon :size="iconSize" color="#FFC000">mdi-star</v-icon>
+                        <span class="fav-text"></span>
+                      </div>
+                    </div>
                   </v-card>
                 </v-col>
               </v-row>
@@ -456,7 +462,7 @@ body,
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 1rem;
+  padding: clamp(0.75rem, 2vw, 1.5rem);
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -471,185 +477,6 @@ body,
   font-weight: bold;
   color: #78362a;
   text-shadow: 0 1px 2px rgba(120, 54, 42, 0.3);
-}
-.img-rounded img {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 8px;
-}
-
-/* dialog */
-::v-deep(.centered-dialog-wrapper) {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  padding: clamp(12px, 4vw, 24px);
-  box-sizing: border-box;
-}
-.hidden-card-shell {
-  background: none !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-  border: none !important;
-  outline: none !important;
-  display: contents !important; /* 🔥 KEY TRICK */
-}
-.perfect-square-sheet {
-  aspect-ratio: 1 / 1;
-  width: 90vw;
-  max-width: 400px;
-  border-radius: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 24px;
-}
-
-/* Center the title text vertically */
-.dialog-body {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0.5rem;
-}
-
-.dialog-title {
-  text-align: center;
-  font-weight: bold;
-  font-size: clamp(1rem, 4vw, 1.8rem); /* responsive text */
-  line-height: 1.4;
-  word-break: break-word;
-  padding: 0 8px;
-}
-/* Move buttons to bottom right */
-.dialog-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 16px;
-}
-
-/* Capsule-style buttons */
-.btn-pill {
-  border-radius: 999px !important;
-  min-width: 100px;
-  height: 40px;
-  font-size: 1rem;
-  font-weight: 600;
-  text-transform: none;
-  padding: 0.4rem 1.2rem;
-  background-color: white;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-}
-
-.btn-no-color {
-  background-color: transparent;
-  padding: 0;
-  width: 36px; /* or any desired size */
-  height: 36px;
-  min-width: 0; /* override Vuetify's default min-width */
-  border-radius: 8px; /* optional: for slight rounding */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 5px;
-}
-.artist-name,
-.song-title,
-.btn-no-color {
-  color: #f1f3f4;
-}
-.song-title,
-.btn-no-color {
-  opacity: 0.9;
-  font-size: clamp(1rem, 2vw, 1.5rem);
-}
-.artist-name {
-  font-size: 10px;
-}
-/*for suggestion songs dialog*/
-::v-deep(.suggestion-dialog-wrapper) {
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-  padding: 16px;
-  box-sizing: border-box;
-}
-::v-deep(.suggestion-dialog) {
-  border-radius: 20px;
-  width: 100%;
-  max-width: 500px;
-  max-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-.suggest-dialog-btn {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-/*for audio*/
-.song-entry {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 8px 0;
-}
-
-.song-info {
-  flex: 1;
-  min-width: 0; /* Ensures truncation works */
-  overflow: hidden;
-}
-
-.song-title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: clamp(1rem, 2vw, 1.5rem);
-  font-weight: bold;
-  color: #f1f3f4;
-}
-
-.artist-name {
-  font-size: 10px;
-  color: #f1f3f4;
-}
-
-.song-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0; /* Prevents shrinking */
-}
-.responsive-title {
-  text-align: left;
-  padding: 8px 12px;
-  word-break: break-word;
-  margin-left: 3%;
-}
-
-.responsive-text {
-  font-size: clamp(0.9rem, 2.5vw, 1.4rem); /* Responsive from small to large */
-  line-height: 1.3;
-  display: inline-block;
-  width: 100%;
-  max-width: 100%;
-  white-space: normal;
 }
 
 /*for folder empty*/
@@ -674,17 +501,57 @@ body,
   font-weight: 500;
   color: #666;
 }
+.song-info-block {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
 
-/* Tablet and below (≤768px) */
-@media (max-width: 768px) {
-  .btn-pill {
-    min-width: 90px;
-    height: 38px;
-    font-size: 0.95rem;
-    padding: 0.35rem 1rem;
+.fav-text {
+  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+}
+
+.note-icon {
+  font-size: clamp(2rem, 5vw, 4rem); /* Adjust min, ideal, and max */
+  color: #000;
+}
+
+/* Responsive song title */
+.song-title-text {
+  font-size: clamp(0.9rem, 2.5vw, 1.25rem);
+  font-weight: 600;
+  text-align: center;
+  word-break: break-word;
+}
+
+/* Ensure the favorite label adapts on small screens */
+.favorite-label {
+  font-size: clamp(0.75rem, 2vw, 1rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Responsive padding inside each card */
+.artists-container {
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+}
+
+/* Tweak icon size specifically on very small screens */
+@media (max-width: 480px) {
+  .note-icon {
+    font-size: 60px !important;
   }
-  .suggest-dialog-btn {
-    justify-content: center;
+
+  .song-title-text {
+    font-size: 1rem;
+  }
+
+  .fav-text {
+    font-size: 0.8rem;
   }
 }
 
@@ -692,43 +559,21 @@ body,
   .artists-container {
     aspect-ratio: 1 / 1.1;
   }
-  ::v-deep(.suggestion-dialog) {
-    border-radius: 0;
-    max-height: 100vh;
-    padding: 12px !important;
-  }
 }
-/* Mobile (≤480px) */
 @media (max-width: 480px) {
-  .btn-pill {
-    min-width: 80px;
-    height: 36px;
-    font-size: 0.9rem;
-    padding: 0.3rem 0.9rem;
-  }
-  .suggest-dialog-btn {
-    flex-direction: column-reverse !important;
-    align-items: stretch;
-    gap: 8px;
+  .app-title {
+    font-size: 1.2rem;
   }
 
-  .suggest-dialog-btn .v-btn {
-    width: 100%;
-  }
-}
-/* Very small devices (≤360px) */
-@media (max-width: 360px) {
-  .btn-pill {
-    width: 100%;
-    font-size: 0.85rem;
-    height: 34px;
-    padding: 0.3rem 0.8rem;
-  }
-
-  .dialog-actions {
+  .favorite-label {
     flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
+  }
+
+  .icon-size {
+    font-size: 24px;
+  }
+   .note-icon {
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
   }
 }
 </style>
