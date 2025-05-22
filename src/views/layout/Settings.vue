@@ -28,8 +28,8 @@ onBeforeUnmount(() => {
 </script>
 
 <template class="main-template">
-  <v-responsive class="border rounded">
-    <v-app>
+  <v-responsive class="main-wrapper">
+    <v-app class="fill-height">
       <!-- Drawer Sidebar (right, collapsible) -->
 
       <v-navigation-drawer
@@ -181,37 +181,58 @@ onBeforeUnmount(() => {
       </v-app-bar>
 
       <!--main diri-->
-      <v-main>
-        
-          <div class=" full-width-section">
-            <v-list>
-              <v-list-item><div>View</div></v-list-item>
-              <v-list-item><div>Synchronization</div></v-list-item>
-              <v-list-item><div>System</div></v-list-item>
-              <v-list-item><div>D-Pad Keys</div></v-list-item>
-              <v-list-item><div>Miscellaneous</div></v-list-item>
-              <v-list-item><div>Information</div></v-list-item>
-              <v-list-item><div>Disable ads</div></v-list-item>
-              <v-list-item><div>Invite a friend</div></v-list-item>
-            </v-list>
-          </div>
-        
+      <v-main class="fill-height">
+        <div class="full-width-section">
+          <v-list>
+            <v-list-item @click="handleClick('View')" ripple>
+              <div class="clickable-list-item ">View</div>
+            </v-list-item>
+            <v-list-item @click="handleClick('Synchronization')" ripple>
+              <div class="clickable-list-item ">Synchronization</div>
+            </v-list-item>
+            <v-list-item @click="handleClick('System')" ripple>
+              <div class="clickable-list-item">System</div>
+            </v-list-item>
+            <v-list-item @click="handleClick('D-Pad Keys')" ripple>
+              <div class="clickable-list-item">D-Pad Keys</div>
+            </v-list-item>
+            <v-list-item @click="handleClick('Miscellaneous')" ripple>
+              <div class="clickable-list-item">Miscellaneous</div>
+            </v-list-item>
+            <v-list-item @click="handleClick('Information')" ripple>
+              <div class="clickable-list-item">Information</div>
+            </v-list-item>
+            <v-list-item @click="handleClick('Disable ads')" ripple>
+              <div class="clickable-list-item">Disable ads</div>
+            </v-list-item>
+            <v-list-item @click="handleClick('Invite a friend')" ripple>
+              <div class="clickable-list-item">Invite a friend</div>
+            </v-list-item>
+          </v-list>
+        </div>
       </v-main>
     </v-app>
   </v-responsive>
 </template>
 <style scoped>
+
 .v-main {
-  background-image: url('/public/image/bg-wood.png');
-  background-color: #ffffff; /* Add this if missing */
+  min-height: 100vh;
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background-image: url('/image/bg-wood.png');
   background-repeat: repeat;
   background-size: auto;
   background-position: center;
   background-attachment: fixed;
-  overflow-y: auto;
-  height: 100%;
 }
-
+.main-wrapper {
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
+}
 .main-color {
   position: relative;
   background: rgba(221, 184, 135, 0.85);
@@ -287,13 +308,14 @@ body,
   background-color: transparent !important;
   box-shadow: none !important;
 }
-.full-screen-white {
+.full-width-section {
   background-color: #ffffff;
   width: 100%;
   height: 100%;
-  min-height: calc(100vh - 64px); /* subtract app-bar height */
+  flex: 1 1 auto;
   padding: 16px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
-
 </style>
