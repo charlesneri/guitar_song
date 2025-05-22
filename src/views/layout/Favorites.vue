@@ -39,13 +39,17 @@ onMounted(() => {
 })
 
 const filteredFavorites = computed(() => {
-  if (!searchQuery.value) return favoriteSongs.value
-  return favoriteSongs.value.filter(
+  const sorted = [...favoriteSongs.value].reverse() // clone and reverse for recent-first order
+
+  if (!searchQuery.value) return sorted
+
+  return sorted.filter(
     (song) =>
       song.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
       song.artist.toLowerCase().includes(searchQuery.value.toLowerCase()),
   )
 })
+
 // dialog
 const showCheckConnection = ref(false)
 const showSuggestions = ref(false)
@@ -155,7 +159,6 @@ const suggestionSongs = [
   { title: 'Good Luck Babe!', artist: 'Chappell Roan', src: '/audio/goodluck.mp3' },
   { title: 'Slim Pickins', artist: 'Sabrina Carpenter', src: '/audio/slim.mp3' },
 ]
-
 </script>
 
 <template class="main-template">
@@ -573,7 +576,7 @@ body,
   .icon-size {
     font-size: 24px;
   }
-   .note-icon {
+  .note-icon {
     font-size: clamp(1.5rem, 8vw, 2.5rem);
   }
 }
