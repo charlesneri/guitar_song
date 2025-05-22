@@ -302,7 +302,7 @@ const suggestionSongs = [
             <v-icon class="icon-size">mdi-magnify</v-icon>
           </v-btn>
           <v-btn icon class="icon-margin">
-            <v-icon class=" icon-size icon-margin">mdi-share-variant-outline</v-icon>
+            <v-icon class="icon-size icon-margin">mdi-share-variant-outline</v-icon>
           </v-btn>
           <v-btn icon class="icon-margin">
             <v-icon class="icon-size">mdi-dots-vertical</v-icon>
@@ -314,24 +314,34 @@ const suggestionSongs = [
       <v-main>
         <div class="scroll-area" v-if="currentView === 'artists'">
           <v-container class="pa-4 mt-5">
-            <v-row>
-              <v-col
-                v-for="(song, index) in filteredFavorites"
-                :key="index"
-                cols="6"
-                sm="6"
-                md="4"
-                lg="3"
-                xl="3"
-              >
-                <v-card class="pa-4 text-center artists-container" to="/alejandro">
-                  <div class="img-rounded d-flex justify-center align-center" style="height: 100px">
-                    <v-icon size="90" color="#000000">mdi-music-note</v-icon>
-                  </div>
-                  <span>{{ song.title }}</span>
-                </v-card>
-              </v-col>
-            </v-row>
+            <v-container class="pa-4 mt-5">
+              <div v-if="filteredFavorites.length === 0" class="empty-state">
+                <v-icon class="empty-icon">mdi-folder-open-outline</v-icon>
+                <div class="empty-text">Your favorites folder is empty</div>
+              </div>
+
+              <v-row v-else>
+                <v-col
+                  v-for="(song, index) in filteredFavorites"
+                  :key="index"
+                  cols="6"
+                  sm="6"
+                  md="4"
+                  lg="3"
+                  xl="3"
+                >
+                  <v-card class="pa-4 text-center artists-container" to="/alejandro">
+                    <div
+                      class="img-rounded d-flex justify-center align-center"
+                      style="height: 100px"
+                    >
+                      <v-icon size="90" color="#000000">mdi-music-note</v-icon>
+                    </div>
+                    <span>{{ song.title }}</span>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-container>
           </v-container>
         </div>
       </v-main>
@@ -415,7 +425,6 @@ const suggestionSongs = [
   max-width: 250px; /* limit max width for large screens */
   min-width: 150px; /* ensure it doesn't get too small */
 }
-
 
 .icon-group-fixed {
   position: fixed;
@@ -681,6 +690,33 @@ body,
   width: 100%;
   max-width: 100%;
   white-space: normal;
+}
+
+/*for folder empty*/
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(32px, 8vw, 80px);
+  text-align: center;
+  width: 100%;
+  min-height: 50vh;
+  box-sizing: border-box;
+}
+
+.empty-icon {
+  font-size: clamp(60px, 12vw, 100px);
+  color: #b3b3b3;
+  margin-bottom: 16px;
+}
+
+.empty-text {
+  font-size: clamp(1rem, 3vw, 1.75rem);
+  font-weight: 600;
+  color: #5a5a5a;
+  max-width: 90%;
+  line-height: 1.4;
 }
 
 /* Tablet and below (≤768px) */
