@@ -162,26 +162,217 @@ onBeforeUnmount(() => {
           <v-btn icon @click="toggleDrawer">
             <v-icon class="icon-size">mdi-menu</v-icon>
           </v-btn>
-          <h1 class="app-title">Folders</h1>
+          <h1 class="app-title">F.A.Q</h1>
         </div>
 
         <!-- Right: Icon Group -->
         <div class="icon-group-fixed d-flex align-center">
-         
           <v-btn icon class="icon-margin">
-            <v-icon class=" icon-size icon-margin">mdi-file</v-icon>
+            <v-icon class="icon-size icon-margin">mdi-file</v-icon>
           </v-btn>
-        
         </div>
       </v-app-bar>
 
       <!--main diri-->
       <v-main>
-        <v-container class="fill-height d-flex align-center justify-center">
-          <v-card class="text-center pa-6 card-no-color" flat  max-width="380">
-            <v-icon class="empty-folder-icon mb-3" > mdi-folder-open-outline </v-icon>
-            <div class="empty-folder-text">This folder is empty</div>
-          </v-card>
+        <v-container>
+          <!--Q 1-->
+          <div class="faq-item">
+            <span class="faq-question"><b>How to change scroll Speed?</b></span>
+            <p class="faq-answer">
+              <span class="youtube-line">
+                Watch on Youtube →
+                <v-btn class="eye-button" elevation="0">
+                  <v-icon class="eye-icon">mdi-eye</v-icon>
+                </v-btn></span
+              >
+            </p>
+          </div>
+          <!--Q 1-->
+          <div class="faq-item">
+            <span class="faq-question"><b>How to display songs in a certain language?</b></span>
+            <p class="faq-answer">
+              <span class="youtube-line">
+                Watch on Youtube →
+                <v-btn class="eye-button" elevation="0">
+                  <v-icon class="eye-icon">mdi-eye</v-icon>
+                </v-btn></span
+              >
+            </p>
+            <!--Q 1-->
+            <div class="faq-item">
+              <span class="faq-question"><b>How to add songs to the setlists?</b></span>
+              <p class="faq-answer">
+                Watch on Youtube →
+                <v-btn class="eye-button" elevation="0">
+                  <v-icon class="eye-icon">mdi-eye</v-icon>
+                </v-btn>
+              </p>
+            </div>
+          </div>
+          <!--Q 1-->
+          <div class="faq-item">
+            <span class="faq-question"><b>How to copy songs to “My songs” section?</b></span>
+            <p class="faq-answer">
+              <span class="youtube-line">
+                Watch on Youtube →
+                <v-btn class="eye-button" elevation="0">
+                  <v-icon class="eye-icon">mdi-eye</v-icon>
+                </v-btn></span
+              >
+            </p>
+          </div>
+          <!--Q 1-->
+          <div class="faq-item">
+            <span class="faq-question"><b>How to hide some artists from my list?</b></span>
+            <p class="faq-answer">
+              <span class="youtube-line">
+                Watch on Youtube →
+                <v-btn class="eye-button" elevation="0">
+                  <v-icon class="eye-icon">mdi-eye</v-icon>
+                </v-btn></span
+              >
+            </p>
+          </div>
+          <!--Q 1-->
+          <div class="faq-item">
+            <span class="faq-question"><b>How to change key of the songs (transpose)?</b></span>
+            <p class="faq-answer">
+              <span class="youtube-line">
+                Watch on Youtube →
+                <v-btn class="eye-button" elevation="0">
+                  <v-icon class="eye-icon">mdi-eye</v-icon>
+                </v-btn></span
+              >
+            </p>
+          </div>
+          <!--Q 1-->
+          <div class="faq-item">
+            <span class="faq-question"><b>How to change font size?</b></span>
+            <p class="faq-answer">
+              <span class="youtube-line">
+                Watch on Youtube →
+                <v-btn class="eye-button" elevation="0">
+                  <v-icon class="eye-icon">mdi-eye</v-icon>
+                </v-btn></span
+              >
+            </p>
+          </div>
+          <!--Q 1-->
+          <div class="faq-item">
+            <span
+              ><b
+                >I want to help with the translation of the application into my native language. How
+                can i do it?</b
+              ></span
+            >
+            <p class="faq-answer">
+              You can do it directly from the application go to settings and select “help to
+              translate
+            </p>
+            <p class="faq-answer">
+              <span class="youtube-line">
+                Watch on Youtube →
+                <v-btn class="eye-button" elevation="0">
+                  <v-icon class="eye-icon">mdi-eye</v-icon>
+                </v-btn></span
+              >
+            </p>
+          </div>
+          <!--Q 1-->
+          <div class="faq-item">
+            <span class="faq-question"><b>How can I add a new songs to the database?</b></span>
+            <p class="faq-answer">
+              Visit the website <u>en.guitarsongs.club</u>, log in using google account and you can
+              add your favorite songs in a common database. New songs are immediately available for
+              all users. Just click “Synchronize” button in the application.
+            </p>
+          </div>
+          <!--Q 1-->
+          <div class="faq-item">
+            <span class="faq-question"
+              ><b
+                >Can I view next song while I am playing current song, without getting back to
+                list?</b
+              ></span
+            >
+            <p class="faq-answer">
+              Yes, you can use gestures, swipe to the “left” or “right” gestures works only in the
+              current folder.
+            </p>
+            <p class="faq-answer">
+              <span class="youtube-line">
+                Watch on Youtube →
+                <v-btn class="eye-button" elevation="0">
+                  <v-icon class="eye-icon">mdi-eye</v-icon>
+                </v-btn></span
+              >
+            </p>
+          </div>
+          <!--Q 1-->
+          <div class="faq-item">
+            <span class="faq-question"
+              ><b>What the numbers do the next to the names of the songs?</b></span
+            >
+            <p class="faq-answer">
+              This numbers are the average rating of tabs and chords for the song. You can vote for
+              songs from the menu option “Rate” on the lyrics view list. We added this feature to
+              prevent our database from low quality songs. We will moderate songs with low rating
+              more carefully and we will try to make them better if that possible.
+            </p>
+          </div>
+          <!--Q 1-->
+          <div class="faq-item">
+            <span class="faq-question"
+              ><b>I can’t listen the songs, I do not have any sound!</b></span
+            >
+            <p class="faq-answer">This is songbook,here you can find only lyrics of songs.</p>
+          </div>
+          <!--Q 1-->
+          <div class="faq-item">
+            <span class="faq-question"
+              ><b
+                >After last update I have tons of bugs in the application, what should I do?</b
+              ></span
+            >
+            <p class="faq-answer">
+              Please, feel free to contact us with describing of each bug, your device model and
+              android version.
+            </p>
+          </div>
+          <!--Q 1-->
+          <div class="faq-item">
+            <span class="faq-question"><b>How to look on the chord layout?</b></span>
+            <p class="faq-answer">Just press on the interested chord.</p>
+          </div>
+          <!--Q 1-->
+          <div class="faq-item">
+            <span class="faq-question"><b>How could I add my song to the database? </b></span>
+            <p class="faq-answer">
+              Best of all - use the site <u> en.guiarsongs.club</u> , then you’ve added songs will
+              be immediately available to other users. If tou want to add a song just for yourself,
+              then do the following: while you on the “My songs” list go to the menu and choose
+              “import...” after choose the folder tx-file.
+            </p>
+            <p class="faq-answer">
+              <span class="youtube-line">
+                Watch on Youtube →
+                <v-btn class="eye-button" elevation="0">
+                  <v-icon class="eye-icon">mdi-eye</v-icon>
+                </v-btn></span
+              >
+            </p>
+          </div>
+          <!--Q 1-->
+          <div class="faq-item">
+            <spa class="faq-questionn"
+              ><b>How to tell about bug, ask a question, or notify developer? </b></spa
+            >
+            <p class="faq-answer">
+              Please write your message on our official page-
+              <a href="#" class="faq-link"> https:// www.facebook.com/groups/guitarsongsclub/</a>
+            </p>
+          </div>
         </v-container>
       </v-main>
     </v-app>
@@ -201,7 +392,7 @@ onBeforeUnmount(() => {
 
 .main-color {
   position: relative;
-  background: rgba(221, 184, 135, 0.85);
+  background: rgba(221, 184, 125, 0.85);
   mix-blend-mode: multiply;
   z-index: 1;
   width: 100%;
@@ -227,14 +418,12 @@ onBeforeUnmount(() => {
   z-index: 999;
 }
 
-
 .app-title {
   font-size: clamp(1.2rem, 2.5vw, 2rem);
   margin-left: 10px;
   color: #000000;
   font-weight: bold;
 }
-
 
 .icon-group-fixed {
   position: fixed;
@@ -254,7 +443,7 @@ onBeforeUnmount(() => {
   justify-content: center;
 }
 .icon-size {
-  font-size: clamp(25px, 5vw, 32px);
+  font-size: clamp(25p x, 5vw, 32px);
 }
 html,
 body,
@@ -262,20 +451,57 @@ body,
   height: 100%;
   overflow-y: auto;
 }
-
-.empty-folder-icon {
-  font-size: clamp(58px, 20vw, 122px);
-
+.faq-item {
+  margin-bottom: 24px;
 }
 
-.empty-folder-text {
-  font-size: clamp(16px, 4vw, 22px);
-  font-weight: 500;
-  color: #666;
-}
-.card-no-color {
-  background-color: transparent !important;
-  box-shadow: none !important;
+.faq-question {
+  font-size: clamp(16px, 2.5vw, 22px);
+  font-weight: bold;
+  display: block;
+  margin-bottom: 4px;
 }
 
+.faq-answer {
+  font-size: clamp(14px, 2vw, 18px);
+  line-height: 1.6;
+  display: flex;
+  align-items: center;
+  text-align: justify;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.eye-button {
+  background-color: #efefef;
+  min-width: 32px;
+  height: 32px;
+  width: auto;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.eye-icon {
+  font-size: clamp(18px, 4vw, 25px);
+  color: #000000;
+}
+.faq-link {
+  color: #000000;
+}
+.faq-link:hover {
+  color: rgb(211, 211, 216);
+}
+.youtube-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+@media (max-width: 400px) {
+  .faq-answer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
 </style>
