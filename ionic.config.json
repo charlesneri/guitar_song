@@ -1,0 +1,7 @@
+{
+  "name": "guitar-song",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}
